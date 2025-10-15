@@ -1,101 +1,476 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Vinay Kumar Naguru — MyStockBot / Lead SysAdmin</title>
-  <meta name="description" content="Vinay Kumar Naguru — Lead System Administrator. Linux, AWS, Terraform, Kubernetes, DevOps.">
-  <style>
-    :root{
-      --bg1:#0f1724; --bg2:#061226; --accent:#2dd4bf; --muted:#9aa6b2;
-      --card:#0b1220; --glass: rgba(255,255,255,0.03);
-      --maxw:1100px;
-      --radius:14px;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      min-height:100vh;
-      font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: radial-gradient(1200px 600px at 10% 10%, rgba(45,212,191,0.06), transparent),
-                  linear-gradient(180deg,var(--bg1),var(--bg2));
-      color:#e6eef3;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.5;
-    }
-
-    /* layout */
-    .container{max-width:var(--maxw);margin:36px auto;padding:20px;}
-    header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:24px}
-    .brand{display:flex;align-items:center;gap:14px}
-    .logo{
-      width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#60a5fa);
-      display:grid;place-items:center;font-weight:700;color:#022;box-shadow:0 6px 20px rgba(2,6,23,0.6);
-    }
-    nav{display:flex;gap:12px;align-items:center}
-    nav a{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:10px;font-weight:600}
-    nav a:hover{color:#fff;background:rgba(255,255,255,0.03)}
-
-    /* hero */
-    .hero{display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:center;margin-bottom:28px}
-    .hero-card{background:linear-gradient(135deg, rgba(255,255,255,0.03), transparent);border-radius:var(--radius);padding:28px;backdrop-filter:blur(6px);box-shadow:0 8px 30px rgba(2,6,23,0.6)}
-    h1{font-size:2rem;margin:0 0 6px}
-    .lead{color:var(--muted);margin:0 0 18px}
-    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
-    .chip{background:var(--glass);padding:8px 10px;border-radius:999px;font-weight:600;color:var(--muted);font-size:0.9rem}
-
-    .cta{display:flex;gap:12px;margin-top:12px}
-    .btn{
-      background:linear-gradient(90deg,var(--accent) 0%, #60a5fa 100%);color:#012; border:none;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer;box-shadow:0 8px 20px rgba(45,212,191,0.09)
-    }
-    .ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted);padding:10px 14px;border-radius:10px;cursor:pointer}
-
-    /* right column mini-card */
-    .stats{display:flex;flex-direction:column;gap:12px}
-    .stat{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:12px;padding:12px}
-    .stat strong{display:block;font-size:1.2rem}
-    .muted{color:var(--muted);font-size:0.9rem}
-
-    /* sections */
-    section{margin:18px 0}
-    .grid-2{display:grid;grid-template-columns:1fr 360px;gap:22px}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:12px;padding:18px}
-    .skills{display:grid;gap:10px}
-    .skill{display:flex;justify-content:space-between;align-items:center}
-    .bar{height:10px;background:rgba(255,255,255,0.06);border-radius:999px;flex:1;margin-left:12px;overflow:hidden}
-    .bar-inner{height:100%;background:linear-gradient(90deg,var(--accent),#60a5fa);width:0%;border-radius:999px;transition:width 1200ms ease}
-
-    /* timeline */
-    .timeline{position:relative;padding-left:18px;border-left:2px dashed rgba(255,255,255,0.03)}
-    .titem{position:relative;padding:14px 18px;margin-bottom:18px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border-radius:10px}
-    .titem::before{content:"";position:absolute;left:-13px;top:18px;width:12px;height:12px;background:var(--accent);border-radius:50%;box-shadow:0 6px 18px rgba(45,212,191,0.08)}
-
-    /* footer */
-    footer{margin-top:34px;padding:20px;text-align:center;color:var(--muted);font-size:0.95rem}
-
-    /* animations / reveal */
-    .reveal{opacity:0;transform:translateY(8px);transition:opacity 700ms ease, transform 700ms ease}
-    .reveal.visible{opacity:1;transform:none}
-
-    /* responsive */
-    @media (max-width:900px){
-      .hero, .grid-2{grid-template-columns:1fr}
-      .hero{gap:14px}
-      nav{display:none}
-      header{align-items:flex-start;gap:8px}
-    }
-    /* small helpers */
-    .flex{display:flex;align-items:center;gap:10px}
-    a.social{color:var(--muted);text-decoration:none;margin-left:6px}
-    .tag{font-size:0.85rem;padding:6px 8px;border-radius:8px;background:rgba(255,255,255,0.02);color:var(--muted)}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vinay Kumar Naguru - IT & DevOps Professional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .skill-tag { transition: all 0.3s ease; }
+        .skill-tag:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .experience-card { transition: all 0.3s ease; }
+        .experience-card:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+        .section-divider { background: linear-gradient(90deg, transparent, #e5e7eb, transparent); }
+    </style>
 </head>
-<body>
-  <div class="container">
-    <header>
-      <div class="brand">
-        <div class="logo">VN</div>
-        <div>
-          <div style="font-weight:800">Vinay Kumar Naguru</div>
-          <div style="font-size:0
+<body class="bg-gray-50 text-gray-800">
+    <!-- Header Section -->
+    <header class="gradient-bg text-white py-16">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-6">
+                <div class="w-32 h-32 bg-white bg-opacity-20 rounded-full mx-auto flex items-center justify-center mb-6">
+                    <i class="fas fa-user text-5xl text-white"></i>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Vinay Kumar Naguru</h1>
+                <p class="text-xl md:text-2xl font-light mb-6">IT & DevOps Professional</p>
+                <p class="text-lg opacity-90 mb-8">13+ Years of Excellence in Cloud Infrastructure & Automation</p>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-6 text-lg">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Hyderabad, India</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:naguruvinaykumar17@gmail.com" class="hover:underline">naguruvinaykumar17@gmail.com</a>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-phone"></i>
+                    <span>9618852899</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="fab fa-linkedin"></i>
+                    <a href="https://www.linkedin.com/in/vinaykumar-naguru-04b934140" target="_blank" class="hover:underline">LinkedIn Profile</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Professional Summary -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Professional Summary</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-8 rounded-xl border-l-4 border-blue-500">
+                    <p class="text-lg leading-relaxed text-gray-700">
+                        Experienced IT & DevOps Professional with <strong>13+ years</strong> in Windows Infrastructure, DevOps, CI/CD Pipelines, AWS, and Linux environments. Skilled in system administration, cloud computing, automation, and IT service management. Expertise in AWS, Terraform, Kubernetes, CI/CD, ITIL, and troubleshooting enterprise infrastructure. Proven ability to optimize performance, enhance security, and drive IT transformation.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Skills -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Technical Skills</h2>
+            <div class="max-w-6xl mx-auto">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <h3 class="text-xl font-semibold mb-4 text-blue-600 flex items-center">
+                            <i class="fas fa-server mr-3"></i>Operating Systems
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-tag bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Windows Server</span>
+                            <span class="skill-tag bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Linux</span>
+                            <span class="skill-tag bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">CentOS</span>
+                            <span class="skill-tag bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Ubuntu</span>
+                            <span class="skill-tag bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">RHEL</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <h3 class="text-xl font-semibold mb-4 text-orange-600 flex items-center">
+                            <i class="fas fa-cloud mr-3"></i>Cloud Platforms
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-tag bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">AWS</span>
+                            <span class="skill-tag bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">EC2</span>
+                            <span class="skill-tag bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">S3</span>
+                            <span class="skill-tag bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">IAM</span>
+                            <span class="skill-tag bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">VPC</span>
+                            <span class="skill-tag bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">CloudFormation</span>
+                            <span class="skill-tag bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">Lambda</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <h3 class="text-xl font-semibold mb-4 text-green-600 flex items-center">
+                            <i class="fas fa-cogs mr-3"></i>DevOps & Automation
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-tag bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Terraform</span>
+                            <span class="skill-tag bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Kubernetes</span>
+                            <span class="skill-tag bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Docker</span>
+                            <span class="skill-tag bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Ansible</span>
+                            <span class="skill-tag bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Jenkins</span>
+                            <span class="skill-tag bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">GitHub Actions</span>
+                            <span class="skill-tag bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">GitLab CI/CD</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <h3 class="text-xl font-semibold mb-4 text-purple-600 flex items-center">
+                            <i class="fas fa-code mr-3"></i>Configuration Management
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-tag bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Shell Scripting</span>
+                            <span class="skill-tag bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Python</span>
+                            <span class="skill-tag bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Git</span>
+                            <span class="skill-tag bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Bitbucket</span>
+                            <span class="skill-tag bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">GitHub</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <h3 class="text-xl font-semibold mb-4 text-red-600 flex items-center">
+                            <i class="fas fa-chart-line mr-3"></i>Monitoring & Tools
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-tag bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">Datadog</span>
+                            <span class="skill-tag bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">Solarwinds</span>
+                            <span class="skill-tag bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">Jira</span>
+                            <span class="skill-tag bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">ServiceNow</span>
+                            <span class="skill-tag bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">ITIL</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <h3 class="text-xl font-semibold mb-4 text-indigo-600 flex items-center">
+                            <i class="fas fa-layer-group mr-3"></i>Infrastructure as Code
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-tag bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">Terraform</span>
+                            <span class="skill-tag bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">AWS CloudFormation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Professional Experience -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Professional Experience</h2>
+            <div class="max-w-5xl mx-auto space-y-8">
+                
+                <!-- Encora Software -->
+                <div class="experience-card bg-gradient-to-r from-blue-50 to-indigo-50 p-8 rounded-xl border-l-4 border-blue-500">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800">ENCORA SOFTWARE INDIA PRIVATE LIMITED</h3>
+                            <p class="text-gray-600 italic">Hyderabad</p>
+                            <p class="text-sm text-gray-500">(Previously Excellarate – merger of Prime KI & Synerzip)</p>
+                        </div>
+                        <div class="text-right mt-2 md:mt-0">
+                            <p class="font-semibold text-blue-600">Lead System Administrator</p>
+                            <p class="text-gray-600">Sep 2022 – Present</p>
+                            <p class="font-semibold text-blue-600 mt-2">Senior System Administrator</p>
+                            <p class="text-gray-600">May 2019 – Sep 2022</p>
+                        </div>
+                    </div>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>Designed and deployed automated CI/CD pipelines using Jenkins, GitHub CI/CD, and AWS CodePipeline.</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>Implemented Infrastructure as Code (IaC) using Terraform to automate AWS resources.</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>Managed containerized applications using Kubernetes and Docker for scalability and efficiency.</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>Ensured cloud security compliance and best practices in AWS environments.</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>Optimized Windows and Linux infrastructure for high availability, security, and performance.</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i><strong>Spearheaded AWS cost optimization strategies, reducing cloud spend by 30%.</strong></li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>Integrated monitoring solutions (Datadog) for proactive alerting and performance analysis.</li>
+                    </ul>
+                </div>
+
+                <!-- Apps Associates -->
+                <div class="experience-card bg-gradient-to-r from-green-50 to-teal-50 p-8 rounded-xl border-l-4 border-green-500">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800">APPS ASSOCIATES INDIA PVT LTD</h3>
+                            <p class="text-gray-600 italic">Hyderabad</p>
+                            <p class="text-sm text-gray-500">(Contract via NFolks Software Technologies)</p>
+                        </div>
+                        <div class="text-right mt-2 md:mt-0">
+                            <p class="font-semibold text-green-600">Senior System Administrator / Consultant</p>
+                            <p class="text-gray-600">Aug 2018 – Apr 2019</p>
+                        </div>
+                    </div>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>Managed cloud infrastructure and automated provisioning using Terraform and Ansible.</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>Designed and optimized Windows & Linux-based enterprise environments.</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>Implemented AWS IAM policies for improved security and access control.</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>Designed and managed CI/CD pipelines for seamless application deployments.</li>
+                    </ul>
+                </div>
+
+                <!-- Yash Technologies -->
+                <div class="experience-card bg-gradient-to-r from-purple-50 to-pink-50 p-8 rounded-xl border-l-4 border-purple-500">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800">YASH TECHNOLOGIES PVT LTD</h3>
+                            <p class="text-gray-600 italic">Hyderabad</p>
+                        </div>
+                        <div class="text-right mt-2 md:mt-0">
+                            <p class="font-semibold text-purple-600">IT System Engineer</p>
+                            <p class="text-gray-600">Oct 2016 – Apr 2018</p>
+                        </div>
+                    </div>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>Administered Windows Server environments, Active Directory, and DNS configurations.</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>Provided technical support and managed ticket resolution within ITIL-based SLAs.</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i><strong>Received Best Implementor Award for deploying IPPlan on CentOS.</strong></li>
+                    </ul>
+                </div>
+
+                <!-- GCI Exports -->
+                <div class="experience-card bg-gradient-to-r from-orange-50 to-red-50 p-8 rounded-xl border-l-4 border-orange-500">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800">GCI EXPORTS PVT LTD</h3>
+                            <p class="text-gray-600 italic">Bangalore</p>
+                        </div>
+                        <div class="text-right mt-2 md:mt-0">
+                            <p class="font-semibold text-orange-600">IT Engineer</p>
+                            <p class="text-gray-600">Apr 2014 – Jun 2016</p>
+                        </div>
+                    </div>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>Maintained enterprise Windows & Linux server environments.</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>Implemented security best practices and performed system upgrades.</li>
+                    </ul>
+                </div>
+
+                <!-- CMS Infosystems -->
+                <div class="experience-card bg-gradient-to-r from-teal-50 to-cyan-50 p-8 rounded-xl border-l-4 border-teal-500">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800">CMS INFOSYSTEMS PVT LTD</h3>
+                            <p class="text-gray-600 italic">Hyderabad</p>
+                        </div>
+                        <div class="text-right mt-2 md:mt-0">
+                            <p class="font-semibold text-teal-600">Center Head - Technical</p>
+                            <p class="text-gray-600">May 2013 – Apr 2014</p>
+                            <p class="font-semibold text-teal-600 mt-2">IT Trainee</p>
+                            <p class="text-gray-600">Sep 2011 – May 2013</p>
+                        </div>
+                    </div>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>Led a team for hardware and software troubleshooting.</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i><strong>Recognized as Best Employee in South Region, India (2012).</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Certifications</h2>
+            <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-yellow-500">
+                    <div class="flex items-center mb-3">
+                        <i class="fab fa-aws text-3xl text-yellow-600 mr-4"></i>
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800">AWS Certified Solutions Architect – Professional</h3>
+                            <p class="text-gray-600">Nov 2024 – Nov 2027</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-blue-500">
+                    <div class="flex items-center mb-3">
+                        <i class="fas fa-certificate text-3xl text-blue-600 mr-4"></i>
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800">ITIL Certification</h3>
+                            <p class="text-gray-600">IT Service Management - Expired</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-green-500">
+                    <div class="flex items-center mb-3">
+                        <i class="fab fa-microsoft text-3xl text-green-600 mr-4"></i>
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800">MCTS</h3>
+                            <p class="text-gray-600">Microsoft Certified Technology Specialist</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-red-500">
+                    <div class="flex items-center mb-3">
+                        <i class="fab fa-redhat text-3xl text-red-600 mr-4"></i>
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800">RHCSA</h3>
+                            <p class="text-gray-600">Red Hat Certified System Administrator - Expired</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Awards & Achievements -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Rewards & Achievements</h2>
+            <div class="max-w-4xl mx-auto space-y-6">
+                <div class="bg-gradient-to-r from-yellow-50 to-orange-50 p-6 rounded-xl border-l-4 border-yellow-500 flex items-center">
+                    <i class="fas fa-star text-3xl text-yellow-500 mr-6"></i>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800">Shining Star Award</h3>
+                        <p class="text-gray-600">Excellarate Software Solutions India Pvt Ltd (Oct 2022)</p>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl border-l-4 border-blue-500 flex items-center">
+                    <i class="fas fa-trophy text-3xl text-blue-500 mr-6"></i>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800">Best Implementor Award</h3>
+                        <p class="text-gray-600">Recognized by AltaDevices for IPPlan implementation on CentOS at YASH Technologies (Jan 2018)</p>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-xl border-l-4 border-purple-500 flex items-center">
+                    <i class="fas fa-medal text-3xl text-purple-500 mr-6"></i>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800">Pinnacle Award</h3>
+                        <p class="text-gray-600">YASH Technologies – Recognized for resolving a critical Bentley Project issue (Jun 2017)</p>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-r from-green-50 to-teal-50 p-6 rounded-xl border-l-4 border-green-500 flex items-center">
+                    <i class="fas fa-award text-3xl text-green-500 mr-6"></i>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800">Best Employee Award</h3>
+                        <p class="text-gray-600">CMS Info Systems – Awarded as Best Employee in the South Region, India (Jun 2012)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Projects -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Projects</h2>
+            <div class="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Project 1 -->
+                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300">
+                    <h3 class="text-xl font-semibold text-blue-600 mb-3 flex items-center">
+                        <i class="fas fa-cloud mr-2"></i>AWS Cost Optimization
+                    </h3>
+                    <p class="text-gray-700 mb-4">
+                        Implemented automated AWS monitoring and rightsizing strategies,
+                        reducing cloud spend by <strong>30%</strong>.
+                    </p>
+                    <a href="#" target="_blank" class="text-blue-600 font-medium hover:underline">View Details</a>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="bg-gradient-to-r from-green-50 to-teal-50 p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300">
+                    <h3 class="text-xl font-semibold text-green-600 mb-3 flex items-center">
+                        <i class="fas fa-cogs mr-2"></i>CI/CD Pipeline Automation
+                    </h3>
+                    <p class="text-gray-700 mb-4">
+                        Designed and deployed automated pipelines using Jenkins,
+                        GitHub Actions, and AWS CodePipeline, improving deployment
+                        speed and reliability.
+                    </p>
+                    <a href="#" target="_blank" class="text-green-600 font-medium hover:underline">View Details</a>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300">
+                    <h3 class="text-xl font-semibold text-purple-600 mb-3 flex items-center">
+                        <i class="fas fa-docker mr-2"></i>Kubernetes Migration
+                    </h3>
+                    <p class="text-gray-700 mb-4">
+                        Migrated legacy applications to Kubernetes and Docker-based
+                        environments, ensuring high availability and scalability.
+                    </p>
+                    <a href="#" target="_blank" class="text-purple-600 font-medium hover:underline">View Details</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="gradient-bg text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <h3 class="text-2xl font-bold mb-4">Let's Connect</h3>
+            <p class="text-lg mb-6">Ready to discuss your next IT infrastructure or DevOps project?</p>
+            <div class="flex justify-center space-x-6">
+                <a href="mailto:naguruvinaykumar17@gmail.com" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-6 py-3 rounded-lg transition-all duration-300 flex items-center">
+                    <i class="fas fa-envelope mr-2"></i>
+                    Email Me
+                </a>
+                <a href="https://www.linkedin.com/in/vinaykumar-naguru-04b934140" target="_blank" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-6 py-3 rounded-lg transition-all duration-300 flex items-center">
+                    <i class="fab fa-linkedin mr-2"></i>
+                    LinkedIn
+                </a>
+            </div>
+            <div class="mt-8 pt-8 border-t border-white border-opacity-20">
+                <p class="text-sm opacity-75">© 2024 Vinay Kumar Naguru. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add scroll animation to skill tags
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe skill tags for animation
+        document.querySelectorAll('.skill-tag').forEach(tag => {
+            tag.style.opacity = '0';
+            tag.style.transform = 'translateY(20px)';
+            tag.style.transition = 'all 0.6s ease';
+            observer.observe(tag);
+        });
+
+        // Add typing effect to the main title
+        const title = document.querySelector('h1');
+        const titleText = title.textContent;
+        title.textContent = '';
+        let i = 0;
+        
+        function typeWriter() {
+            if (i < titleText.length) {
+                title.textContent += titleText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+        
+        setTimeout(typeWriter, 1000);
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97f69dc1d16bac91',t:'MTc1NzkyMzQ5Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
