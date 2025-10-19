@@ -59,42 +59,6 @@ All content is optimized for readability and presentation across desktop and mob
 │       ├── gci.png
 │       └── cms.png
 └── README.md               # Project documentation (this file)
-🖼️ Assets Notes
-All company logos should be transparent .png format, ideally 150×150px.
-
-You can easily make logos transparent and resize using:
-
-https://www.remove.bg
-
-https://tinypng.com
-
-https://imageresizer.com/resize-image
-
-🛠️ How to Deploy
-This site is automatically deployed through GitHub Pages.
-
-Steps to update your site:
-Commit your changes:
-
-bash
-Copy code
-git add .
-git commit -m "Updated portfolio"
-git push
-Ensure GitHub Pages is enabled:
-
-Go to your repository → Settings → Pages
-
-Source: main branch → / (root) folder
-
-Wait a minute for it to build.
-
-Visit your live link:
-
-arduino
-Copy code
-https://mystockbot.in
-(If a custom domain is configured via GoDaddy, it will automatically point to your latest version.)
 
 🧩 Tech Highlights
 Technology	Purpose
@@ -115,20 +79,3 @@ This project is personal and intended for portfolio presentation.
 All logos used under fair usage guidelines belong to their respective companies.
 
 © 2025 Vinay Kumar Naguru. All rights reserved.
-
-yaml
-Copy code
-
----
-
-### ✅ What to do now
-1. In your repo, click **Add File → Create new file**  
-2. Name it: **`README.md`**  
-3. Paste everything above  
-4. Click **Commit changes**  
-
----
-
-Would you like me to create a **short GitHub repository description + tagline** (for the top of your repo — under the title, where it says *“Add a description”*)?  
-Example:  
-> 💼 Personal portfolio of Vinay Kumar Naguru — Lead System Administrator | AWS | DevOps | Terraform | Kubernet
