@@ -7,155 +7,108 @@
   <meta name="description" content="Vinay Kumar Naguru — Lead System Administrator / DevOps. AWS, Terraform, Kubernetes, CI/CD." />
   <meta name="theme-color" content="#0b1020" />
   <style>
-    /* ------------------------------------------------------------
-       Complete profile page
-       - Rounded-rectangle portrait with soft glow (assets required)
-       - Theme palettes (Galaxy, Sunrise, Emerald, Origin) implemented via CSS backgrounds
-       - Light/Dark toggle with smooth knob animation
-       ------------------------------------------------------------ */
-
+    /* ---------- Variables & theme palettes ---------- */
     :root{
       --nav-height:68px;
       --max-width:1200px;
       --card-radius:12px;
-
-      --shadow-strong: 0 18px 50px rgba(2,6,23,0.6);
-      --shadow-soft:   0 10px 30px rgba(2,6,23,0.08);
-
-      /* default accents */
+      --shadow-strong:0 18px 50px rgba(2,6,23,0.6);
+      --shadow-soft:0 10px 30px rgba(2,6,23,0.08);
       --accent-a:#00C4FF; --accent-b:#A27BFF;
-
-      /* default dark colors (will be overridden by theme blocks below) */
-      --bg: #071228;
-      --card: rgba(255,255,255,0.03);
-      --text: #eaf3ff;
-      --muted: #9aa4b2;
+      --bg: #071228; --card: rgba(255,255,255,0.03); --text:#eaf3ff; --muted:#9aa4b2;
     }
 
-    /* ----------------------
-       Theme palettes (variables)
-       ---------------------- */
-    /* Galaxy */
+    /* Theme variable blocks (Galaxy, Sunrise, Emerald, Origin) */
     html[data-theme="galaxy"]{
       --accent-a:#7c3aed; --accent-b:#06b6d4;
-      --bg-base: #051028;
+      --bg-base:#051028;
       --bg-accent-a: rgba(124,58,237,0.14);
       --bg-accent-b: rgba(6,182,212,0.06);
       --card-dark: rgba(255,255,255,0.04);
-      --text-dark: #eaf3ff;
-      --muted-dark: #9fb3c6;
+      --text-dark:#eaf3ff; --muted-dark:#9fb3c6;
       --bg-light: linear-gradient(180deg,#f5f8ff 0%, #eef4ff 60%);
-      --card-light: #fff;
-      --text-light: #071228;
-      --muted-light: #59697f;
+      --card-light:#fff; --text-light:#071228; --muted-light:#59697f;
     }
-
-    /* Sunrise */
     html[data-theme="sunrise"]{
       --accent-a:#fb7185; --accent-b:#f59e0b;
       --bg-base:#190b10;
-      --bg-accent-a: rgba(251,113,133,0.12);
+      --bg-accent-a: rgba(251,113,133,0.14);
       --bg-accent-b: rgba(245,158,11,0.06);
       --card-dark: rgba(255,245,242,0.045);
-      --text-dark: #fff3f1;
-      --muted-dark: #e2c5c3;
+      --text-dark:#fff3f1; --muted-dark:#e2c5c3;
       --bg-light: linear-gradient(180deg,#fff8f5 0%, #fff1ea 60%);
-      --card-light: #fff;
-      --text-light: #3b1b1b;
-      --muted-light: #7f5f57;
+      --card-light:#fff; --text-light:#3b1b1b; --muted-light:#7f5f57;
     }
-
-    /* Emerald */
     html[data-theme="emerald"]{
       --accent-a:#059669; --accent-b:#06b6d4;
       --bg-base:#06221a;
       --bg-accent-a: rgba(5,150,105,0.14);
       --bg-accent-b: rgba(6,182,212,0.06);
       --card-dark: rgba(255,255,255,0.04);
-      --text-dark: #e8fff8;
-      --muted-dark: #9fd8c8;
+      --text-dark:#e8fff8; --muted-dark:#9fd8c8;
       --bg-light: linear-gradient(180deg,#f0fff9 0%, #e6fff5 60%);
-      --card-light: #fff;
-      --text-light: #043027;
-      --muted-light: #476e62;
+      --card-light:#fff; --text-light:#043027; --muted-light:#476e62;
     }
-
-    /* Origin OS 6 */
     html[data-theme="origin"]{
       --accent-a:#00C4FF; --accent-b:#A27BFF;
       --bg-base:#071226;
       --bg-accent-a: rgba(0,196,255,0.10);
       --bg-accent-b: rgba(162,123,255,0.08);
       --card-dark: rgba(255,255,255,0.04);
-      --text-dark: #eaf8ff;
-      --muted-dark: #9fb8c9;
+      --text-dark:#eaf8ff; --muted-dark:#9fb8c9;
       --bg-light: linear-gradient(180deg,#fbfdff 0%, #f1f8ff 60%);
-      --card-light:#fff;
-      --text-light:#051028;
-      --muted-light:#6b7f8f;
+      --card-light:#fff; --text-light:#051028; --muted-light:#6b7f8f;
     }
 
-    /* map variables depending on mode (dark by default) */
+    /* Map to active variables based on mode: default dark, clean = light */
     html[data-theme]{ --bg: var(--bg-base); --card: var(--card-dark); --text: var(--text-dark); --muted: var(--muted-dark); --shadow: var(--shadow-strong); }
     html.clean[data-theme]{ --bg: var(--bg-light); --card: var(--card-light); --text: var(--text-light); --muted: var(--muted-light); --shadow: var(--shadow-soft); }
 
-    /* ----------------------
-       page-level backgrounds (visual layers)
-       We use body::before & ::after to layer theme visuals (gradients, soft shapes)
-       ---------------------- */
+    /* ---------- Base styles ---------- */
+    *{box-sizing:border-box}
+    html{ scroll-behavior:smooth; }
     body{
-      margin:0; font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+      margin:0; font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
       -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
       color:var(--text);
       background: var(--bg);
       padding: calc(var(--nav-height) + 18px) 18px 40px;
       position:relative;
-      overflow-x:hidden;
+      min-height:100vh;
+      transition: background .45s ease;
     }
 
-    /* decorative layers */
+    /* Decorative layered backgrounds using pseudo elements */
     body::before, body::after{
-      content:"";
-      position:fixed;
-      left:0; top:0; right:0; bottom:0;
-      pointer-events:none;
-      z-index: -1;
-      transition: opacity .45s ease, transform .6s ease;
+      content:""; position:fixed; inset:0; pointer-events:none; z-index:-1; transition: opacity .45s ease, transform .6s ease;
     }
-
-    /* subtle radial glows per theme using CSS gradients */
+    /* main glow/nebula layer */
     body::before{
       background:
-        radial-gradient(800px 300px at 10% 18%, var(--bg-accent-a, rgba(0,0,0,0.06)), transparent 8%),
-        radial-gradient(600px 300px at 92% 82%, var(--bg-accent-b, rgba(0,0,0,0.03)), transparent 8%),
+        radial-gradient(900px 320px at 8% 12%, var(--bg-accent-a, rgba(255,255,255,0.02)), transparent 8%),
+        radial-gradient(700px 300px at 90% 88%, var(--bg-accent-b, rgba(255,255,255,0.02)), transparent 8%),
         transparent;
-      opacity: .95;
-      mix-blend-mode: screen;
+      mix-blend-mode:screen; opacity:0.95; filter: blur(8px);
     }
-
-    /* a faint pattern layer for depth */
+    /* soft vignette/texture */
     body::after{
-      opacity:.28;
       background:
         radial-gradient(1200px 800px at 20% 70%, rgba(255,255,255,0.02), transparent 10%),
-        linear-gradient(180deg, rgba(255,255,255,0.00), rgba(255,255,255,0.00));
-      filter: blur(28px);
+        linear-gradient(180deg, rgba(0,0,0,0.00), rgba(0,0,0,0.00));
+      filter: blur(28px); opacity:.28;
     }
 
-    /* subtle theme-specific adjustments (slightly different opacity / transform) */
-    html[data-theme="galaxy"] body::before{ transform: translateY(0); opacity:1; }
-    html[data-theme="sunrise"] body::before{ transform: translateY(-8px); opacity:0.95; }
-    html[data-theme="emerald"] body::before{ transform: translateY(6px); opacity:0.9; }
-    html[data-theme="origin"] body::before{ transform: translateY(0); opacity:1; }
+    /* Tweak per palette (subtle transform/opacity for each) */
+    html[data-theme="galaxy"] body::before{ transform:translateY(0); opacity:1; }
+    html[data-theme="sunrise"] body::before{ transform:translateY(-8px); opacity:0.95; }
+    html[data-theme="emerald"] body::before{ transform:translateY(6px); opacity:0.92; }
+    html[data-theme="origin"] body::before{ transform:translateY(0); opacity:1; }
 
-    /* container */
-    .wrap{ max-width:var(--max-width); margin:0 auto; background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent); border-radius:16px; padding:26px; box-shadow: var(--shadow); border:1px solid rgba(255,255,255,0.03); position:relative; z-index:2; }
+    .wrap{ max-width:1200px; margin:0 auto; background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent); border-radius:16px; padding:26px; box-shadow: var(--shadow); border:1px solid rgba(255,255,255,0.03); position:relative; z-index:2; }
 
     .muted{ color:var(--muted); font-size:14px; }
 
-    /* ----------------------
-       topbar
-       ---------------------- */
+    /* ---------- Topbar and nav ---------- */
     .topbar{ position:fixed; top:12px; left:50%; transform:translateX(-50%); width:min(1200px, calc(100% - 36px)); height:var(--nav-height); display:flex; align-items:center; justify-content:space-between; gap:12px; z-index:999; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.008)); border-radius:12px; padding:8px 14px; box-shadow: var(--shadow); backdrop-filter: blur(6px) saturate(120%); border:1px solid rgba(255,255,255,0.04); }
     .brand{ font-weight:700; color:var(--text); }
     .nav{ display:flex; gap:10px; align-items:center; }
@@ -168,7 +121,20 @@
     .hamburger svg{ width:20px;height:20px; color:var(--text); display:block; }
     .mobile-nav{ display:none; position:fixed; top:calc(var(--nav-height) + 28px); left:50%; transform:translateX(-50%); width:min(420px,calc(100% - 40px)); background:var(--card); border-radius:12px; box-shadow:0 12px 40px rgba(2,6,23,0.45); border:1px solid rgba(255,255,255,0.04); padding:12px; z-index:1000; }
 
-    /* switch */
+    /* ---------- Select styling to avoid washed out options ---------- */
+    #color-theme-wrapper{ position:relative; display:inline-block; }
+    #color-theme{
+      padding:6px 28px 6px 8px; border-radius:8px; border:1px solid rgba(255,255,255,0.06); background:transparent; color:var(--text);
+      -webkit-appearance:none; appearance:none; font-weight:600;
+    }
+    #color-theme option{ color: var(--text); background:transparent; }
+    html.clean #color-theme, html.clean #color-theme option { color: var(--text); }
+
+    #color-theme-wrapper::after{
+      content:'\25BE'; position:absolute; right:8px; top:50%; transform:translateY(-50%); color:var(--muted); pointer-events:none;
+    }
+
+    /* ---------- Switch pill (with working animation) ---------- */
     .switch-wrap{ display:flex; align-items:center; gap:10px; }
     .mode-switch{ display:inline-flex; align-items:center; gap:10px; padding:5px 10px; border-radius:20px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00)); border:1px solid rgba(255,255,255,0.04); cursor:pointer; }
     .mode-switch input{ appearance:none; -webkit-appearance:none; width:0;height:0; position:absolute; left:-9999px; }
@@ -177,14 +143,12 @@
     html.clean .switch-knob{ transform: translateX(52px); }
     .switch-label{ margin-left:8px; font-size:13px; color:var(--muted); background: rgba(255,255,255,0.02); padding:6px 8px; border-radius:8px; display:inline-flex; align-items:center; justify-content:center; }
 
-    /* ----------------------
-       hero + portrait
-       ---------------------- */
-    .hero{ display:grid; grid-template-columns: 180px 1fr; gap:20px; align-items:start; }
+    /* ---------- Hero + portrait ---------- */
+    .hero{ display:grid; grid-template-columns:180px 1fr; gap:20px; align-items:start; }
     .avatar-col{ display:flex; align-items:flex-start; justify-content:center; padding-top:6px; }
     .portrait{ display:block; border-radius:18px; overflow:hidden; box-shadow:0 14px 40px rgba(2,6,23,0.45), 0 0 28px rgba(162,123,255,0.12); transition: transform .22s ease, box-shadow .22s ease; width:160px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00)); }
     .portrait img{ width:100%; height:auto; display:block; object-fit:cover; object-position:center; }
-    .portrait:hover{ transform: translateY(-6px); box-shadow: 0 26px 60px rgba(2,6,23,0.5), 0 0 38px rgba(162,123,255,0.18); }
+    .portrait:hover{ transform: translateY(-6px); box-shadow:0 26px 60px rgba(2,6,23,0.5), 0 0 38px rgba(162,123,255,0.18); }
 
     .hero-content h1{ margin:0; font-size:28px; letter-spacing:-0.4px; }
     .title{ margin:6px 0; color:var(--muted); font-weight:600; }
@@ -196,7 +160,7 @@
     .btn-ghost{ background:transparent; border:1px solid rgba(255,255,255,0.06); color:var(--text); }
 
     /* main */
-    .main-grid{ display:grid; grid-template-columns: 1fr 360px; gap:22px; margin-top:20px; align-items:start; }
+    .main-grid{ display:grid; grid-template-columns:1fr 360px; gap:22px; margin-top:20px; align-items:start; }
     .card{ background:var(--card); border-radius:var(--card-radius); padding:16px; border:1px solid rgba(255,255,255,0.04); box-shadow: 0 8px 24px rgba(2,6,23,0.08); }
 
     .skills{ display:flex; gap:10px; flex-wrap:wrap; margin-top:8px; }
@@ -213,10 +177,10 @@
     .back-top{ position: fixed; right: 18px; bottom: 18px; width:46px;height:46px;border-radius:10px;background:var(--card);display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.04);box-shadow:0 8px 30px rgba(2,6,23,0.35);cursor:pointer;opacity:0;transform:translateY(8px);transition:opacity .28s, transform .28s; z-index:999; }
     .back-top.show{ opacity:1; transform:translateY(0); }
 
-    /* responsive */
-    @media (max-width:1100px){ .hero{ grid-template-columns:160px 1fr } .portrait{ width:140px } .main-grid{ grid-template-columns: 1fr } }
+    /* responsive tweaks */
+    @media (max-width:1100px){ .hero{ grid-template-columns:160px 1fr } .portrait{ width:140px } .main-grid{ grid-template-columns:1fr } }
     @media (max-width:880px){
-      .hero{ grid-template-columns: 1fr; }
+      .hero{ grid-template-columns:1fr; }
       .avatar-col{ order:-1; justify-content:center; margin-bottom:8px; }
       .portrait{ width:220px; max-width:60%; border-radius:14px; }
       .hero-content h1{ text-align:center; }
@@ -233,15 +197,14 @@
       .hero-content .summary{ font-size:14px; max-width:100% }
     }
 
-    a:focus, button:focus { outline: 3px solid rgba(99,102,241,0.14); outline-offset:3px; border-radius:8px; }
+    a:focus, button:focus{ outline:3px solid rgba(99,102,241,0.14); outline-offset:3px; border-radius:8px; }
+
   </style>
 </head>
 <body>
-  <!-- topbar -->
+  <!-- Topbar -->
   <div class="topbar" role="navigation" aria-label="Topbar">
-    <div style="display:flex;align-items:center;gap:12px">
-      <div class="brand">Vinay Kumar Naguru</div>
-    </div>
+    <div style="display:flex;align-items:center;gap:12px"><div class="brand">Vinay Kumar Naguru</div></div>
 
     <nav class="nav" id="top-nav" aria-label="Primary navigation">
       <a href="#about" class="active">About</a>
@@ -254,12 +217,14 @@
     </nav>
 
     <div class="controls" style="align-items:center;">
-      <select id="color-theme" aria-label="Choose color theme" style="padding:6px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--text);margin-right:8px">
-        <option value="galaxy">Galaxy</option>
-        <option value="sunrise">Sunrise</option>
-        <option value="emerald">Emerald</option>
-        <option value="origin" selected>Origin OS 6</option>
-      </select>
+      <span id="color-theme-wrapper">
+        <select id="color-theme" aria-label="Choose color theme" title="Choose color theme">
+          <option value="galaxy">Galaxy</option>
+          <option value="sunrise">Sunrise</option>
+          <option value="emerald">Emerald</option>
+          <option value="origin" selected>Origin OS 6</option>
+        </select>
+      </span>
 
       <div class="switch-wrap" title="Toggle light / dark">
         <label class="mode-switch" id="mode-switch-label" tabindex="0" role="switch" aria-checked="false" aria-labelledby="mode-switch-text">
@@ -277,8 +242,8 @@
 
   <div class="mobile-nav" id="mobile-nav" aria-hidden="true"></div>
 
+  <!-- Content -->
   <div class="wrap" role="main" id="page-root" style="margin-top:10px">
-    <!-- Hero / About -->
     <header id="about" class="reveal" tabindex="-1">
       <div class="hero">
         <div class="avatar-col" aria-hidden="false">
@@ -307,7 +272,6 @@
       </div>
     </header>
 
-    <!-- main grid -->
     <div class="main-grid" style="margin-top:18px">
       <section id="skills" class="card reveal">
         <h2>Technical Skills</h2>
@@ -343,7 +307,7 @@
       </aside>
     </div>
 
-    <!-- Experience -->
+    <!-- Experience & rest of content (full profile) -->
     <section id="experience" class="card reveal" style="margin-top:18px">
       <h2>Experience</h2>
       <div class="exp">
@@ -357,7 +321,6 @@
             <li>Led production incident response and capacity planning for mission-critical services.</li>
           </ul>
         </div>
-
         <div class="exp-item">
           <h3>Senior System Administrator / Consultant — APPS ASSOCIATES INDIA PVT LTD (via NFOLKS)</h3>
           <div class="meta muted">Aug 2018 – Apr 2019 | Hyderabad</div>
@@ -366,34 +329,24 @@
             <li>Assisted cloud migration & security compliance (IAM and policy hardening).</li>
           </ul>
         </div>
-
         <div class="exp-item">
           <h3>IT System Engineer — YASH TECHNOLOGIES PVT LTD</h3>
           <div class="meta muted">Oct 2016 – Apr 2018 | Hyderabad</div>
-          <ul class="clean-list">
-            <li>Administered Windows Server, Active Directory, and DNS; awarded Best Implementor for IPPlan deployment.</li>
-          </ul>
+          <ul class="clean-list"><li>Administered Windows Server, Active Directory, and DNS; awarded Best Implementor for IPPlan deployment.</li></ul>
         </div>
-
         <div class="exp-item">
           <h3>IT Engineer — GCI EXPORTS PVT LTD</h3>
           <div class="meta muted">Apr 2014 – Jun 2016 | Bangalore</div>
-          <ul class="clean-list">
-            <li>Maintained enterprise Windows & Linux servers; implemented security practices and upgrades.</li>
-          </ul>
+          <ul class="clean-list"><li>Maintained enterprise Windows & Linux servers; implemented security practices and upgrades.</li></ul>
         </div>
-
         <div class="exp-item">
           <h3>CMS INFOSYSTEMS PVT LTD — Center Head - Technical / IT Trainee</h3>
           <div class="meta muted">May 2013 – Apr 2014; Sep 2011 – May 2013</div>
-          <ul class="clean-list">
-            <li>Led troubleshooting teams; awarded Best Employee in South Region (2012).</li>
-          </ul>
+          <ul class="clean-list"><li>Led troubleshooting teams; awarded Best Employee in South Region (2012).</li></ul>
         </div>
       </div>
     </section>
 
-    <!-- Certifications -->
     <section id="certifications" class="card reveal" style="margin-top:18px">
       <h2>Certifications</h2>
       <ul class="clean-list" style="margin-top:8px; color:var(--muted)">
@@ -405,7 +358,6 @@
       </ul>
     </section>
 
-    <!-- Awards -->
     <section id="awards" class="card reveal" style="margin-top:18px">
       <h2>Awards & Achievements</h2>
       <ul class="clean-list" style="margin-top:8px; color:var(--muted)">
@@ -416,7 +368,6 @@
       </ul>
     </section>
 
-    <!-- Education -->
     <section id="education" class="card reveal" style="margin-top:18px">
       <h2>Education</h2>
       <div class="muted" style="margin-top:8px">
@@ -435,14 +386,14 @@
   </div>
 
   <script>
-    /* Helper selectors */
+    // helpers
     const $ = s => document.querySelector(s);
     const $$ = s => Array.from(document.querySelectorAll(s));
 
-    // Year
+    // year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    /* Mobile nav (hamburger) */
+    /* Mobile nav */
     (function(){
       const hamburger = document.getElementById('hamburger');
       const mobileNav = document.getElementById('mobile-nav');
@@ -452,6 +403,9 @@
         const el = document.createElement('a');
         el.href = a.href;
         el.textContent = a.textContent;
+        el.style.display = 'block';
+        el.style.padding = '8px 10px';
+        el.style.color = 'var(--text)';
         el.addEventListener('click', ()=> { mobileNav.style.display='none'; mobileNav.setAttribute('aria-hidden','true'); });
         mobileNav.appendChild(el);
       });
@@ -522,33 +476,38 @@
       img.addEventListener('keypress', e=>{ if(e.key==='Enter' || e.key===' ') img.click(); });
     })();
 
-    /* Themes & Light/Dark switch */
+    /* Theme palette + light/dark handling: wire select to data-theme & persist */
     (function(){
-      const sel = $('#color-theme');
+      const sel = document.getElementById('color-theme');
       const html = document.documentElement;
-      const label = $('#mode-switch-label');
-      const input = $('#mode-switch-input');
-      const modeText = $('#mode-switch-text');
+      const label = document.getElementById('mode-switch-label');
+      const input = document.getElementById('mode-switch-input');
+      const modeText = document.getElementById('mode-switch-text');
 
+      // load saved
       const savedColor = localStorage.getItem('preferredColor') || 'origin';
       const savedMode  = localStorage.getItem('preferredMode') || 'dark';
 
-      // Apply stored
+      // apply
       html.setAttribute('data-theme', savedColor);
+      sel.value = savedColor;
       if(savedMode === 'light') html.classList.add('clean'); else html.classList.remove('clean');
-      if(sel) sel.value = savedColor;
-
-      // color selector
-      if(sel) sel.addEventListener('change', (e)=> {
-        html.setAttribute('data-theme', e.target.value);
-        localStorage.setItem('preferredColor', e.target.value);
-      });
-
-      // initialize switch state & label
       input.checked = savedMode === 'light';
+
+      // update label
       function updateModeText(){ modeText.textContent = input.checked ? 'Light' : 'Dark'; }
       updateModeText();
 
+      // when palette changes
+      sel.addEventListener('change', (e)=>{
+        const t = e.target.value;
+        html.setAttribute('data-theme', t);
+        localStorage.setItem('preferredColor', t);
+        // small fade animation via body pseudo elements (force reflow)
+        document.body.style.transition = 'background .35s ease';
+      });
+
+      // light/dark toggle behavior
       function applyMode(){
         if(input.checked){
           html.classList.add('clean');
@@ -561,12 +520,12 @@
         }
         updateModeText();
       }
-
       label.addEventListener('click', ()=> { input.checked = !input.checked; applyMode(); });
       label.addEventListener('keydown', e=> { if(e.key==='Enter' || e.key===' '){ e.preventDefault(); input.checked = !input.checked; applyMode(); } });
+
     })();
 
-    // accessibility: focusable sections
+    /* accessibility: focusable sections */
     (function(){ document.querySelectorAll('section, header, aside').forEach(el=> { if(!el.hasAttribute('tabindex')) el.setAttribute('tabindex','-1'); }); })();
   </script>
 </body>
