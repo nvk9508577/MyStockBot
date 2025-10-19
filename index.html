@@ -1,173 +1,119 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Vinay Kumar Naguru — IT & DevOps</title>
-<meta name="description" content="Vinay Kumar Naguru — Lead System Administrator / DevOps. AWS, Terraform, Kubernetes, CI/CD." />
-<meta name="theme-color" content="#0b1020" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Vinay Kumar Naguru — IT & DevOps</title>
+  <meta name="description" content="Vinay Kumar Naguru — Lead System Administrator / DevOps. AWS, Terraform, Kubernetes, CI/CD." />
+  <meta name="theme-color" content="#0b1020" />
+  <style>
+    /* ---- theme vars ---- */
+    :root{
+      --nav-height:68px;
+      --max-width:1200px;
+      --card-radius:12px;
+      --accent-a:#00C4FF;
+      --accent-b:#A27BFF;
+      --bg:#071226;
+      --card:rgba(255,255,255,0.03);
+      --text:#eaf8ff;
+      --muted:#9fb8c9;
+      --shadow-strong:0 18px 50px rgba(2,6,23,0.6);
+    }
+    /* light override */
+    html.clean{
+      --bg:#f6fafc;
+      --card:#fff;
+      --text:#071226;
+      --muted:#5d6b78;
+      --shadow-strong:0 10px 30px rgba(2,6,23,0.06);
+    }
 
-<!-- IMPORTANT: apply saved theme *before* CSS renders so overlays show immediately -->
-<script>
-  (function(){
-    try{
-      var t = localStorage.getItem('preferredColor') || 'origin';
-      var m = localStorage.getItem('preferredMode') || 'dark';
-      document.documentElement.setAttribute('data-theme', t);
-      if(m === 'light') document.documentElement.classList.add('clean'); else document.documentElement.classList.remove('clean');
-    }catch(e){}
-  })();
-</script>
+    *{box-sizing:border-box}
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0; font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      background:var(--bg); color:var(--text); padding: calc(var(--nav-height)+20px) 18px 40px;
+    }
+    .wrap{ max-width:var(--max-width); margin:0 auto; background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent); border-radius:16px; padding:26px; box-shadow:var(--shadow-strong); border:1px solid rgba(255,255,255,0.03); position:relative; z-index:3; }
 
-<style>
-/* ----------------------------------------------------------
-   Theme variables, strong overlays, full-screen mobile menu
-   ---------------------------------------------------------- */
-:root{ --nav-height:68px; --card-radius:12px; --max-width:1200px; --shadow-strong:0 18px 50px rgba(2,6,23,0.6); --shadow-soft:0 10px 30px rgba(2,6,23,0.08); --accent-a:#00C4FF; --accent-b:#A27BFF; --bg:#071228; --card:rgba(255,255,255,0.03); --text:#eaf3ff; --muted:#9aa4b2; }
+    /* topbar */
+    .topbar{ position:fixed; top:12px; left:50%; transform:translateX(-50%); width:min(var(--max-width), calc(100% - 36px)); height:var(--nav-height); display:flex; align-items:center; justify-content:space-between; gap:12px; z-index:1500; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.008)); border-radius:12px; padding:8px 14px; box-shadow: var(--shadow-strong); backdrop-filter: blur(6px) saturate(120%); border:1px solid rgba(255,255,255,0.04); }
+    .brand{ font-weight:700; color:var(--text); }
+    .nav{ display:flex; gap:10px; align-items:center; }
+    .nav a{ color:var(--muted); text-decoration:none; padding:8px 10px; border-radius:8px; font-weight:600; font-size:14px; }
+    .nav a.active{ background: linear-gradient(90deg,var(--accent-a),var(--accent-b)); color:var(--text); box-shadow:0 10px 28px rgba(12,8,40,0.18) }
 
-/* Palettes */
-html[data-theme="galaxy"]{ --accent-a:#7c3aed; --accent-b:#06b6d4; --bg-base:#051028; --bg-light: linear-gradient(180deg,#f5f8ff 0%, #eef4ff 60%); --card-dark: rgba(255,255,255,0.06); --text-dark:#eaf3ff; --muted-dark:#9fb3c6; }
-html[data-theme="sunrise"]{ --accent-a:#fb7185; --accent-b:#f59e0b; --bg-base:#190b10; --bg-light: linear-gradient(180deg,#fff8f5 0%, #fff1ea 60%); --card-dark: rgba(255,245,242,0.05); --text-dark:#fff3f1; --muted-dark:#e2c5c3; }
-html[data-theme="emerald"]{ --accent-a:#059669; --accent-b:#06b6d4; --bg-base:#06221a; --bg-light: linear-gradient(180deg,#f0fff9 0%, #e6fff5 60%); --card-dark: rgba(255,255,255,0.05); --text-dark:#e8fff8; --muted-dark:#9fd8c8; }
-html[data-theme="origin"]{ --accent-a:#00C4FF; --accent-b:#A27BFF; --bg-base:#071226; --bg-light: linear-gradient(180deg,#fbfdff 0%, #f1f8ff 60%); --card-dark: rgba(255,255,255,0.05); --text-dark:#eaf8ff; --muted-dark:#9fb8c9; }
+    .controls{ display:flex; gap:8px; align-items:center; }
 
-/* Map dark/light */
-html[data-theme]{ --bg:var(--bg-base); --card:var(--card-dark); --text:var(--text-dark); --muted:var(--muted-dark); --shadow:var(--shadow-strong); }
-html.clean[data-theme]{ --bg:var(--bg-light); --card:var(--card-dark); --text:var(--text-dark); --muted:var(--muted-dark); --shadow:var(--shadow-soft); }
+    /* mobile nav panel */
+    .hamburger{ display:none; width:44px;height:44px;border-radius:10px;background:var(--card);border:1px solid rgba(255,255,255,0.04);align-items:center;justify-content:center;cursor:pointer; z-index:1600; }
+    .hamburger svg{ width:20px;height:20px; color:var(--text); display:block; }
+    .mobile-nav{ display:none; position:fixed; top:0; left:0; right:0; bottom:0; z-index:1400; }
+    .mobile-nav.open{ display:block; background: rgba(4,6,10,0.96); }
+    .mobile-panel{ width:100%; max-width:520px; margin:64px auto; background:var(--card); border-radius:12px; padding:18px; color:var(--text); box-shadow:0 30px 80px rgba(0,0,0,0.7); border:1px solid rgba(255,255,255,0.04); }
 
-/* Base styles */
-*{box-sizing:border-box}
-html{ scroll-behavior:smooth; }
-body{ margin:0; font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; color:var(--text); background:var(--bg); padding: calc(var(--nav-height) + 18px) 18px 40px; min-height:100vh; transition: background .35s ease; }
+    /* hero & portrait */
+    .hero{ display:grid; grid-template-columns:220px 1fr; gap:20px; align-items:start; }
+    .avatar-col{ display:flex; align-items:flex-start; justify-content:center; padding-top:6px; z-index:3; }
+    .portrait{ display:block; border-radius:18px; overflow:hidden; box-shadow: 0 20px 60px rgba(2,6,23,0.5), 0 0 48px rgba(162,123,255,0.08); transition: transform .22s ease, box-shadow .22s ease; width:220px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00)); position:relative; }
+    .portrait img{ width:100%; height:auto; display:block; object-fit:cover; object-position:center; background: transparent; cursor:pointer; }
+    .portrait:hover{ transform: translateY(-6px); box-shadow:0 30px 80px rgba(2,6,23,0.55), 0 0 56px rgba(162,123,255,0.18); }
 
-/* THEME OVERLAY layers (stronger/fallbacks) */
-#theme-overlay{ position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
-#theme-overlay .layer{ position:absolute; inset:0; width:100%; height:100%; opacity:0; transition:opacity .35s ease; pointer-events:none; }
+    .hero-content h1{ margin:0; font-size:28px; letter-spacing:-0.4px; }
+    .title{ margin:6px 0; color:var(--muted); font-weight:600; }
+    .summary{ margin:8px 0 0 0; color:var(--muted); max-width:800px; line-height:1.45; }
 
-/* Galaxy */
-#theme-overlay .galaxy-nebula{ background: radial-gradient(900px 360px at 12% 18%, rgba(124,58,237,0.22), transparent 14%), radial-gradient(700px 320px at 90% 82%, rgba(6,182,212,0.12), transparent 16%); filter: blur(28px); mix-blend-mode:screen; animation: nebulaShift 36s linear infinite; }
-#theme-overlay .galaxy-stars{ background-image: radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.96), transparent 60%), radial-gradient(1px 1px at 22% 45%, rgba(255,255,255,0.94), transparent 60%), radial-gradient(1px 1px at 44% 14%, rgba(255,255,255,0.92), transparent 60%), radial-gradient(1px 1px at 72% 40%, rgba(255,255,255,0.9), transparent 60%), radial-gradient(1px 1px at 86% 76%, rgba(255,255,255,0.9), transparent 60%); background-size: 200% 200%; filter: blur(.6px); mix-blend-mode:screen; animation: galaxyMove 18s linear infinite; }
-#theme-overlay .galaxy-fallback{ background: radial-gradient(1200px 600px at 40% 30%, rgba(12,20,45,0.24), transparent 12%); filter: blur(30px); }
+    .actions{ display:flex; gap:10px; align-items:center; margin-top:12px; flex-wrap:wrap; }
+    .btn{ padding:10px 14px; border-radius:12px; text-decoration:none; color:inherit; font-weight:700; display:inline-flex; align-items:center; gap:8px; }
+    .btn-primary{ background: linear-gradient(90deg,var(--accent-a),var(--accent-b)); color:white; box-shadow:0 10px 30px rgba(12,8,40,0.18); }
+    .btn-ghost{ background:transparent; border:1px solid rgba(255,255,255,0.06); color:var(--text); }
 
-/* Sunrise */
-#theme-overlay .sunrise-rays{ background: conic-gradient(from 90deg, rgba(255,200,180,0.10) 0deg, rgba(255,180,150,0.10) 40deg, rgba(255,160,120,0.06) 80deg, transparent 160deg); filter: blur(18px); transform-origin:center; animation: rotateRays 22s linear infinite; mix-blend-mode:screen; }
-#theme-overlay .sunrise-glow{ background: radial-gradient(700px 500px at 12% 18%, rgba(251,113,133,0.22), transparent 18%), radial-gradient(500px 340px at 86% 82%, rgba(245,158,11,0.12), transparent 20%); filter: blur(40px); animation: pulseWarm 6s ease-in-out infinite; mix-blend-mode:screen; }
+    /* layout */
+    .main-grid{ display:grid; grid-template-columns:1fr 380px; gap:22px; margin-top:20px; align-items:start; }
+    .card{ background:var(--card); border-radius:var(--card-radius); padding:16px; border:1px solid rgba(255,255,255,0.04); box-shadow: 0 8px 24px rgba(2,6,23,0.08); }
+    h2{ margin:0 0 10px 0; font-size:18px; }
+    .muted{ color:var(--muted); font-size:14px; }
 
-/* Emerald */
-#theme-overlay .emerald-blob-a{ background: radial-gradient(700px 340px at 18% 30%, rgba(5,150,105,0.22), transparent 18%); filter:blur(30px); animation: driftL 18s linear infinite; mix-blend-mode:screen; }
-#theme-overlay .emerald-blob-b{ background: radial-gradient(540px 300px at 86% 76%, rgba(6,182,212,0.12), transparent 20%); filter:blur(26px); animation: driftR 22s linear infinite; mix-blend-mode:screen; }
+    .skills{ display:flex; gap:10px; flex-wrap:wrap; margin-top:8px; }
+    .skill-pill{ padding:8px 10px; border-radius:999px; font-weight:600; color:var(--text); background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00)); border:1px solid rgba(255,255,255,0.04); }
 
-/* Origin */
-#theme-overlay .origin-blob-a{ background: radial-gradient(700px 320px at 8% 18%, rgba(162,123,255,0.16), transparent 18%); filter:blur(32px); animation: driftR 22s linear infinite; mix-blend-mode:screen; }
-#theme-overlay .origin-blob-b{ background: radial-gradient(640px 300px at 90% 82%, rgba(0,196,255,0.14), transparent 20%); filter:blur(32px); animation: driftL 20s linear infinite; mix-blend-mode:screen; }
+    .exp{ margin-top:8px; display:flex; flex-direction:column; gap:12px; }
+    .exp-item{ padding:12px; border-radius:10px; background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent); border:1px solid rgba(255,255,255,0.02); }
+    .exp-item h3{ margin:0; font-size:15px; }
+    .exp-item .meta{ color:var(--muted); font-size:13px; margin-bottom:6px; }
 
-/* Force show per theme */
-html[data-theme="galaxy"]   #theme-overlay .galaxy-nebula,
-html[data-theme="galaxy"]   #theme-overlay .galaxy-stars,
-html[data-theme="galaxy"]   #theme-overlay .galaxy-fallback { opacity:1; }
-html[data-theme="sunrise"]  #theme-overlay .sunrise-rays,
-html[data-theme="sunrise"]  #theme-overlay .sunrise-glow { opacity:1; }
-html[data-theme="emerald"]  #theme-overlay .emerald-blob-a,
-html[data-theme="emerald"]  #theme-overlay .emerald-blob-b   { opacity:1; }
-html[data-theme="origin"]   #theme-overlay .origin-blob-a,
-html[data-theme="origin"]   #theme-overlay .origin-blob-b    { opacity:1; }
+    .clean-list{ padding-left:18px; margin:8px 0; color:var(--muted); }
 
-/* Animations */
-@keyframes galaxyMove{ from{ background-position:0% 0% } to{ background-position:100% 100% } }
-@keyframes nebulaShift{ 0%{ transform: translate3d(-6px,0,0) } 50%{ transform: translate3d(8px,-8px,0) } 100%{ transform: translate3d(-6px,0,0) } }
-@keyframes rotateRays{ from{ transform: rotate(0deg) } to{ transform: rotate(360deg) } }
-@keyframes pulseWarm{ 0%{ opacity:0.9 } 50%{ opacity:1 } 100%{ opacity:0.9 } }
-@keyframes driftL{ 0%{ transform: translate3d(-14px,0,0) } 50%{ transform: translate3d(16px,-10px,0) } 100%{ transform: translate3d(-14px,0,0) } }
-@keyframes driftR{ 0%{ transform: translate3d(14px,0,0) } 50%{ transform: translate3d(-16px,10px,0) } 100%{ transform: translate3d(14px,0,0) } }
+    /* reveal on scroll */
+    .reveal{ opacity:0; transform:translateY(8px); transition: opacity .6s ease, transform .6s ease; will-change:opacity,transform; }
+    .reveal.visible{ opacity:1; transform:translateY(0); }
 
-/* Core layout & UI */
-.wrap{ max-width:1200px; margin:0 auto; background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent); border-radius:16px; padding:26px; box-shadow: var(--shadow); border:1px solid rgba(255,255,255,0.03); position:relative; z-index:3; }
-.muted{ color:var(--muted); font-size:14px; }
-.topbar{ position:fixed; top:12px; left:50%; transform:translateX(-50%); width:min(1200px, calc(100% - 36px)); height:var(--nav-height); display:flex; align-items:center; justify-content:space-between; gap:12px; z-index:1500; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.008)); border-radius:12px; padding:8px 14px; box-shadow: var(--shadow); backdrop-filter: blur(6px) saturate(120%); border:1px solid rgba(255,255,255,0.04); }
-.brand{ font-weight:700; color:var(--text); }
-.nav{ display:flex; gap:10px; align-items:center; }
-.nav a{ color:var(--muted); text-decoration:none; padding:8px 10px; border-radius:8px; font-weight:600; font-size:14px; }
-.nav a.active{ background: linear-gradient(90deg,var(--accent-a),var(--accent-b)); color:var(--text); box-shadow:0 10px 28px rgba(12,8,40,0.18) }
+    /* back to top */
+    .back-top{ position: fixed; right: 18px; bottom: 18px; width:46px;height:46px;border-radius:10px;background:var(--card);display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.04);box-shadow:0 8px 30px rgba(2,6,23,0.35);cursor:pointer;opacity:0;transform:translateY(8px);transition:opacity .28s, transform .28s; z-index:1600; }
+    .back-top.show{ opacity:1; transform:translateY(0); }
 
-.controls{ display:flex; gap:8px; align-items:center; }
-.hamburger{ display:none; width:44px;height:44px;border-radius:10px;background:var(--card);border:1px solid rgba(255,255,255,0.04);align-items:center;justify-content:center;cursor:pointer; z-index:1600; }
-.hamburger svg{ width:20px;height:20px; color:var(--text); display:block; }
+    @media (max-width:1100px){ .hero{ grid-template-columns:200px 1fr } .portrait{ width:200px } .main-grid{ grid-template-columns:1fr } }
+    @media (max-width:880px){
+      .hero{ grid-template-columns:1fr; }
+      .avatar-col{ order:-1; justify-content:center; margin-bottom:8px; }
+      .portrait{ width:280px; max-width:70%; border-radius:14px; }
+      .hero-content h1{ text-align:center; }
+      .hero-content .title, .hero-content .summary { text-align:center; }
+      .actions{ justify-content:center; }
+      .topbar{ left:12px; right:12px; transform:none; width:calc(100% - 24px); }
+      .hamburger{ display:flex; }
+      .nav{ display:none; }
+      .mobile-nav{ display:block; }
+    }
 
-.mobile-nav{ display:none; position:fixed; top:0; left:0; right:0; bottom:0; z-index:1400; }
-.mobile-nav.open{ display:block; background: rgba(4,6,10,0.96); }
-.mobile-panel{ width:100%; max-width:520px; margin:64px auto; background:var(--card); border-radius:12px; padding:18px; color:var(--text); box-shadow:0 30px 80px rgba(0,0,0,0.7); border:1px solid rgba(255,255,255,0.04); }
+    a:focus, button:focus{ outline:3px solid rgba(99,102,241,0.14); outline-offset:3px; border-radius:8px; }
 
-.theme-picker{ position:relative; display:inline-block; min-width:140px; }
-.theme-btn{ display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 12px; border-radius:8px; background:var(--card); color:var(--text); border:1px solid rgba(255,255,255,0.06); cursor:pointer; font-weight:700; }
-.theme-list{ position:absolute; right:0; margin-top:8px; background:var(--card); border-radius:10px; box-shadow:0 10px 30px rgba(2,6,23,0.45); overflow:hidden; border:1px solid rgba(255,255,255,0.04); display:none; z-index:40; min-width:220px; }
-.theme-item{ padding:10px 12px; cursor:pointer; color:var(--text); font-weight:700; display:flex; align-items:center; gap:10px; }
-.theme-item:hover, .theme-item[aria-selected="true"]{ background: linear-gradient(90deg,var(--accent-a),var(--accent-b)); color: white; }
-
-.switch-wrap{ display:flex; align-items:center; gap:10px; }
-.mode-switch{ display:inline-flex; align-items:center; gap:10px; padding:5px 10px; border-radius:20px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00)); border:1px solid rgba(255,255,255,0.04); cursor:pointer; }
-.mode-switch input{ appearance:none; -webkit-appearance:none; width:0;height:0; position:absolute; left:-9999px; }
-.switch-track{ position:relative; display:inline-block; width:86px; height:32px; padding:4px; border-radius:16px; background:rgba(255,255,255,0.06); transition: background .22s ease; }
-.switch-knob{ position:absolute; left:6px; top:6px; width:20px; height:20px; border-radius:50%; background: linear-gradient(180deg,#fff,#e6e6e6); box-shadow:0 4px 10px rgba(2,6,23,0.18); transition: transform .26s cubic-bezier(.2,.9,.3,1), box-shadow .22s; will-change: transform; }
-html.clean .switch-knob{ transform: translateX(52px); }
-.switch-label{ margin-left:8px; font-size:13px; color:var(--muted); background: rgba(255,255,255,0.02); padding:6px 8px; border-radius:8px; display:inline-flex; align-items:center; justify-content:center; }
-
-.hero{ display:grid; grid-template-columns:220px 1fr; gap:20px; align-items:start; }
-.avatar-col{ display:flex; align-items:flex-start; justify-content:center; padding-top:6px; z-index:3; }
-.portrait{ display:block; border-radius:18px; overflow:hidden; box-shadow: 0 20px 60px rgba(2,6,23,0.5), 0 0 48px rgba(162,123,255,0.08); transition: transform .22s ease, box-shadow .22s ease; width:220px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00)); position:relative; }
-.portrait img{ width:100%; height:auto; display:block; object-fit:cover; object-position:center; background: transparent; }
-.portrait:hover{ transform: translateY(-6px); box-shadow:0 30px 80px rgba(2,6,23,0.55), 0 0 56px rgba(162,123,255,0.18); }
-
-.hero-content h1{ margin:0; font-size:32px; letter-spacing:-0.4px; }
-.title{ margin:6px 0; color:var(--muted); font-weight:600; }
-.summary{ margin:8px 0 0 0; color:var(--muted); max-width:800px; line-height:1.5; }
-
-.actions{ display:flex; gap:10px; align-items:center; margin-top:12px; flex-wrap:wrap; }
-.btn{ padding:10px 14px; border-radius:12px; text-decoration:none; color:inherit; font-weight:700; display:inline-flex; align-items:center; gap:8px; }
-.btn-primary{ background: linear-gradient(90deg,var(--accent-a),var(--accent-b)); color:white; box-shadow:0 10px 30px rgba(12,8,40,0.18); }
-.btn-ghost{ background:transparent; border:1px solid rgba(255,255,255,0.06); color:var(--text); }
-
-.main-grid{ display:grid; grid-template-columns:1fr 380px; gap:22px; margin-top:20px; align-items:start; }
-.card{ background:var(--card); border-radius:var(--card-radius); padding:16px; border:1px solid rgba(255,255,255,0.04); box-shadow: 0 8px 24px rgba(2,6,23,0.08); }
-.clean-list{ padding-left:18px; margin:8px 0; color:var(--muted); }
-
-.reveal{ opacity:0; transform:translateY(8px); transition: opacity .6s ease, transform .6s ease; will-change:opacity,transform; }
-.reveal.visible{ opacity:1; transform:translateY(0); }
-
-.back-top{ position: fixed; right: 18px; bottom: 18px; width:46px;height:46px;border-radius:10px;background:var(--card);display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.04);box-shadow:0 8px 30px rgba(2,6,23,0.35);cursor:pointer;opacity:0;transform:translateY(8px);transition:opacity .28s, transform .28s; z-index:1600; }
-.back-top.show{ opacity:1; transform:translateY(0); }
-
-@media (max-width:1100px){ .hero{ grid-template-columns:200px 1fr } .portrait{ width:200px } .main-grid{ grid-template-columns:1fr } }
-@media (max-width:880px){
-  .hero{ grid-template-columns:1fr; }
-  .avatar-col{ order:-1; justify-content:center; margin-bottom:8px; }
-  .portrait{ width:280px; max-width:70%; border-radius:14px; }
-  .hero-content h1{ text-align:center; }
-  .actions{ justify-content:center; }
-  .topbar{ left:12px; right:12px; transform:none; width:calc(100% - 24px); }
-  .hamburger{ display:flex; }
-  .nav{ display:none; }
-}
-@media (max-width:420px){
-  .portrait{ width:220px }
-  .hero-content h1{ font-size:20px }
-}
-
-a:focus, button:focus{ outline:3px solid rgba(99,102,241,0.14); outline-offset:3px; border-radius:8px; }
-</style>
+  </style>
 </head>
 <body>
-  <div id="theme-overlay" aria-hidden="true">
-    <div class="layer galaxy-nebula"></div>
-    <div class="layer galaxy-stars"></div>
-    <div class="layer galaxy-fallback"></div>
-    <div class="layer sunrise-rays"></div>
-    <div class="layer sunrise-glow"></div>
-    <div class="layer emerald-blob-a"></div>
-    <div class="layer emerald-blob-b"></div>
-    <div class="layer origin-blob-a"></div>
-    <div class="layer origin-blob-b"></div>
-  </div>
-
+  <!-- TOPBAR -->
   <div class="topbar" role="navigation" aria-label="Topbar">
     <div style="display:flex;align-items:center;gap:12px"><div class="brand">Vinay Kumar Naguru</div></div>
 
@@ -182,19 +128,7 @@ a:focus, button:focus{ outline:3px solid rgba(99,102,241,0.14); outline-offset:3
     </nav>
 
     <div class="controls" style="align-items:center;">
-      <div class="theme-picker" id="theme-picker">
-        <button class="theme-btn" id="theme-btn" aria-haspopup="listbox" aria-expanded="false">
-          <span id="theme-label">Origin OS 6</span>
-          <span style="opacity:.9">▾</span>
-        </button>
-        <div class="theme-list" id="theme-list" role="listbox" tabindex="-1" aria-hidden="true">
-          <div class="theme-item" role="option" data-key="galaxy">Galaxy</div>
-          <div class="theme-item" role="option" data-key="sunrise">Sunrise</div>
-          <div class="theme-item" role="option" data-key="emerald">Emerald</div>
-          <div class="theme-item" role="option" data-key="origin" aria-selected="true">Origin OS 6</div>
-        </div>
-      </div>
-
+      <!-- simple theme switch (light/dark) -->
       <div class="switch-wrap" title="Toggle light / dark">
         <label class="mode-switch" id="mode-switch-label" tabindex="0" role="switch" aria-checked="false" aria-labelledby="mode-switch-text">
           <input type="checkbox" id="mode-switch-input" aria-hidden="true">
@@ -209,6 +143,7 @@ a:focus, button:focus{ outline:3px solid rgba(99,102,241,0.14); outline-offset:3
     </div>
   </div>
 
+  <!-- mobile nav panel -->
   <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
     <div class="mobile-panel" role="dialog" aria-modal="true" aria-label="Mobile menu">
       <div style="display:flex;justify-content:space-between;align-items:center">
@@ -227,7 +162,9 @@ a:focus, button:focus{ outline:3px solid rgba(99,102,241,0.14); outline-offset:3
     </div>
   </div>
 
+  <!-- MAIN WRAP -->
   <div class="wrap" role="main" id="page-root">
+    <!-- ABOUT / HERO -->
     <header id="about" class="reveal" tabindex="-1">
       <div class="hero">
         <div class="avatar-col" aria-hidden="false">
@@ -235,7 +172,7 @@ a:focus, button:focus{ outline:3px solid rgba(99,102,241,0.14); outline-offset:3
             <picture>
               <source media="(max-width:420px)" srcset="assets/mypic-rect-320.webp">
               <source media="(max-width:880px)" srcset="assets/mypic-rect-480.webp">
-              <img src="assets/mypic-rect-800.webp" alt="Vinay Kumar Naguru portrait" loading="lazy">
+              <img src="assets/mypic-rect-800.webp" alt="Vinay Kumar Naguru portrait" loading="lazy" id="profile-photo">
             </picture>
           </div>
         </div>
@@ -245,7 +182,7 @@ a:focus, button:focus{ outline:3px solid rgba(99,102,241,0.14); outline-offset:3
           <div class="title">Lead System Administrator • DevOps & Cloud Infrastructure</div>
           <div class="summary muted">
             Experienced IT & DevOps Professional with 13+ years in Windows Infrastructure, DevOps, CI/CD Pipelines, AWS, and Linux environments.
-            Skilled in automation, Terraform, Kubernetes, CI/CD, monitoring and IT service management. Proven ability to optimize performance, enhance security, and drive IT transformation.
+            Skilled in system administration, cloud computing, automation, and IT service management. Proven ability to optimize performance, enhance security, and drive IT transformation.
           </div>
 
           <div class="actions">
@@ -256,56 +193,141 @@ a:focus, button:focus{ outline:3px solid rgba(99,102,241,0.14); outline-offset:3
       </div>
     </header>
 
+    <!-- MAIN GRID -->
     <div class="main-grid" style="margin-top:18px">
-      <section id="skills" class="card reveal">
-        <h2>Technical Skills</h2>
-        <p class="muted">Core platforms, tools and strengths:</p>
-        <div class="skills" style="margin-top:10px">
-          <div class="skill-pill">AWS (EC2, S3, IAM, VPC)</div>
-          <div class="skill-pill">Terraform / IaC</div>
-          <div class="skill-pill">Kubernetes & Docker</div>
-          <div class="skill-pill">Jenkins / GitHub Actions</div>
-          <div class="skill-pill">Ansible & Shell / Python</div>
-          <div class="skill-pill">Datadog / Monitoring</div>
-          <div class="skill-pill">ITIL, Jira, ServiceNow</div>
+      <!-- Left -->
+      <section>
+        <div class="card reveal" id="summary">
+          <h2>Professional Summary</h2>
+          <p class="muted" style="margin-top:8px">
+            Experienced IT & DevOps Professional with 13+ years in Windows Infrastructure, DevOps, CI/CD Pipelines, AWS, and Linux environments.
+            Skilled in automation, Terraform, Kubernetes, CI/CD, monitoring and IT service management. Proven track record of reducing cost, improving uptime, and streamlining operations.
+          </p>
+        </div>
+
+        <div class="card reveal" id="skills">
+          <h2>Technical Skills</h2>
+          <div class="skills" style="margin-top:8px">
+            <div class="skill-pill">AWS (EC2, S3, IAM, VPC)</div>
+            <div class="skill-pill">Terraform / IaC</div>
+            <div class="skill-pill">Kubernetes & Docker</div>
+            <div class="skill-pill">Jenkins / GitHub Actions</div>
+            <div class="skill-pill">Ansible & Shell / Python</div>
+            <div class="skill-pill">Datadog / Monitoring</div>
+            <div class="skill-pill">ITIL, Jira, ServiceNow</div>
+          </div>
+        </div>
+
+        <div class="card reveal" id="experience" style="margin-top:14px">
+          <h2>Experience</h2>
+          <div class="exp">
+            <div class="exp-item">
+              <h3>Lead System Administrator — ENCORA SOFTWARE INDIA PVT LTD</h3>
+              <div class="meta muted">Sep 2022 – Present | Hyderabad</div>
+              <ul class="clean-list">
+                <li>Designed and deployed automated CI/CD pipelines using Jenkins, GitHub CI/CD, and AWS CodePipeline.</li>
+                <li>Implemented IaC with Terraform for AWS automation and applied cost-optimisation (reduced cloud spend by ~30%).</li>
+                <li>Managed containerized applications using Kubernetes & Docker and integrated Datadog for proactive monitoring.</li>
+              </ul>
+            </div>
+
+            <div class="exp-item">
+              <h3>Senior System Administrator / Consultant — APPS ASSOCIATES INDIA PVT LTD (via NFOLKS)</h3>
+              <div class="meta muted">Aug 2018 – Apr 2019 | Hyderabad</div>
+              <ul class="clean-list">
+                <li>Managed cloud infrastructure and automated provisioning with Terraform & Ansible.</li>
+                <li>Assisted cloud migration & security compliance (IAM policy improvements).</li>
+              </ul>
+            </div>
+
+            <div class="exp-item">
+              <h3>IT System Engineer — YASH TECHNOLOGIES PVT LTD</h3>
+              <div class="meta muted">Oct 2016 – Apr 2018 | Hyderabad</div>
+              <ul class="clean-list">
+                <li>Administered Windows Server, Active Directory, and DNS; awarded Best Implementor for IPPlan deployment.</li>
+              </ul>
+            </div>
+
+            <div class="exp-item">
+              <h3>IT Engineer — GCI EXPORTS PVT LTD</h3>
+              <div class="meta muted">Apr 2014 – Jun 2016 | Bangalore</div>
+              <ul class="clean-list">
+                <li>Maintained enterprise Windows & Linux servers; implemented security practices and upgrades.</li>
+              </ul>
+            </div>
+
+            <div class="exp-item">
+              <h3>CMS INFOSYSTEMS PVT LTD — Center Head - Technical / IT Trainee</h3>
+              <div class="meta muted">May 2013 – Apr 2014; Sep 2011 – May 2013</div>
+              <ul class="clean-list">
+                <li>Led troubleshooting teams; awarded Best Employee in South Region (2012).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="card reveal" id="certifications" style="margin-top:14px">
+          <h2>Certifications</h2>
+          <ul class="clean-list" style="margin-top:8px">
+            <li>AWS Certified Solutions Architect — Professional (Nov 2024 – Nov 2027)</li>
+            <li>Generative AI Training Path (Coursera) — Jan 2025</li>
+            <li>Generative AI for Everyone — DeepLearning.AI (Jan 2025)</li>
+            <li>Generative AI with LLMs — DeepLearning.AI & AWS (Jan 2025)</li>
+            <li>RHCSA, MCTS, ITIL (some expired)</li>
+          </ul>
+        </div>
+
+        <div class="card reveal" id="awards" style="margin-top:14px">
+          <h2>Awards & Achievements</h2>
+          <ul class="clean-list" style="margin-top:8px">
+            <li>Shining Star Award — Excellarate (Oct 2022)</li>
+            <li>Best Implementor Award — YASH Technologies (Jan 2018)</li>
+            <li>Pinnacle & Client Appreciation awards (2017)</li>
+            <li>Best Employee — CMS Info Systems (2012)</li>
+          </ul>
         </div>
       </section>
 
-      <aside id="contact" class="card reveal" aria-labelledby="contact-heading">
-        <h2 id="contact-heading">Contact & Quick Info</h2>
-        <div style="margin-top:8px" class="muted">
-          <strong>Email:</strong> <a href="mailto:naguruvinaykumar17@gmail.com">naguruvinaykumar17@gmail.com</a><br>
-          <strong>Phone:</strong> +91 96188 52899<br>
-          <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/vinaykumar-naguru-04b934140" target="_blank" rel="noopener noreferrer">vinaykumar-naguru</a>
+      <!-- Right column -->
+      <aside>
+        <div class="card reveal" id="contact-card">
+          <h2>Quick Info</h2>
+          <div style="margin-top:8px" class="muted">
+            <strong>Email:</strong> <a href="mailto:naguruvinaykumar17@gmail.com">naguruvinaykumar17@gmail.com</a><br>
+            <strong>Phone:</strong> +91 96188 52899<br>
+            <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/vinaykumar-naguru-04b934140" target="_blank" rel="noopener noreferrer">vinaykumar-naguru</a>
+          </div>
+
+          <div style="margin-top:12px">
+            <div class="muted">Availability</div>
+            <div style="font-weight:700;margin-top:6px">Immediate / Weekdays</div>
+          </div>
+
+          <div style="margin-top:14px">
+            <h3 style="margin:0">Education</h3>
+            <div class="muted">B.Com (Computers) — Sri KrishnaDevaraya Open University</div>
+            <div class="muted" style="margin-top:8px">Intermediate — National Institute of Open Schooling<br>SSC — Andhra Pradesh Board</div>
+          </div>
         </div>
 
-        <div style="margin-top:12px">
-          <div class="muted">Availability</div>
-          <div style="font-weight:700;margin-top:6px">Immediate / Weekdays</div>
-        </div>
+        <div class="card reveal" style="margin-top:14px">
+          <h3 style="margin:0">Contact</h3>
+          <div class="contact-row" style="margin-top:8px;display:flex;gap:8px">
+            <a class="btn btn-primary" href="assets/resume.pdf" download>Download Resume</a>
+            <a class="btn btn-ghost" href="mailto:naguruvinaykumar17@gmail.com">Email</a>
+          </div>
 
-        <div style="margin-top:14px">
-          <h3 style="margin:0">Location</h3>
-          <div class="muted">Hyderabad, India</div>
+          <div style="margin-top:12px" class="muted">
+            Want more customization? I can:
+            <ul class="clean-list">
+              <li>Add a Projects / Portfolio gallery (screenshots & links).</li>
+              <li>Split CSS/JS into separate files and minify for production.</li>
+              <li>Add a contact form (serverless / Netlify / Formspree integration).</li>
+            </ul>
+          </div>
         </div>
       </aside>
     </div>
-
-    <section id="experience" class="card reveal" style="margin-top:18px">
-      <h2>Experience</h2>
-      <div class="exp">
-        <div class="exp-item">
-          <h3>Lead System Administrator — ENCORA SOFTWARE INDIA PVT LTD</h3>
-          <div class="meta muted">Sep 2022 – Present | Hyderabad</div>
-          <ul class="clean-list">
-            <li>Designed and deployed automated CI/CD pipelines using Jenkins, GitHub CI/CD, and AWS CodePipeline.</li>
-            <li>Implemented IaC with Terraform for AWS automation and applied cost-optimisation (reduced cloud spend by ~30%).</li>
-            <li>Managed containerized applications using Kubernetes & Docker and integrated Datadog for proactive monitoring.</li>
-          </ul>
-        </div>
-        <!-- other experience entries omitted for brevity -->
-      </div>
-    </section>
 
     <footer style="margin-top:26px">© <span id="year"></span> Vinay Kumar Naguru — Built with care.</footer>
   </div>
@@ -314,117 +336,74 @@ a:focus, button:focus{ outline:3px solid rgba(99,102,241,0.14); outline-offset:3
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V6"/><path d="M5 12l7-7 7 7"/></svg>
   </div>
 
-<script>
-/* helper */
-const $ = s => document.querySelector(s);
-const $$ = s => Array.from(document.querySelectorAll(s));
-document.getElementById('year').textContent = new Date().getFullYear();
+  <script>
+    // year
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-/* Mobile nav */
-(function(){
-  const hamburger = $('#hamburger'), mobileNav = $('#mobile-nav'), closeBtn = $('#mobile-close');
-  if(!mobileNav || !hamburger) return;
-  hamburger.addEventListener('click', ()=> {
-    mobileNav.classList.toggle('open');
-    mobileNav.setAttribute('aria-hidden', mobileNav.classList.contains('open') ? 'false' : 'true');
-  });
-  hamburger.addEventListener('keypress', e=> { if(e.key==='Enter' || e.key===' ') hamburger.click(); });
-  closeBtn.addEventListener('click', ()=> { mobileNav.classList.remove('open'); mobileNav.setAttribute('aria-hidden','true'); });
-  document.addEventListener('click', e=>{
-    if(mobileNav.classList.contains('open') && !mobileNav.contains(e.target) && !hamburger.contains(e.target)){
-      mobileNav.classList.remove('open'); mobileNav.setAttribute('aria-hidden','true');
-    }
-  });
-})();
+    // Mobile nav (full-screen panel)
+    (function(){
+      const hamburger = document.getElementById('hamburger'), mobileNav = document.getElementById('mobile-nav'), closeBtn = document.getElementById('mobile-close');
+      if(!mobileNav || !hamburger) return;
+      hamburger.addEventListener('click', ()=> {
+        mobileNav.classList.toggle('open');
+        mobileNav.setAttribute('aria-hidden', mobileNav.classList.contains('open') ? 'false' : 'true');
+      });
+      hamburger.addEventListener('keypress', e=> { if(e.key==='Enter' || e.key===' ') hamburger.click(); });
+      closeBtn.addEventListener('click', ()=> { mobileNav.classList.remove('open'); mobileNav.setAttribute('aria-hidden','true'); });
+      document.addEventListener('click', e=>{
+        if(mobileNav.classList.contains('open') && !mobileNav.contains(e.target) && !hamburger.contains(e.target)){
+          mobileNav.classList.remove('open'); mobileNav.setAttribute('aria-hidden','true');
+        }
+      });
+    })();
 
-/* Reveal on scroll */
-(function(){
-  const obs = new IntersectionObserver((entries)=>{
-    entries.forEach(en => { if(en.isIntersecting){ en.target.classList.add('visible'); obs.unobserve(en.target); }});
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-})();
+    // Reveal on scroll
+    (function(){
+      const obs = new IntersectionObserver((entries)=>{
+        entries.forEach(en => { if(en.isIntersecting){ en.target.classList.add('visible'); obs.unobserve(en.target); }});
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    })();
 
-/* Back-to-top */
-(function(){
-  const bt = $('#back-top');
-  function check(){ if(window.scrollY > 360) bt.classList.add('show'); else bt.classList.remove('show'); }
-  window.addEventListener('scroll', check, { passive:true });
-  bt.addEventListener('click', ()=> window.scrollTo({ top:0, behavior:'smooth' }));
-})();
+    // Back-to-top
+    (function(){
+      const bt = document.getElementById('back-top');
+      function check(){ if(window.scrollY > 360) bt.classList.add('show'); else bt.classList.remove('show'); }
+      window.addEventListener('scroll', check, { passive:true });
+      bt.addEventListener('click', ()=> window.scrollTo({ top:0, behavior:'smooth' }));
+      bt.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' ') window.scrollTo({ top:0, behavior:'smooth' }); });
+    })();
 
-/* Avatar modal */
-(function(){
-  const img = document.querySelector('.portrait img');
-  if(!img) return;
-  img.addEventListener('click', ()=>{
-    const modal = document.createElement('div'); modal.style = 'position:fixed;inset:0;background:rgba(2,6,23,0.9);display:flex;align-items:center;justify-content:center;z-index:9999;padding:20px';
-    modal.addEventListener('click', ()=> modal.remove());
-    const copy = img.cloneNode(); copy.style='max-width:92%;max-height:92%;border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,0.7);object-fit:cover';
-    modal.appendChild(copy); document.body.appendChild(modal);
-    document.addEventListener('keydown', function esc(e){ if(e.key==='Escape'){ modal.remove(); document.removeEventListener('keydown',esc); }});
-  });
-  img.setAttribute('tabindex','0'); img.addEventListener('keypress', e=>{ if(e.key==='Enter'||e.key===' ') img.click(); });
-})();
+    // Avatar modal
+    (function(){
+      const img = document.getElementById('profile-photo');
+      if(!img) return;
+      img.addEventListener('click', ()=>{
+        const modal = document.createElement('div');
+        modal.style = 'position:fixed;inset:0;background:rgba(2,6,23,0.9);display:flex;align-items:center;justify-content:center;z-index:9999;padding:20px';
+        modal.addEventListener('click', ()=> modal.remove());
+        const copy = img.cloneNode();
+        copy.style = 'max-width:95%;max-height:95%;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,0.7);';
+        modal.appendChild(copy);
+        document.body.appendChild(modal);
+        document.addEventListener('keydown', function esc(e){ if(e.key==='Escape'){ modal.remove(); document.removeEventListener('keydown',esc); }});
+      });
+      img.setAttribute('tabindex','0'); img.addEventListener('keypress', e=>{ if(e.key==='Enter'||e.key===' ') img.click(); });
+    })();
 
-/* Theme picker & light/dark */
-(function(){
-  const picker = $('#theme-picker');
-  const btn = $('#theme-btn');
-  const list = $('#theme-list');
-  const items = Array.from(list.querySelectorAll('.theme-item'));
-  const label = $('#theme-label');
-  const html = document.documentElement;
-  const modeLabel = $('#mode-switch-text');
-  const modeWrap = $('#mode-switch-label');
-  const modeInput = $('#mode-switch-input');
-
-  const savedColor = localStorage.getItem('preferredColor') || (document.documentElement.getAttribute('data-theme') || 'origin');
-  const savedMode = localStorage.getItem('preferredMode') || (document.documentElement.classList.contains('clean') ? 'light' : 'dark');
-
-  html.setAttribute('data-theme', savedColor);
-  label.textContent = ({galaxy:'Galaxy',sunrise:'Sunrise',emerald:'Emerald',origin:'Origin OS 6'})[savedColor] || 'Origin OS 6';
-  items.forEach(it => it.setAttribute('aria-selected', it.dataset.key === savedColor ? 'true' : 'false'));
-
-  if(savedMode === 'light') html.classList.add('clean'); else html.classList.remove('clean');
-  modeInput.checked = savedMode === 'light';
-  modeLabel.textContent = modeInput.checked ? 'Light' : 'Dark';
-
-  function openList(){ list.style.display='block'; btn.setAttribute('aria-expanded','true'); list.setAttribute('aria-hidden','false'); const sel=list.querySelector('[aria-selected="true"]')||list.firstElementChild; if(sel) sel.focus(); }
-  function closeList(){ list.style.display='none'; btn.setAttribute('aria-expanded','false'); list.setAttribute('aria-hidden','true'); btn.focus(); }
-
-  btn.addEventListener('click', ()=> { const open = list.style.display === 'block'; open ? closeList() : openList(); });
-  btn.addEventListener('keydown', e=> { if(e.key==='ArrowDown' || e.key==='Enter' || e.key===' '){ e.preventDefault(); openList(); } });
-
-  list.addEventListener('keydown', e=>{
-    const focusable = Array.from(list.querySelectorAll('.theme-item'));
-    let idx = focusable.indexOf(document.activeElement);
-    if(e.key === 'ArrowDown'){ idx = Math.min(idx+1, focusable.length-1); focusable[idx].focus(); e.preventDefault(); }
-    if(e.key === 'ArrowUp'){ idx = Math.max(idx-1, 0); focusable[idx].focus(); e.preventDefault(); }
-    if(e.key === 'Escape'){ closeList(); }
-    if(e.key === 'Enter' || e.key === ' '){ document.activeElement.click(); e.preventDefault(); }
-  });
-
-  items.forEach(it=>{
-    it.tabIndex = 0;
-    it.addEventListener('click', ()=>{
-      const key = it.dataset.key;
-      html.setAttribute('data-theme', key);
-      localStorage.setItem('preferredColor', key);
-      label.textContent = it.textContent;
-      items.forEach(x => x.setAttribute('aria-selected', x === it ? 'true' : 'false'));
-      closeList();
-    });
-  });
-
-  document.addEventListener('click', e => { if(!picker.contains(e.target)) closeList(); });
-
-  function applyMode(){ if(modeInput.checked){ html.classList.add('clean'); localStorage.setItem('preferredMode','light'); modeWrap.setAttribute('aria-checked','true'); } else { html.classList.remove('clean'); localStorage.setItem('preferredMode','dark'); modeWrap.setAttribute('aria-checked','false'); } modeLabel.textContent = modeInput.checked ? 'Light' : 'Dark'; }
-  modeInput.checked = (savedMode === 'light'); applyMode();
-  modeWrap.addEventListener('click', ()=> { modeInput.checked = !modeInput.checked; applyMode(); });
-  modeWrap.addEventListener('keydown', e=> { if(e.key==='Enter' || e.key===' '){ e.preventDefault(); modeInput.checked = !modeInput.checked; applyMode(); } });
-
-})();
-</script>
+    // Simple light/dark switch persisted
+    (function(){
+      const label = document.getElementById('mode-switch-label');
+      const input = document.getElementById('mode-switch-input');
+      const text = document.getElementById('mode-switch-text');
+      const html = document.documentElement;
+      const saved = localStorage.getItem('preferredMode') || (html.classList.contains('clean') ? 'light' : 'dark');
+      if(saved === 'light'){ html.classList.add('clean'); input.checked = true; } else { html.classList.remove('clean'); input.checked = false; }
+      text.textContent = input.checked ? 'Light' : 'Dark';
+      function apply(){ if(input.checked){ html.classList.add('clean'); localStorage.setItem('preferredMode','light'); } else { html.classList.remove('clean'); localStorage.setItem('preferredMode','dark'); } text.textContent = input.checked ? 'Light' : 'Dark'; }
+      label.addEventListener('click', ()=> { input.checked = !input.checked; apply(); });
+      label.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); input.checked = !input.checked; apply(); } });
+    })();
+  </script>
 </body>
 </html>
