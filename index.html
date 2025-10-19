@@ -7,51 +7,35 @@
   <meta name="description" content="Vinay Kumar Naguru — Lead System Administrator / DevOps. AWS, Terraform, Kubernetes, CI/CD." />
   <meta name="theme-color" content="#0b1020" />
   <style>
-    /* =========================
-       Full site — rounded-rectangle portrait + soft glow
-       Dark/Light switch animation fixed (knob transform)
-       ========================= */
+    /* Complete profile page + themes + rounded rect portrait (soft glow)
+       Expects assets/mypic-rect-320.webp, -480.webp, -800.webp, mypic-rect-avatar-256x320.webp, resume.pdf
+    */
 
     :root{
       --nav-height: 68px;
-      --max-width: 1100px;
+      --max-width: 1200px;
       --card-radius: 12px;
-
+      --accent-a: #00C4FF; --accent-b: #A27BFF;
       --shadow-strong: 0 18px 50px rgba(2,6,23,0.6);
-      --shadow-soft:   0 10px 30px rgba(2,6,23,0.08);
-
-      --accent-a: #00C4FF; --accent-b: #A27BFF;
-      --bg: #071228;
-      --card: rgba(255,255,255,0.03);
-      --text: #eaf3ff;
-      --muted: #9aa4b2;
-      --link-accent: rgba(0,196,255,0.95);
+      --shadow-soft: 0 10px 30px rgba(2,6,23,0.08);
+      --bg: #071228; --card: rgba(255,255,255,0.03); --text: #eaf3ff; --muted: #9aa4b2;
     }
 
-    /* Theme blocks */
-    html[data-theme="galaxy"]{ --accent-a:#4f46e5; --accent-b:#06b6d4; --bg-deco-a: rgba(79,70,229,0.14); --bg-deco-b: rgba(6,182,212,0.06); --bg-dark: linear-gradient(180deg,#071228 0%, #071a31 60%); --card-dark: rgba(255,255,255,0.04); --text-dark: #eaf3ff; --muted-dark: #9fb3c6; --bg-light: linear-gradient(180deg,#f5f8ff 0%, #eef4ff 60%); --card-light: #ffffff; --text-light: #071228; --muted-light: #59697f; }
-    html[data-theme="sunrise"]{ --accent-a:#fb7185; --accent-b:#f59e0b; --bg-deco-a: rgba(251,113,133,0.14); --bg-deco-b: rgba(245,158,11,0.06); --bg-dark: linear-gradient(180deg,#2b0f14 0%, #1a0b0f 60%); --card-dark: rgba(255,245,242,0.045); --text-dark: #fff3f1; --muted-dark: #e2c5c3; --bg-light: linear-gradient(180deg,#fff8f5 0%, #fff1ea 60%); --card-light: #fff; --text-light: #3b1b1b; --muted-light: #7f5f57; }
-    html[data-theme="emerald"]{ --accent-a:#059669; --accent-b:#06b6d4; --bg-deco-a: rgba(5,150,105,0.18); --bg-deco-b: rgba(6,182,212,0.08); --bg-dark: linear-gradient(180deg,#041d17 0%, #073022 70%); --card-dark: rgba(255,255,255,0.04); --text-dark: #e8fff8; --muted-dark: #9fd8c8; --bg-light: linear-gradient(180deg,#f0fff9 0%, #e6fff5 60%); --card-light: #ffffff; --text-light: #043027; --muted-light: #476e62; }
-    html[data-theme="slate"]{ --accent-a:#0b5cff; --accent-b:#6366f1; --bg-deco-a: rgba(11,92,255,0.12); --bg-deco-b: rgba(99,102,241,0.06); --bg-dark: linear-gradient(180deg,#031028 0%, #071a2b 70%); --card-dark: rgba(255,255,255,0.04); --text-dark: #eaf3ff; --muted-dark: #9eaec2; --bg-light: linear-gradient(180deg,#f6fafc 0%, #eef6ff 60%); --card-light: #ffffff; --text-light: #0b1220; --muted-light: #5b6474; }
-    html[data-theme="origin"]{
-      --accent-a: #00C4FF; --accent-b: #A27BFF;
-      --bg-deco-a: rgba(2,200,255,0.12); --bg-deco-b: rgba(162,123,255,0.06);
-      --bg-dark: linear-gradient(180deg,#000409 0%, #071226 60%); --card-dark: rgba(255,255,255,0.04); --text-dark: #eaf8ff; --muted-dark: #9fb8c9;
-      --bg-light: linear-gradient(180deg,#fbfdff 0%, #f1f8ff 60%); --card-light: #ffffff; --text-light: #051028; --muted-light: #6b7f8f;
-      --origin-glow: rgba(162,123,255,0.14); --origin-cyan: rgba(0,196,255,0.12);
-    }
+    /* Theme palette blocks (Galaxy, Sunrise, Emerald, Slate, Origin) */
+    html[data-theme="galaxy"]{ --accent-a:#4f46e5; --accent-b:#06b6d4; --bg-deco-a: rgba(79,70,229,0.14); --bg-deco-b: rgba(6,182,212,0.06); --bg-dark: linear-gradient(180deg,#071228 0%, #071a31 60%); --card-dark: rgba(255,255,255,0.04); --text-dark: #eaf3ff; --muted-dark:#9fb3c6; --bg-light: linear-gradient(180deg,#f5f8ff 0%, #eef4ff 60%); --card-light:#fff; --text-light:#071228; --muted-light:#59697f;}
+    html[data-theme="sunrise"]{ --accent-a:#fb7185; --accent-b:#f59e0b; --bg-deco-a: rgba(251,113,133,0.14); --bg-deco-b: rgba(245,158,11,0.06); --bg-dark:linear-gradient(180deg,#2b0f14 0%, #1a0b0f 60%); --card-dark:rgba(255,245,242,0.045); --text-dark:#fff3f1; --muted-dark:#e2c5c3; --bg-light:linear-gradient(180deg,#fff8f5 0%, #fff1ea 60%); --card-light:#fff; --text-light:#3b1b1b; --muted-light:#7f5f57;}
+    html[data-theme="emerald"]{ --accent-a:#059669; --accent-b:#06b6d4; --bg-deco-a: rgba(5,150,105,0.18); --bg-deco-b: rgba(6,182,212,0.08); --bg-dark:linear-gradient(180deg,#041d17 0%, #073022 70%); --card-dark:rgba(255,255,255,0.04); --text-dark:#e8fff8; --muted-dark:#9fd8c8; --bg-light:linear-gradient(180deg,#f0fff9 0%, #e6fff5 60%); --card-light:#fff; --text-light:#043027; --muted-light:#476e62;}
+    html[data-theme="slate"]{ --accent-a:#0b5cff; --accent-b:#6366f1; --bg-deco-a: rgba(11,92,255,0.12); --bg-deco-b: rgba(99,102,241,0.06); --bg-dark:linear-gradient(180deg,#031028 0%, #071a2b 70%); --card-dark:rgba(255,255,255,0.04); --text-dark:#eaf3ff; --muted-dark:#9eaec2; --bg-light:linear-gradient(180deg,#f6fafc 0%, #eef6ff 60%); --card-light:#fff; --text-light:#0b1220; --muted-light:#5b6474;}
+    html[data-theme="origin"]{ --accent-a:#00C4FF; --accent-b:#A27BFF; --bg-deco-a: rgba(2,200,255,0.12); --bg-deco-b: rgba(162,123,255,0.06); --bg-dark:linear-gradient(180deg,#000409 0%, #071226 60%); --card-dark: rgba(255,255,255,0.04); --text-dark:#eaf8ff; --muted-dark:#9fb8c9; --bg-light:linear-gradient(180deg,#fbfdff 0%, #f1f8ff 60%); --card-light:#fff; --text-light:#051028; --muted-light:#6b7f8f; --origin-glow: rgba(162,123,255,0.14); }
 
-    /* Map to active variables based on mode */
-    html[data-theme]{ --bg: var(--bg-dark); --card: var(--card-dark); --text: var(--text-dark); --muted: var(--muted-dark); --shadow: var(--shadow-strong); }
-    html.clean[data-theme]{ --bg: var(--bg-light); --card: var(--card-light); --text: var(--text-light); --muted: var(--muted-light); --shadow: var(--shadow-soft); }
+    /* map dark/light */
+    html[data-theme]{ --bg:var(--bg-dark); --card:var(--card-dark); --text:var(--text-dark); --muted:var(--muted-dark); --shadow:var(--shadow-strong); }
+    html.clean[data-theme]{ --bg:var(--bg-light); --card:var(--card-light); --text:var(--text-light); --muted:var(--muted-light); --shadow:var(--shadow-soft); }
 
-    /* -------------------------
-       base layout
-       ------------------------- */
     *{box-sizing:border-box}
-    html{ scroll-behavior:smooth; }
+    html{scroll-behavior:smooth}
     body{
-      margin:0; font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      margin:0; font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;
       -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
       background:
         radial-gradient(900px 420px at 12% 12%, var(--bg-deco-a, rgba(0,0,0,0.04)), transparent 12%),
@@ -60,121 +44,67 @@
       color:var(--text);
       padding: calc(var(--nav-height) + 18px) 18px 40px;
     }
-    .wrap{ max-width:var(--max-width); margin:0 auto; background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent); border-radius:16px; padding:26px; box-shadow: var(--shadow); border:1px solid rgba(0,0,0,0.04); }
+
+    .wrap{ max-width:var(--max-width); margin:0 auto; background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent); border-radius:16px; padding:26px; box-shadow:var(--shadow); border:1px solid rgba(0,0,0,0.04); }
     .muted{ color:var(--muted); font-size:14px; }
 
-    /* -------------------------
-       topbar
-       ------------------------- */
+    /* topbar */
     .topbar{ position:fixed; top:12px; left:50%; transform:translateX(-50%); width:min(1200px, calc(100% - 36px)); height:var(--nav-height); display:flex; align-items:center; justify-content:space-between; gap:12px; z-index:999; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.008)); border-radius:12px; padding:8px 14px; box-shadow: var(--shadow); backdrop-filter: blur(6px) saturate(120%); border:1px solid rgba(255,255,255,0.04); }
     .brand{ font-weight:700; color:var(--text); }
-    .nav{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+    .nav{ display:flex; gap:10px; align-items:center; }
     .nav a{ color:var(--muted); text-decoration:none; padding:8px 10px; border-radius:8px; font-weight:600; font-size:14px; }
-    .nav a.active{ background: linear-gradient(90deg, var(--accent-a), var(--accent-b)); color: var(--text); box-shadow: 0 10px 28px rgba(12,8,40,0.18); }
+    .nav a.active{ background: linear-gradient(90deg,var(--accent-a),var(--accent-b)); color:var(--text); box-shadow:0 10px 28px rgba(12,8,40,0.18) }
 
     .controls{ display:flex; gap:8px; align-items:center; }
+
+    /* hamburger */
     .hamburger{ display:none; width:44px;height:44px;border-radius:10px;background:var(--card);border:1px solid rgba(255,255,255,0.04);align-items:center;justify-content:center;cursor:pointer; }
     .hamburger svg{ width:20px;height:20px; color:var(--text); display:block; }
     .mobile-nav{ display:none; position:fixed; top:calc(var(--nav-height) + 28px); left:50%; transform:translateX(-50%); width:min(420px,calc(100% - 40px)); background:var(--card); border-radius:12px; box-shadow:0 12px 40px rgba(2,6,23,0.45); border:1px solid rgba(255,255,255,0.04); padding:12px; z-index:1000; }
-    .mobile-nav a{ display:block; padding:10px 12px; border-radius:8px; color:var(--text); text-decoration:none; font-weight:700; }
 
-    /* -------------------------
-       SWITCH (pill with label + knob) - FIXED animation
-       ------------------------- */
-    .switch-wrap { display:flex; align-items:center; gap:10px; }
-    .mode-switch {
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:5px 10px;
-      border-radius:20px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
-      border: 1px solid rgba(255,255,255,0.04);
-      cursor: pointer;
-    }
-    .mode-switch input { appearance: none; -webkit-appearance: none; width: 0; height: 0; position: absolute; left: -9999px; }
-    .switch-track {
-      position: relative;
-      display: inline-block;
-      width: 86px;
-      height: 32px;
-      padding: 4px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.06);
-      transition: background .22s ease, box-shadow .22s ease;
-    }
-    .switch-label {
-      margin-left:8px;
-      font-size:13px;
-      color:var(--muted);
-      background: rgba(255,255,255,0.02);
-      padding:6px 8px;
-      border-radius:8px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-    }
-    .switch-knob {
-      position: absolute;
-      left: 6px;
-      top: 6px;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: linear-gradient(180deg,#ffffff,#e6e6e6);
-      box-shadow: 0 4px 10px rgba(2,6,23,0.18);
-      transition: transform .26s cubic-bezier(.2,.9,.3,1), box-shadow .22s;
-      will-change: transform;
-    }
-    /* slide knob right in light mode */
-    html.clean .switch-knob { transform: translateX(52px); }
-    @media (max-width:520px){
-      .switch-track{ width:74px; height:30px; padding:4px; }
-      .switch-knob{ width:18px; height:18px; left:5px; top:5px; }
-      html.clean .switch-knob { transform: translateX(43px); }
-    }
+    /* switch pill (knob animation via transform) */
+    .switch-wrap{ display:flex; align-items:center; gap:10px; }
+    .mode-switch{ display:inline-flex; align-items:center; gap:10px; padding:5px 10px; border-radius:20px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00)); border:1px solid rgba(255,255,255,0.04); cursor:pointer; }
+    .mode-switch input{ appearance:none; -webkit-appearance:none; width:0;height:0; position:absolute; left:-9999px; }
+    .switch-track{ position:relative; display:inline-block; width:86px; height:32px; padding:4px; border-radius:16px; background:rgba(255,255,255,0.06); transition: background .22s ease; }
+    .switch-knob{ position:absolute; left:6px; top:6px; width:20px; height:20px; border-radius:50%; background: linear-gradient(180deg,#fff,#e6e6e6); box-shadow:0 4px 10px rgba(2,6,23,0.18); transition: transform .26s cubic-bezier(.2,.9,.3,1), box-shadow .22s; will-change: transform; }
+    html.clean .switch-knob{ transform: translateX(52px); }
+    .switch-label{ margin-left:8px; font-size:13px; color:var(--muted); background: rgba(255,255,255,0.02); padding:6px 8px; border-radius:8px; display:inline-flex; align-items:center; justify-content:center; }
 
-    /* -------------------------
-       hero (with rounded-rectangle portrait)
-       ------------------------- */
+    /* hero with rounded-rect portrait */
     .hero{ display:grid; grid-template-columns: 180px 1fr; gap:20px; align-items:start; }
     .avatar-col{ display:flex; align-items:flex-start; justify-content:center; padding-top:6px; }
-    .portrait{
-      display:block;
-      border-radius:18px;
-      overflow:hidden;
-      box-shadow: 0 14px 40px rgba(2,6,23,0.45), 0 0 28px rgba(162,123,255,0.12);
-      transition: transform .22s ease, box-shadow .22s ease;
-      width:160px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
-    }
+    .portrait{ display:block; border-radius:18px; overflow:hidden; box-shadow:0 14px 40px rgba(2,6,23,0.45), 0 0 28px rgba(162,123,255,0.12); transition: transform .22s ease, box-shadow .22s ease; width:160px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00)); }
     .portrait img{ width:100%; height:auto; display:block; object-fit:cover; object-position:center; }
-    .portrait:hover{ transform: translateY(-6px); box-shadow: 0 26px 60px rgba(2,6,23,0.5), 0 0 38px rgba(162,123,255,0.18); }
+    .portrait:hover{ transform:translateY(-6px); box-shadow:0 26px 60px rgba(2,6,23,0.5), 0 0 38px rgba(162,123,255,0.18); }
 
     .hero-content h1{ margin:0; font-size:28px; letter-spacing:-0.4px; }
-    .hero-content .title{ margin:6px 0; color:var(--muted); font-weight:600; }
-    .hero-content .summary{ margin:8px 0 0 0; color:var(--muted); max-width:720px; line-height:1.5; }
+    .title{ margin:6px 0; color:var(--muted); font-weight:600; }
+    .summary{ margin:8px 0 0 0; color:var(--muted); max-width:720px; line-height:1.5; }
 
     .actions{ display:flex; gap:10px; align-items:center; margin-top:12px; flex-wrap:wrap; }
-    .btn{ padding:10px 14px; border-radius:12px; border:none; display:inline-flex; gap:8px; align-items:center; text-decoration:none; color:inherit; font-weight:700; cursor:pointer; }
-    .btn-primary{ background: linear-gradient(90deg, var(--accent-a), var(--accent-b)); color: white; box-shadow: 0 10px 30px rgba(12,8,40,0.18); }
+    .btn{ padding:10px 14px; border-radius:12px; text-decoration:none; color:inherit; font-weight:700; display:inline-flex; align-items:center; gap:8px; }
+    .btn-primary{ background: linear-gradient(90deg,var(--accent-a),var(--accent-b)); color:white; box-shadow:0 10px 30px rgba(12,8,40,0.18); }
     .btn-ghost{ background:transparent; border:1px solid rgba(255,255,255,0.06); color:var(--text); }
 
-    .main-grid{ display:grid; grid-template-columns: 1fr 340px; gap:22px; margin-top:20px; align-items:start; }
+    .main-grid{ display:grid; grid-template-columns: 1fr 360px; gap:22px; margin-top:20px; align-items:start; }
     .card{ background:var(--card); border-radius:var(--card-radius); padding:16px; border:1px solid rgba(255,255,255,0.04); box-shadow: 0 8px 24px rgba(2,6,23,0.08); }
 
-    h2{ margin:0 0 10px 0; font-size:18px; }
     .skills{ display:flex; gap:10px; flex-wrap:wrap; margin-top:8px; }
-    .skill-pill{ background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00)); padding:8px 10px; border-radius:999px; font-weight:600; color:var(--text); border:1px solid rgba(255,255,255,0.04); }
+    .skill-pill{ padding:8px 10px; border-radius:999px; font-weight:600; color:var(--text); background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00)); border:1px solid rgba(255,255,255,0.04); }
 
-    .reveal{ opacity:0; transform:translateY(8px); transition: opacity .6s ease, transform .6s ease; will-change:opacity,transform; }
+    .exp{ margin-top:8px; display:flex; flex-direction:column; gap:12px; }
+    .exp-item{ padding:12px; border-radius:10px; background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent); border:1px solid rgba(255,255,255,0.02); }
+    .exp-item h3{ margin:0; font-size:15px; }
+    .exp-item .meta{ color:var(--muted); font-size:13px; margin-bottom:6px; }
+
+    .reveal{ opacity:0; transform:translateY(10px); transition: opacity .6s ease, transform .6s ease; will-change:opacity,transform; }
     .reveal.visible{ opacity:1; transform:translateY(0); }
 
     .back-top{ position: fixed; right: 18px; bottom: 18px; width:46px;height:46px;border-radius:10px;background:var(--card);display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.04);box-shadow:0 8px 30px rgba(2,6,23,0.35);cursor:pointer;opacity:0;transform:translateY(8px);transition:opacity .28s, transform .28s; z-index:999; }
     .back-top.show{ opacity:1; transform:translateY(0); }
 
-    /* Responsive */
-    @media (max-width:1100px){ .hero{ grid-template-columns: 160px 1fr; } .portrait{ width:140px; } }
+    @media (max-width:1100px){ .hero{ grid-template-columns:160px 1fr } .portrait{ width:140px } .main-grid{ grid-template-columns: 1fr } }
     @media (max-width:880px){
       .hero{ grid-template-columns: 1fr; }
       .avatar-col{ order:-1; justify-content:center; margin-bottom:8px; }
@@ -182,81 +112,81 @@
       .hero-content h1{ text-align:center; }
       .hero-content .title, .hero-content .summary { text-align:center; }
       .actions{ justify-content:center; }
-      .main-grid{ grid-template-columns: 1fr; }
       .topbar{ left:12px; right:12px; transform:none; width:calc(100% - 24px); }
       .hamburger{ display:flex; }
       .nav{ display:none; }
       .mobile-nav{ display:block; }
     }
     @media (max-width:420px){
-      .portrait{ width:180px; }
-      .hero-content h1{ font-size:20px; }
-      .hero-content .summary{ font-size:14px; max-width:100%; }
+      .portrait{ width:180px }
+      .hero-content h1{ font-size:20px }
+      .hero-content .summary{ font-size:14px; max-width:100% }
     }
 
     a:focus, button:focus { outline: 3px solid rgba(99,102,241,0.14); outline-offset:3px; border-radius:8px; }
   </style>
 </head>
 <body>
-  <div class="wrap" role="main">
-    <!-- top controls -->
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap">
-      <div style="display:flex;gap:8px;align-items:center">
-        <label for="style" class="muted" style="font-size:13px">Design</label>
-        <select id="style" aria-label="Choose design style" style="padding:6px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit">
-          <option value="glass">Modern (Glassmorphism)</option>
-          <option value="clean">Clean Professional</option>
-        </select>
-      </div>
-
-      <div style="display:flex;gap:8px;align-items:center">
-        <a class="btn btn-ghost" id="download-resume" href="assets/resume.pdf" download>Download Resume</a>
-
-        <div style="display:flex;align-items:center;gap:10px">
-          <select id="color-theme" aria-label="Choose color theme" title="Choose color theme"
-                  style="padding:6px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--text);">
-            <option value="galaxy">Galaxy</option>
-            <option value="sunrise">Sunrise</option>
-            <option value="emerald">Emerald</option>
-            <option value="slate">Slate</option>
-            <option value="origin" selected>Origin OS 6</option>
-          </select>
-
-          <!-- Dark/Light pill -->
-          <div class="switch-wrap" title="Toggle light / dark">
-            <label class="mode-switch" id="mode-switch-label" tabindex="0" role="switch" aria-checked="false" aria-labelledby="mode-switch-text">
-              <input type="checkbox" id="mode-switch-input" aria-hidden="true">
-              <span class="switch-track" id="switch-track" role="presentation">
-                 <span class="switch-knob" id="switch-knob" aria-hidden="true"></span>
-              </span>
-              <span class="switch-label" id="mode-switch-text">Light</span>
-            </label>
-          </div>
-        </div>
-      </div>
+  <div class="topbar" role="navigation" aria-label="Topbar">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div class="brand">Vinay Kumar Naguru</div>
     </div>
 
-    <!-- header / hero -->
-    <header class="reveal" id="about" style="margin-top:6px">
-      <div class="hero" role="region" aria-label="Profile">
-        <!-- avatar column -->
+    <nav class="nav" id="top-nav" aria-label="Primary navigation">
+      <a href="#about" class="active">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#awards">Awards</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="controls" style="align-items:center;">
+      <select id="color-theme" aria-label="Choose color theme" style="padding:6px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--text);margin-right:8px">
+        <option value="galaxy">Galaxy</option>
+        <option value="sunrise">Sunrise</option>
+        <option value="emerald">Emerald</option>
+        <option value="slate">Slate</option>
+        <option value="origin" selected>Origin OS 6</option>
+      </select>
+
+      <div class="switch-wrap" title="Toggle light / dark">
+        <label class="mode-switch" id="mode-switch-label" tabindex="0" role="switch" aria-checked="false" aria-labelledby="mode-switch-text">
+          <input type="checkbox" id="mode-switch-input" aria-hidden="true">
+          <span class="switch-track"><span class="switch-knob" id="switch-knob" aria-hidden="true"></span></span>
+          <span class="switch-label" id="mode-switch-text">Light</span>
+        </label>
+      </div>
+
+      <div class="hamburger" id="hamburger" aria-label="Menu" tabindex="0" style="margin-left:10px">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="mobile-nav" id="mobile-nav" aria-hidden="true"></div>
+
+  <div class="wrap" role="main" id="page-root" style="margin-top:10px">
+    <!-- HERO / ABOUT -->
+    <header id="about" class="reveal" tabindex="-1">
+      <div class="hero">
         <div class="avatar-col" aria-hidden="false">
           <div class="portrait" role="img" aria-label="Vinay portrait">
             <picture>
               <source media="(max-width:420px)" srcset="assets/mypic-rect-320.webp">
               <source media="(max-width:880px)" srcset="assets/mypic-rect-480.webp">
-              <img src="assets/mypic-rect-800.webp" alt="Vinay Kumar Naguru portrait" loading="lazy" width="420" height="560" style="display:block;width:100%;height:auto;">
+              <img src="assets/mypic-rect-800.webp" alt="Vinay Kumar Naguru portrait" loading="lazy">
             </picture>
           </div>
         </div>
 
-        <!-- content column -->
         <div class="hero-content">
           <h1>Vinay Kumar Naguru</h1>
-          <div class="title muted">Lead System Administrator • DevOps & Cloud Infrastructure</div>
+          <div class="title">Lead System Administrator • DevOps & Cloud Infrastructure</div>
           <div class="summary muted">
             Experienced IT & DevOps Professional with 13+ years in Windows Infrastructure, DevOps, CI/CD Pipelines, AWS, and Linux environments.
-            Skilled in automation, Terraform, Kubernetes, and incident/change management.
+            Skilled in automation, Terraform, Kubernetes, CI/CD, monitoring and IT service management. Proven ability to optimize performance, enhance security, and drive IT transformation.
           </div>
 
           <div class="actions">
@@ -267,11 +197,11 @@
       </div>
     </header>
 
-    <!-- main grid -->
+    <!-- MAIN GRID -->
     <div class="main-grid" style="margin-top:18px">
       <section id="skills" class="card reveal">
         <h2>Technical Skills</h2>
-        <p class="muted" style="margin-top:8px">Core platforms, tools and strengths:</p>
+        <p class="muted">Core platforms, tools and strengths:</p>
         <div class="skills" style="margin-top:10px">
           <div class="skill-pill">AWS (EC2, S3, IAM, VPC)</div>
           <div class="skill-pill">Terraform / IaC</div>
@@ -283,8 +213,8 @@
         </div>
       </section>
 
-      <aside id="contact" class="card reveal">
-        <h2>Contact & Quick Info</h2>
+      <aside id="contact" class="card reveal" aria-labelledby="contact-heading">
+        <h2 id="contact-heading">Contact & Quick Info</h2>
         <div style="margin-top:8px" class="muted">
           <strong>Email:</strong> <a href="mailto:naguruvinaykumar17@gmail.com">naguruvinaykumar17@gmail.com</a><br>
           <strong>Phone:</strong> +91 96188 52899<br>
@@ -295,12 +225,19 @@
           <div class="muted">Availability</div>
           <div style="font-weight:700;margin-top:6px">Immediate / Weekdays</div>
         </div>
+
+        <div style="margin-top:14px">
+          <h3 style="margin:0">Location</h3>
+          <div class="muted">Hyderabad, India</div>
+        </div>
       </aside>
     </div>
 
+    <!-- EXPERIENCE -->
     <section id="experience" class="card reveal" style="margin-top:18px">
       <h2>Experience</h2>
-      <div class="exp" style="margin-top:8px">
+
+      <div class="exp">
         <div class="exp-item">
           <h3>Lead System Administrator — ENCORA SOFTWARE INDIA PVT LTD</h3>
           <div class="meta muted">Sep 2022 – Present | Hyderabad</div>
@@ -308,26 +245,83 @@
             <li>Designed and deployed automated CI/CD pipelines using Jenkins, GitHub CI/CD, and AWS CodePipeline.</li>
             <li>Implemented IaC with Terraform for AWS automation and applied cost-optimisation (reduced cloud spend by ~30%).</li>
             <li>Managed containerized applications using Kubernetes & Docker and integrated Datadog for proactive monitoring.</li>
+            <li>Led production incident response and capacity planning for mission-critical services.</li>
           </ul>
         </div>
-        <!-- add more items as desired -->
+
+        <div class="exp-item">
+          <h3>Senior System Administrator / Consultant — APPS ASSOCIATES INDIA PVT LTD (via NFOLKS)</h3>
+          <div class="meta muted">Aug 2018 – Apr 2019 | Hyderabad</div>
+          <ul class="clean-list">
+            <li>Managed cloud infrastructure and automated provisioning with Terraform & Ansible.</li>
+            <li>Assisted cloud migration & security compliance (IAM and policy hardening).</li>
+          </ul>
+        </div>
+
+        <div class="exp-item">
+          <h3>IT System Engineer — YASH TECHNOLOGIES PVT LTD</h3>
+          <div class="meta muted">Oct 2016 – Apr 2018 | Hyderabad</div>
+          <ul class="clean-list">
+            <li>Administered Windows Server, Active Directory, and DNS; awarded Best Implementor for IPPlan deployment.</li>
+          </ul>
+        </div>
+
+        <div class="exp-item">
+          <h3>IT Engineer — GCI EXPORTS PVT LTD</h3>
+          <div class="meta muted">Apr 2014 – Jun 2016 | Bangalore</div>
+          <ul class="clean-list">
+            <li>Maintained enterprise Windows & Linux servers; implemented security practices and upgrades.</li>
+          </ul>
+        </div>
+
+        <div class="exp-item">
+          <h3>CMS INFOSYSTEMS PVT LTD — Center Head - Technical / IT Trainee</h3>
+          <div class="meta muted">May 2013 – Apr 2014; Sep 2011 – May 2013</div>
+          <ul class="clean-list">
+            <li>Led troubleshooting teams; awarded Best Employee in South Region (2012).</li>
+          </ul>
+        </div>
       </div>
     </section>
 
+    <!-- CERTIFICATIONS -->
     <section id="certifications" class="card reveal" style="margin-top:18px">
       <h2>Certifications</h2>
       <ul class="clean-list" style="margin-top:8px; color:var(--muted)">
         <li>AWS Certified Solutions Architect — Professional (Nov 2024 – Nov 2027)</li>
         <li>Generative AI Training Path (Coursera) — Jan 2025</li>
         <li>Generative AI for Everyone — DeepLearning.AI (Jan 2025)</li>
+        <li>Generative AI with LLMs — DeepLearning.AI & AWS (Jan 2025)</li>
+        <li>RHCSA, MCTS, ITIL (some expired as listed in resume)</li>
       </ul>
+    </section>
+
+    <!-- AWARDS -->
+    <section id="awards" class="card reveal" style="margin-top:18px">
+      <h2>Awards & Achievements</h2>
+      <ul class="clean-list" style="margin-top:8px; color:var(--muted)">
+        <li>Shining Star Award — Excellarate (Oct 2022)</li>
+        <li>Best Implementor Award — YASH Technologies (Jan 2018)</li>
+        <li>Pinnacle & Client Appreciation awards (2017)</li>
+        <li>Best Employee — CMS Info Systems (2012)</li>
+      </ul>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education" class="card reveal" style="margin-top:18px">
+      <h2>Education</h2>
+      <div class="muted" style="margin-top:8px">
+        B.Com (Computers) — Sri KrishnaDevaraya Open University<br>
+        Intermediate — National Institute of Open Schooling<br>
+        SSC — Andhra Pradesh Board
+      </div>
     </section>
 
     <footer style="margin-top:26px">© <span id="year"></span> Vinay Kumar Naguru — Built with care.</footer>
   </div>
 
   <!-- BACK TO TOP -->
-  <div class="back-top" id="back-top" aria-label="Back to top" role="button" title="Back to top" tabindex="0">
+  <div class="back-top" id="back-top" aria-label="Back to top" role="button" title="Back to top" tabindex="0" aria-hidden="false">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V6"/><path d="M5 12l7-7 7 7"/></svg>
   </div>
 
@@ -337,37 +331,55 @@
     const $$ = s => Array.from(document.querySelectorAll(s));
 
     // year
-    $('#year').textContent = new Date().getFullYear();
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    /* Mobile nav (hamburger) */
+    /* Mobile nav */
     (function(){
-      const hamburger = document.querySelector('.hamburger');
-      const mobileNav = document.querySelector('.mobile-nav');
-      const links = Array.from(document.querySelectorAll('.nav a') || []);
+      const hamburger = document.getElementById('hamburger');
+      const mobileNav = document.getElementById('mobile-nav');
+      const links = Array.from(document.querySelectorAll('.nav a'));
       if(!mobileNav) return;
       links.forEach(a => {
-        const li = document.createElement('a');
-        li.href = a.href;
-        li.textContent = a.textContent;
-        li.addEventListener('click', ()=> mobileNav.style.display='none');
-        mobileNav.appendChild(li);
+        const el = document.createElement('a');
+        el.href = a.href;
+        el.textContent = a.textContent;
+        el.addEventListener('click', ()=> { mobileNav.style.display = 'none'; mobileNav.setAttribute('aria-hidden','true'); });
+        mobileNav.appendChild(el);
       });
       if(hamburger){
         hamburger.addEventListener('click', ()=> {
-          mobileNav.style.display = mobileNav.style.display === 'block' ? 'none' : 'block';
+          const open = mobileNav.style.display === 'block';
+          mobileNav.style.display = open ? 'none' : 'block';
+          mobileNav.setAttribute('aria-hidden', open ? 'true' : 'false');
         });
+        hamburger.addEventListener('keypress', e=> { if(e.key==='Enter'||e.key===' ') hamburger.click(); });
       }
-      document.addEventListener('click', (e) => {
-        if(mobileNav.style.display === 'block' && !mobileNav.contains(e.target) && hamburger && !hamburger.contains(e.target)){
-          mobileNav.style.display = 'none';
+      document.addEventListener('click', (e)=> {
+        if(mobileNav.style.display === 'block' && !mobileNav.contains(e.target) && !hamburger.contains(e.target)){
+          mobileNav.style.display = 'none'; mobileNav.setAttribute('aria-hidden','true');
         }
       });
+    })();
+
+    /* Scrollspy highlight */
+    (function(){
+      const sections = Array.from(document.querySelectorAll('section, header#about'));
+      const links = Array.from(document.querySelectorAll('.nav a'));
+      function calcOffsets(){ return sections.map(s => ({ id: s.id, top: s.getBoundingClientRect().top + window.scrollY })); }
+      let offsets = calcOffsets();
+      window.addEventListener('resize', ()=> { offsets = calcOffsets(); });
+      window.addEventListener('scroll', ()=> {
+        const y = window.scrollY + window.innerHeight * 0.12;
+        let current = offsets[0] && offsets[0].id || '';
+        for(const off of offsets) if(y >= off.top) current = off.id;
+        links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+      }, { passive:true });
     })();
 
     /* Reveal on scroll */
     (function(){
       const obs = new IntersectionObserver((entries)=>{
-        entries.forEach(en=>{
+        entries.forEach(en => {
           if(en.isIntersecting){ en.target.classList.add('visible'); obs.unobserve(en.target); }
         });
       }, { threshold: 0.12 });
@@ -385,54 +397,46 @@
 
     /* Avatar modal */
     (function(){
-      const portrait = document.querySelector('.portrait img');
-      if(!portrait) return;
-      portrait.addEventListener('click', ()=>{
+      const img = document.querySelector('.portrait img');
+      if(!img) return;
+      img.addEventListener('click', ()=>{
         const modal = document.createElement('div');
         modal.style = 'position:fixed;inset:0;background:rgba(2,6,23,0.9);display:flex;align-items:center;justify-content:center;z-index:9999;padding:20px';
         modal.addEventListener('click', ()=> modal.remove());
-        const copy = portrait.cloneNode();
+        const copy = img.cloneNode();
         copy.style = 'max-width:90%;max-height:90%;border-radius:14px;box-shadow:0 30px 80px rgba(0,0,0,0.7);object-fit:cover';
         modal.appendChild(copy);
         document.body.appendChild(modal);
         document.addEventListener('keydown', function esc(e){ if(e.key==='Escape'){ modal.remove(); document.removeEventListener('keydown',esc); }});
       });
-      portrait.setAttribute('tabindex','0');
-      portrait.addEventListener('keypress', e => { if(e.key==='Enter' || e.key===' ') portrait.click(); });
+      img.setAttribute('tabindex','0');
+      img.addEventListener('keypress', e=>{ if(e.key==='Enter' || e.key===' ') img.click(); });
     })();
 
-    /* Theme + Light/Dark switch (with fixed animation) */
+    /* Theme + light/dark toggle (knob uses transform) */
     (function(){
       const sel = $('#color-theme');
-      const styleSel = $('#style');
       const html = document.documentElement;
-      const label = $('#mode-switch-label');
-      const input = $('#mode-switch-input');
-      const modeText = $('#mode-switch-text');
+      const label = document.getElementById('mode-switch-label');
+      const input = document.getElementById('mode-switch-input');
+      const modeText = document.getElementById('mode-switch-text');
 
       const savedColor = localStorage.getItem('preferredColor') || 'origin';
-      const savedMode = localStorage.getItem('preferredMode') || 'dark';
+      const savedMode  = localStorage.getItem('preferredMode') || 'dark';
 
-      // apply stored preferences
       html.setAttribute('data-theme', savedColor);
       if(savedMode === 'light') html.classList.add('clean'); else html.classList.remove('clean');
       if(sel) sel.value = savedColor;
-      if(styleSel) styleSel.value = savedMode === 'light' ? 'clean' : 'glass';
 
-      // color selector
-      if(sel){
-        sel.addEventListener('change', (e) => {
-          html.setAttribute('data-theme', e.target.value);
-          localStorage.setItem('preferredColor', e.target.value);
-        });
-      }
+      if(sel) sel.addEventListener('change', (e)=> {
+        html.setAttribute('data-theme', e.target.value);
+        localStorage.setItem('preferredColor', e.target.value);
+      });
 
-      // initialize switch state
       input.checked = savedMode === 'light';
       function updateModeText(){ modeText.textContent = input.checked ? 'Light' : 'Dark'; }
       updateModeText();
 
-      // Apply mode and keep aria state in sync
       function applyMode(){
         if(input.checked){
           html.classList.add('clean');
@@ -446,21 +450,13 @@
         updateModeText();
       }
 
-      // click/keyboard handlers
       label.addEventListener('click', ()=> { input.checked = !input.checked; applyMode(); });
-      label.addEventListener('keydown', e => { if(e.key==='Enter' || e.key===' '){ e.preventDefault(); input.checked = !input.checked; applyMode(); } });
-
-      // style selector compatibility
-      if(styleSel){
-        styleSel.addEventListener('change', e => {
-          if(e.target.value === 'clean') { html.classList.add('clean'); localStorage.setItem('preferredMode','light'); input.checked = true; updateModeText(); label.setAttribute('aria-checked','true'); }
-          else { html.classList.remove('clean'); localStorage.setItem('preferredMode','dark'); input.checked = false; updateModeText(); label.setAttribute('aria-checked','false'); }
-        });
-      }
+      label.addEventListener('keydown', e=> { if(e.key==='Enter' || e.key===' '){ e.preventDefault(); input.checked = !input.checked; applyMode(); } });
     })();
 
-    // accessibility: focusable sections
+    // accessibility
     (function(){ document.querySelectorAll('section, header, aside').forEach(el=> { if(!el.hasAttribute('tabindex')) el.setAttribute('tabindex','-1'); }); })();
+
   </script>
 </body>
 </html>
