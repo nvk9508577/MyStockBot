@@ -5,106 +5,101 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Vinay Kumar Naguru - IT & DevOps Professional</title>
 
+  <!-- Tailwind and Font Awesome -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
   <style>
-    /* --- variables --- */
+    /* ========== Visual variables ========== */
     :root{
-      --logo-opacity: 0.12;      /* watermark opacity */
-      --vignette-opacity: 0.06;  /* subtle vignette */
+      --logo-opacity: 0.12;      /* watermark visibility */
+      --vignette-opacity: 0.05;
       --card-hover-glow: 0.12;
     }
 
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-    html,body { height:100%; margin:0; }
-    body {
-      font-family: 'Inter', sans-serif;
+    html,body{height:100%;margin:0}
+    body{
+      font-family:'Inter',sans-serif;
       color:#0f172a;
-      background: #f7fafc; /* LIGHT middle bg */
+      background:#f7fafc; /* light middle area */
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
     }
 
-    .site-wrap { position:relative; z-index:2; }
+    .site-wrap { position: relative; z-index: 2; }
 
-    /* HEADER / FOOTER: host their own region-bg which is clipped to their box */
+    /* ===== header/footer bg clipped to box (no bleed) ===== */
     header, footer {
       position: relative;
-      overflow: hidden; /* important: clip background to header/footer */
+      overflow: hidden; /* clip gradient to header/footer box */
     }
     .region-bg {
       position: absolute;
-      inset: 0;                 /* fills the header/footer only */
-      z-index: -1;
+      inset:0;
+      z-index:-1;
       background-size: 300% 300%;
-      pointer-events: none;
+      pointer-events:none;
       transition: opacity 1.6s ease;
     }
+    .header-contrast--light { color:#fff !important; text-shadow:0 1px 2px rgba(0,0,0,0.18); }
+    .header-contrast--dark  { color:#0f172a !important; text-shadow:none; }
 
-    .header-contrast--light { color: #ffffff !important; text-shadow: 0 1px 2px rgba(0,0,0,0.18); }
-    .header-contrast--dark  { color: #0f172a !important; text-shadow: none; }
-
-    /* MIDDLE wrapper: owns watermark logos (relative) */
+    /* ===== middle area overlay and watermark logos ===== */
     .middle-wrapper { position: relative; z-index:1; }
+    .middle-content { position: relative; z-index: 2; } /* ensures content sits above logos */
     .middle-overlay {
-      position: absolute;
-      inset:0;
-      pointer-events:none;
+      position:absolute; inset:0; pointer-events:none; z-index:1;
       background:
         radial-gradient(1200px 600px at 10% 10%, rgba(0,0,0,var(--vignette-opacity)) 0%, rgba(255,255,255,0) 30%),
         radial-gradient(1000px 400px at 90% 90%, rgba(0,0,0,var(--vignette-opacity)) 0%, rgba(255,255,255,0) 28%);
       mix-blend-mode: multiply;
-      z-index:0;
     }
 
-    /* watermark logos (contained inside middle wrapper) */
-    #tech-bg-middle { position: absolute; top:0; left:0; right:0; bottom:0; z-index:0; pointer-events:none; }
+    #tech-bg-middle {
+      position:absolute; top:0; left:0; right:0; bottom:0;
+      z-index:0; pointer-events:none;
+    }
     #tech-bg-middle .logo {
-      position:absolute;
-      opacity: var(--logo-opacity);
-      pointer-events:none;
-      filter: grayscale(1) contrast(.95) saturate(.9);
+      position:absolute; opacity:var(--logo-opacity); pointer-events:none;
+      filter:grayscale(1) contrast(.95) saturate(.85);
       will-change: transform, opacity;
     }
-    @media (max-width: 768px) {
-      #tech-bg-middle { display: none; }
-    }
+    @media (max-width:768px) { #tech-bg-middle{display:none} }
 
-    /* float animations */
-    @keyframes floatSlow { 0%,100%{transform:translateY(0) rotate(0);} 50%{transform:translateY(-12px) rotate(3deg);} }
-    @keyframes floatMedium{ 0%,100%{transform:translateY(0) rotate(0);} 50%{transform:translateY(10px) rotate(-2deg);} }
-    .animate-float-slow { animation: floatSlow 18s ease-in-out infinite; }
-    .animate-float-medium { animation: floatMedium 22s ease-in-out infinite; }
+    /* floating animations */
+    @keyframes floatSlow { 0%,100%{transform:translateY(0) rotate(0)} 50%{transform:translateY(-10px) rotate(2deg)} }
+    @keyframes floatMedium { 0%,100%{transform:translateY(0) rotate(0)} 50%{transform:translateY(8px) rotate(-1deg)} }
+    .animate-float-slow { animation: floatSlow 20s ease-in-out infinite; }
+    .animate-float-medium { animation: floatMedium 24s ease-in-out infinite; }
 
-    /* card styles (unchanged look) */
+    /* ===== cards & UI (kept exactly readable) ===== */
     .bg-white { background-color:#fff !important; }
-    .header-avatar { width:160px;height:160px;border-radius:18px;overflow:hidden;border:4px solid rgba(255,255,255,0.9);background:rgba(255,255,255,0.15);box-shadow:0 6px 18px rgba(2,6,23,0.06); margin-left:auto;margin-right:auto; }
-    @media (max-width:640px){ .header-avatar { width:120px;height:120px; } }
-    .logo-sm{ width:36px;height:36px;object-fit:contain;display:inline-block; }
-    .skill-tag{ transition: all .28s ease; } .skill-tag:hover{ transform:translateY(-2px); box-shadow:0 6px 16px rgba(2,6,23,0.06); }
+    .header-avatar {
+      width:160px;height:160px;border-radius:18px;overflow:hidden;
+      border:4px solid rgba(255,255,255,0.9);box-shadow:0 6px 18px rgba(2,6,23,0.06);
+      background:rgba(255,255,255,0.15); margin-left:auto;margin-right:auto;
+    }
+    @media (max-width:640px){ .header-avatar{width:120px;height:120px} }
+    .logo-sm{ width:36px;height:36px;object-fit:contain;display:inline-block }
+    .skill-tag{ transition:all .28s ease } .skill-tag:hover{ transform:translateY(-2px); box-shadow:0 6px 16px rgba(2,6,23,0.06) }
     .card-zoom{ transition: transform .25s cubic-bezier(.2,.9,.3,1), box-shadow .25s ease; will-change: transform; }
     .card-zoom:hover{ transform: translateY(-6px) scale(1.03); box-shadow: 0 22px 46px rgba(2,6,23,var(--card-hover-glow)); }
 
-    /* reveal on scroll */
-    .reveal{ opacity:0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
-    .reveal.in-view{ opacity:1; transform: translateY(0); }
+    /* ensure no content is hidden by default (we removed reveal hiding) */
+    .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
 
     /* small */
-    .cta-btn{ transition: transform .18s ease, box-shadow .18s ease; } .cta-btn:hover{ transform:translateY(-3px); }
+    .cta-btn{ transition: transform .18s ease, box-shadow .18s ease; } .cta-btn:hover{ transform: translateY(-3px); }
 
-    /* print fallback */
-    @media print { body{ background:white !important; color:black !important; } }
-
-    /* bg shift keyframe referenced by JS; declared here */
-    @keyframes bgShift { 0% { background-position: 0% 50% } 50% { background-position:100% 50% } 100% { background-position:0% 50% } }
+    /* bg shift frame (used by animations) */
+    @keyframes bgShift { 0% { background-position: 0% 50% } 50% { background-position: 100% 50% } 100% { background-position: 0% 50% } }
   </style>
 </head>
-
 <body>
   <div class="site-wrap">
 
-    <!-- HEADER (gradient strictly inside header due to overflow:hidden) -->
+    <!-- HEADER (gradient clipped) -->
     <header id="page-header" class="py-16 header-contrast--light text-center">
       <div id="header-bg" class="region-bg" aria-hidden="true"></div>
 
@@ -139,128 +134,128 @@
       </div>
     </header>
 
-    <!-- MAIN (middle) — middle-wrapper is relative and contains the watermarks -->
-    <main class="middle-wrapper" aria-live="polite">
-
-      <!-- subtle overlay (no blur, soft) -->
+    <!-- MIDDLE: contains watermark logos (behind) and content (above) -->
+    <main class="middle-wrapper">
       <div class="middle-overlay" aria-hidden="true"></div>
 
-      <!-- Watermark logos confined here — positioned relative to the middle wrapper -->
+      <!-- watermark icons: behind content (z-index:0). They are non-blocking. -->
       <div id="tech-bg-middle" aria-hidden="true">
-        <!-- absolute positioned inside middle wrapper -->
-        <img src="assets/icons/aws.png" alt="aws" class="logo animate-float-slow" style="left:2%; top:6%; width:200px;" onerror="this.style.display='none'">
-        <img src="assets/icons/microsoft.png" alt="microsoft" class="logo animate-float-medium" style="left:10%; bottom:6%; width:130px;" onerror="this.style.display='none'">
-        <img src="assets/icons/docker.png" alt="docker" class="logo animate-float-slow" style="right:6%; top:28%; width:160px;" onerror="this.style.display='none'">
-        <img src="assets/icons/terraform.png" alt="terraform" class="logo animate-float-medium" style="left:50%; top:54%; width:150px;" onerror="this.style.display='none'">
+        <img src="assets/icons/aws.png" alt="aws" class="logo animate-float-slow" style="left:2%; top:6%; width:220px;" onerror="this.style.display='none'">
+        <img src="assets/icons/microsoft.png" alt="microsoft" class="logo animate-float-medium" style="left:10%; bottom:8%; width:140px;" onerror="this.style.display='none'">
+        <img src="assets/icons/docker.png" alt="docker" class="logo animate-float-slow" style="right:5%; top:24%; width:160px;" onerror="this.style.display='none'">
+        <img src="assets/icons/terraform.png" alt="terraform" class="logo animate-float-medium" style="left:48%; top:60%; width:150px;" onerror="this.style.display='none'">
         <img src="assets/icons/redhat.png" alt="redhat" class="logo animate-float-slow" style="right:10%; bottom:8%; width:140px;" onerror="this.style.display='none'">
       </div>
 
-      <!-- PROFESSIONAL SUMMARY -->
-      <section class="py-16 reveal">
-        <div class="container mx-auto px-6">
-          <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Professional Summary</h2>
-          <div class="max-w-4xl mx-auto">
-            <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-8 rounded-xl border-l-4 border-blue-500 card-zoom bg-white">
-              <p class="text-lg leading-relaxed text-gray-700">
-                Experienced IT & DevOps Professional with <strong>13+ years</strong> in Windows Infrastructure, DevOps, CI/CD Pipelines, AWS, and Linux environments. Skilled in system administration, cloud computing, automation, and IT service management. Expertise in AWS, Terraform, Kubernetes, CI/CD, ITIL, and troubleshooting enterprise infrastructure. Proven ability to optimize performance, enhance security, and drive IT transformation.
-              </p>
-            </div>
+      <!-- MAIN CONTENT (stacked on top of logos) -->
+      <div class="middle-content">
 
-            <div class="text-center mt-6">
-              <a href="assets/resume.pdf" download class="cta-btn inline-block bg-blue-600 text-white font-semibold px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300">
-                <i class="fas fa-download mr-2"></i> Download Resume
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- TECHNICAL SKILLS -->
-      <section class="py-16 reveal">
-        <div class="container mx-auto px-6">
-          <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Technical Skills</h2>
-          <div class="max-w-6xl mx-auto">
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <!-- cards unchanged -->
-              <div class="bg-white p-6 rounded-xl shadow-md card-zoom reveal">
-                <h3 class="text-xl font-semibold mb-4 text-blue-600 flex items-center"><i class="fas fa-server mr-3"></i>Operating Systems</h3>
-                <div class="flex flex-wrap gap-2">
-                  <span class="skill-tag bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Windows Server</span>
-                  <span class="skill-tag bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Linux</span>
-                  <span class="skill-tag bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">CentOS</span>
-                  <span class="skill-tag bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Ubuntu</span>
-                  <span class="skill-tag bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">RHEL</span>
-                </div>
+        <!-- PROFESSIONAL SUMMARY -->
+        <section class="py-16 reveal">
+          <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Professional Summary</h2>
+            <div class="max-w-4xl mx-auto">
+              <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-8 rounded-xl border-l-4 border-blue-500 card-zoom bg-white">
+                <p class="text-lg leading-relaxed text-gray-700">
+                  Experienced IT & DevOps Professional with <strong>13+ years</strong> in Windows Infrastructure, DevOps, CI/CD Pipelines, AWS, and Linux environments. Skilled in system administration, cloud computing, automation, and IT service management. Expertise in AWS, Terraform, Kubernetes, CI/CD, ITIL, and troubleshooting enterprise infrastructure. Proven ability to optimize performance, enhance security, and drive IT transformation.
+                </p>
               </div>
 
-              <div class="bg-white p-6 rounded-xl shadow-md card-zoom reveal">
-                <h3 class="text-xl font-semibold mb-4 text-orange-600 flex items-center"><i class="fas fa-cloud mr-3"></i>Cloud Platforms</h3>
-                <div class="flex flex-wrap gap-2">
-                  <span class="skill-tag bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">AWS</span>
-                  <span class="skill-tag bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">EC2</span>
-                  <span class="skill-tag bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">S3</span>
-                  <span class="skill-tag bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">IAM</span>
-                  <span class="skill-tag bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">VPC</span>
-                  <span class="skill-tag bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">CloudFormation</span>
-                  <span class="skill-tag bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">Lambda</span>
-                </div>
+              <div class="text-center mt-6">
+                <a href="assets/resume.pdf" download class="cta-btn inline-block bg-blue-600 text-white font-semibold px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300">
+                  <i class="fas fa-download mr-2"></i> Download Resume
+                </a>
               </div>
-
-              <div class="bg-white p-6 rounded-xl shadow-md card-zoom reveal">
-                <h3 class="text-xl font-semibold mb-4 text-green-600 flex items-center"><i class="fas fa-cogs mr-3"></i>DevOps & Automation</h3>
-                <div class="flex flex-wrap gap-2">
-                  <span class="skill-tag bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Terraform</span>
-                  <span class="skill-tag bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Kubernetes</span>
-                  <span class="skill-tag bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Docker</span>
-                  <span class="skill-tag bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Ansible</span>
-                  <span class="skill-tag bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Jenkins</span>
-                  <span class="skill-tag bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">GitHub Actions</span>
-                  <span class="skill-tag bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">GitLab CI/CD</span>
-                </div>
-              </div>
-
-              <!-- left other cards (unchanged) -->
-              <div class="bg-white p-6 rounded-xl shadow-md card-zoom reveal">
-                <h3 class="text-xl font-semibold mb-4 text-purple-600 flex items-center"><i class="fas fa-code mr-3"></i>Configuration Management</h3>
-                <div class="flex flex-wrap gap-2">
-                  <span class="skill-tag bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Shell Scripting</span>
-                  <span class="skill-tag bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Python</span>
-                  <span class="skill-tag bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Git</span>
-                  <span class="skill-tag bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Bitbucket</span>
-                  <span class="skill-tag bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">GitHub</span>
-                </div>
-              </div>
-
-              <div class="bg-white p-6 rounded-xl shadow-md card-zoom reveal">
-                <h3 class="text-xl font-semibold mb-4 text-red-600 flex items-center"><i class="fas fa-chart-line mr-3"></i>Monitoring & Tools</h3>
-                <div class="flex flex-wrap gap-2">
-                  <span class="skill-tag bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">Datadog</span>
-                  <span class="skill-tag bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">Solarwinds</span>
-                  <span class="skill-tag bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">Jira</span>
-                  <span class="skill-tag bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">ServiceNow</span>
-                  <span class="skill-tag bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">ITIL</span>
-                </div>
-              </div>
-
-              <div class="bg-white p-6 rounded-xl shadow-md card-zoom reveal">
-                <h3 class="text-xl font-semibold mb-4 text-indigo-600 flex items-center"><i class="fas fa-layer-group mr-3"></i>Infrastructure as Code</h3>
-                <div class="flex flex-wrap gap-2">
-                  <span class="skill-tag bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">Terraform</span>
-                  <span class="skill-tag bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">AWS CloudFormation</span>
-                </div>
-              </div>
-
             </div>
           </div>
         </section>
 
-        <!-- PROFESSIONAL EXPERIENCE (kept) -->
+        <!-- TECHNICAL SKILLS -->
+        <section class="py-16 reveal">
+          <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Technical Skills</h2>
+            <div class="max-w-6xl mx-auto">
+              <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-md card-zoom">
+                  <h3 class="text-xl font-semibold mb-4 text-blue-600 flex items-center"><i class="fas fa-server mr-3"></i>Operating Systems</h3>
+                  <div class="flex flex-wrap gap-2">
+                    <span class="skill-tag bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Windows Server</span>
+                    <span class="skill-tag bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Linux</span>
+                    <span class="skill-tag bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">CentOS</span>
+                    <span class="skill-tag bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Ubuntu</span>
+                    <span class="skill-tag bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">RHEL</span>
+                  </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-md card-zoom">
+                  <h3 class="text-xl font-semibold mb-4 text-orange-600 flex items-center"><i class="fas fa-cloud mr-3"></i>Cloud Platforms</h3>
+                  <div class="flex flex-wrap gap-2">
+                    <span class="skill-tag bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">AWS</span>
+                    <span class="skill-tag bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">EC2</span>
+                    <span class="skill-tag bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">S3</span>
+                    <span class="skill-tag bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">IAM</span>
+                    <span class="skill-tag bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">VPC</span>
+                    <span class="skill-tag bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">CloudFormation</span>
+                    <span class="skill-tag bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">Lambda</span>
+                  </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-md card-zoom">
+                  <h3 class="text-xl font-semibold mb-4 text-green-600 flex items-center"><i class="fas fa-cogs mr-3"></i>DevOps & Automation</h3>
+                  <div class="flex flex-wrap gap-2">
+                    <span class="skill-tag bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Terraform</span>
+                    <span class="skill-tag bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Kubernetes</span>
+                    <span class="skill-tag bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Docker</span>
+                    <span class="skill-tag bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Ansible</span>
+                    <span class="skill-tag bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Jenkins</span>
+                    <span class="skill-tag bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">GitHub Actions</span>
+                    <span class="skill-tag bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">GitLab CI/CD</span>
+                  </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-md card-zoom">
+                  <h3 class="text-xl font-semibold mb-4 text-purple-600 flex items-center"><i class="fas fa-code mr-3"></i>Configuration Management</h3>
+                  <div class="flex flex-wrap gap-2">
+                    <span class="skill-tag bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Shell Scripting</span>
+                    <span class="skill-tag bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Python</span>
+                    <span class="skill-tag bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Git</span>
+                    <span class="skill-tag bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Bitbucket</span>
+                    <span class="skill-tag bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">GitHub</span>
+                  </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-md card-zoom">
+                  <h3 class="text-xl font-semibold mb-4 text-red-600 flex items-center"><i class="fas fa-chart-line mr-3"></i>Monitoring & Tools</h3>
+                  <div class="flex flex-wrap gap-2">
+                    <span class="skill-tag bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">Datadog</span>
+                    <span class="skill-tag bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">Solarwinds</span>
+                    <span class="skill-tag bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">Jira</span>
+                    <span class="skill-tag bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">ServiceNow</span>
+                    <span class="skill-tag bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">ITIL</span>
+                  </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-md card-zoom">
+                  <h3 class="text-xl font-semibold mb-4 text-indigo-600 flex items-center"><i class="fas fa-layer-group mr-3"></i>Infrastructure as Code</h3>
+                  <div class="flex flex-wrap gap-2">
+                    <span class="skill-tag bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">Terraform</span>
+                    <span class="skill-tag bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">AWS CloudFormation</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PROFESSIONAL EXPERIENCE -->
         <section class="py-16 reveal">
           <div class="container mx-auto px-6">
             <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Professional Experience</h2>
             <div class="max-w-5xl mx-auto space-y-8">
-              <!-- Encora -->
-              <div class="card-zoom bg-gradient-to-r from-blue-50 to-indigo-50 p-8 rounded-xl border-l-4 border-blue-500 reveal">
+
+              <!-- ENCORA -->
+              <div class="card-zoom bg-gradient-to-r from-blue-50 to-indigo-50 p-8 rounded-xl border-l-4 border-blue-500">
                 <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
                   <div>
                     <h3 class="text-2xl font-bold text-gray-800 flex items-center gap-3">
@@ -287,12 +282,12 @@
                 </ul>
               </div>
 
-              <!-- Apps Associates -->
-              <div class="card-zoom bg-gradient-to-r from-green-50 to-teal-50 p-8 rounded-xl border-l-4 border-green-500 reveal">
+              <!-- APPS ASSOCIATES -->
+              <div class="card-zoom bg-gradient-to-r from-green-50 to-teal-50 p-8 rounded-xl border-l-4 border-green-500">
                 <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
                   <div>
                     <h3 class="text-2xl font-bold text-gray-800 flex items-center gap-3">
-                      <img src="assets/logos/apps.png" alt="Apps" class="logo-sm" onerror="this.style.display='none'">
+                      <img src="assets/logos/apps.png" alt="Apps Associates" class="logo-sm" onerror="this.style.display='none'">
                       APPS ASSOCIATES INDIA PVT LTD
                     </h3>
                     <p class="text-gray-600 italic">Hyderabad</p>
@@ -311,14 +306,184 @@
                 </ul>
               </div>
 
-              <!-- remaining experience cards unchanged... -->
+              <!-- YASH -->
+              <div class="card-zoom bg-gradient-to-r from-purple-50 to-pink-50 p-8 rounded-xl border-l-4 border-purple-500">
+                <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
+                  <div>
+                    <h3 class="text-2xl font-bold text-gray-800">YASH TECHNOLOGIES PVT LTD</h3>
+                    <p class="text-gray-600 italic">Hyderabad</p>
+                  </div>
+                  <div class="text-right mt-2 md:mt-0">
+                    <p class="font-semibold text-purple-600">IT System Engineer</p>
+                    <p class="text-gray-600">Oct 2016 – Apr 2018</p>
+                  </div>
+                </div>
+                <ul class="space-y-2 text-gray-700">
+                  <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>Administered Windows Server environments, Active Directory, and DNS configurations.</li>
+                  <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>Provided technical support and managed ticket resolution within ITIL-based SLAs.</li>
+                  <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i><strong>Received Best Implementor Award for deploying IPPlan on CentOS.</strong></li>
+                </ul>
+              </div>
+
+              <!-- GCI -->
+              <div class="card-zoom bg-gradient-to-r from-orange-50 to-red-50 p-8 rounded-xl border-l-4 border-orange-500">
+                <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
+                  <div>
+                    <h3 class="text-2xl font-bold text-gray-800">GCI EXPORTS PVT LTD</h3>
+                    <p class="text-gray-600 italic">Bangalore</p>
+                  </div>
+                  <div class="text-right mt-2 md:mt-0">
+                    <p class="font-semibold text-orange-600">IT Engineer</p>
+                    <p class="text-gray-600">Apr 2014 – Jun 2016</p>
+                  </div>
+                </div>
+                <ul class="space-y-2 text-gray-700">
+                  <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>Maintained enterprise Windows & Linux server environments.</li>
+                  <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>Implemented security best practices and performed system upgrades.</li>
+                </ul>
+              </div>
+
+              <!-- CMS -->
+              <div class="card-zoom bg-gradient-to-r from-teal-50 to-cyan-50 p-8 rounded-xl border-l-4 border-teal-500">
+                <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
+                  <div>
+                    <h3 class="text-2xl font-bold text-gray-800">CMS INFOSYSTEMS PVT LTD</h3>
+                    <p class="text-gray-600 italic">Hyderabad</p>
+                  </div>
+                  <div class="text-right mt-2 md:mt-0">
+                    <p class="font-semibold text-teal-600">Center Head - Technical</p>
+                    <p class="text-gray-600">May 2013 – Apr 2014</p>
+                    <p class="font-semibold text-teal-600 mt-2">IT Trainee</p>
+                    <p class="text-gray-600">Sep 2011 – May 2013</p>
+                  </div>
+                </div>
+                <ul class="space-y-2 text-gray-700">
+                  <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>Led a team for hardware and software troubleshooting.</li>
+                  <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i><strong>Recognized as Best Employee in South Region, India (2012).</strong></li>
+                </ul>
+              </div>
+
             </div>
           </div>
         </section>
 
-      </main>
+        <!-- CERTIFICATIONS -->
+        <section class="py-16 reveal">
+          <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Certifications</h2>
+            <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
+              <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-yellow-500 card-zoom">
+                <div class="flex items-center mb-3">
+                  <i class="fab fa-aws text-3xl text-yellow-600 mr-4"></i>
+                  <div>
+                    <h3 class="text-xl font-semibold text-gray-800">AWS Certified Solutions Architect – Professional</h3>
+                    <p class="text-gray-600">Nov 2024 – Nov 2027</p>
+                  </div>
+                </div>
+              </div>
 
-    <!-- FOOTER (gradient strictly inside footer) -->
+              <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-blue-500 card-zoom">
+                <div class="flex items-center mb-3">
+                  <i class="fas fa-certificate text-3xl text-blue-600 mr-4"></i>
+                  <div>
+                    <h3 class="text-xl font-semibold text-gray-800">ITIL Certification</h3>
+                    <p class="text-gray-600">IT Service Management - Expired</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-green-500 card-zoom">
+                <div class="flex items-center mb-3">
+                  <i class="fab fa-microsoft text-3xl text-green-600 mr-4"></i>
+                  <div>
+                    <h3 class="text-xl font-semibold text-gray-800">MCTS</h3>
+                    <p class="text-gray-600">Microsoft Certified Technology Specialist</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-red-500 card-zoom">
+                <div class="flex items-center mb-3">
+                  <i class="fab fa-redhat text-3xl text-red-600 mr-4"></i>
+                  <div>
+                    <h3 class="text-xl font-semibold text-gray-800">RHCSA</h3>
+                    <p class="text-gray-600">Red Hat Certified System Administrator - Expired</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- AWARDS & PROJECTS (kept) -->
+        <section class="py-16 reveal">
+          <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Rewards & Achievements</h2>
+            <div class="max-w-4xl mx-auto space-y-6">
+              <div class="bg-gradient-to-r from-yellow-50 to-orange-50 p-6 rounded-xl border-l-4 border-yellow-500 flex items-center">
+                <i class="fas fa-star text-3xl text-yellow-500 mr-6"></i>
+                <div>
+                  <h3 class="text-xl font-semibold text-gray-800">Shining Star Award</h3>
+                  <p class="text-gray-600">Excellarate Software Solutions India Pvt Ltd (Oct 2022)</p>
+                </div>
+              </div>
+
+              <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl border-l-4 border-blue-500 flex items-center">
+                <i class="fas fa-trophy text-3xl text-blue-500 mr-6"></i>
+                <div>
+                  <h3 class="text-xl font-semibold text-gray-800">Best Implementor Award</h3>
+                  <p class="text-gray-600">Recognized by AltaDevices for IPPlan implementation on CentOS at YASH Technologies (Jan 2018)</p>
+                </div>
+              </div>
+
+              <div class="bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-xl border-l-4 border-purple-500 flex items-center">
+                <i class="fas fa-medal text-3xl text-purple-500 mr-6"></i>
+                <div>
+                  <h3 class="text-xl font-semibold text-gray-800">Pinnacle Award</h3>
+                  <p class="text-gray-600">YASH Technologies – Recognized for resolving a critical Bentley Project issue (Jun 2017)</p>
+                </div>
+              </div>
+
+              <div class="bg-gradient-to-r from-green-50 to-teal-50 p-6 rounded-xl border-l-4 border-green-500 flex items-center">
+                <i class="fas fa-award text-3xl text-green-500 mr-6"></i>
+                <div>
+                  <h3 class="text-xl font-semibold text-gray-800">Best Employee Award</h3>
+                  <p class="text-gray-600">CMS Info Systems – Awarded as Best Employee in the South Region, India (Jun 2012)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section class="py-16 reveal">
+          <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Projects</h2>
+            <div class="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl shadow-md card-zoom">
+                <h3 class="text-xl font-semibold text-blue-600 mb-3 flex items-center"><i class="fas fa-cloud mr-2"></i>AWS Cost Optimization</h3>
+                <p class="text-gray-700 mb-4">Implemented automated AWS monitoring and rightsizing strategies, reducing cloud spend by <strong>30%</strong>.</p>
+                <a href="#" class="text-blue-600 hover:underline">View Details</a>
+              </div>
+              <div class="bg-gradient-to-r from-green-50 to-teal-50 p-6 rounded-xl shadow-md card-zoom">
+                <h3 class="text-xl font-semibold text-green-600 mb-3 flex items-center"><i class="fas fa-cogs mr-2"></i>CI/CD Pipeline Automation</h3>
+                <p class="text-gray-700 mb-4">Designed and deployed automated pipelines using Jenkins, GitHub Actions, and AWS CodePipeline.</p>
+                <a href="#" class="text-green-600 hover:underline">View Details</a>
+              </div>
+              <div class="bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-xl shadow-md card-zoom">
+                <h3 class="text-xl font-semibold text-purple-600 mb-3 flex items-center"><i class="fas fa-docker mr-2"></i>Kubernetes Migration</h3>
+                <p class="text-gray-700 mb-4">Migrated legacy applications to Kubernetes and Docker-based environments for HA and scalability.</p>
+                <a href="#" class="text-purple-600 hover:underline">View Details</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div> <!-- end middle-content -->
+    </main>
+
+    <!-- FOOTER (gradient clipped) -->
     <footer id="page-footer" class="py-12 header-contrast--light text-center">
       <div id="footer-bg" class="region-bg" aria-hidden="true"></div>
 
@@ -337,121 +502,91 @@
 
   </div>
 
+  <!-- ========== JS: gradients + typewriter + parallax ========== -->
   <script>
-  (function(){
-    /* ---------- small helpers ---------- */
-    function randomHslLight() {
+  (function() {
+    // Helper: create an HSL color with decent saturation/lightness for gradients
+    function randomHsl() {
       const h = Math.floor(Math.random()*360);
-      const s = 55 + Math.random()*25;
-      const l = 45 + Math.random()*10;
+      const s = 55 + Math.random()*30; // 55-85
+      const l = 40 + Math.random()*20; // 40-60
       return `hsl(${h}, ${Math.round(s)}%, ${Math.round(l)}%)`;
     }
-    function makeGradient() {
-      const stops = [randomHslLight(), randomHslLight(), randomHslLight()];
+    function makeGradientString() {
+      const a = randomHsl(), b = randomHsl(), c = randomHsl();
       const angle = Math.floor(Math.random()*360);
-      return `linear-gradient(${angle}deg, ${stops.join(', ')})`;
+      return `linear-gradient(${angle}deg, ${a}, ${b}, ${c})`;
     }
 
-    /* ---------- attach gradient to header/footer region elements (scoped) ---------- */
-    function initRegionGradient(regionEl, minInterval=20000, maxInterval=42000, durRange=[30,70]) {
+    // Set gradient to a region element and compute average lightness to set contrast on container
+    function setRegionGradient(regionEl, containerEl) {
       if(!regionEl) return;
-      function apply() {
-        const g = makeGradient();
-        regionEl.style.background = g;
-        const dur = durRange[0] + Math.random()*(durRange[1]-durRange[0]);
-        regionEl.style.animation = `bgShift ${dur}s ease infinite`;
-      }
-      apply();
-      setInterval(apply, minInterval + Math.random()*(maxInterval-minInterval));
+      const stops = [randomHsl(), randomHsl(), randomHsl()];
+      const angle = Math.floor(Math.random()*360);
+      const grad = `linear-gradient(${angle}deg, ${stops.join(',')})`;
+      regionEl.style.background = grad;
+      regionEl.style.animation = `bgShift ${40 + Math.random()*40}s ease infinite`;
+      // compute average lightness from stops (they are hsl(X, Y%, L%))
+      try {
+        const lightness = stops.map(s => {
+          const m = s.match(/hsl\([^,]+,\s*[^,]+,\s*([^\)]+)\)/);
+          if(!m) return 0.5;
+          return parseFloat(m[1]) / 100;
+        }).reduce((a,b)=>a+b,0)/stops.length;
+        if(containerEl) {
+          if(lightness < 0.52) {
+            containerEl.classList.remove('header-contrast--dark'); containerEl.classList.add('header-contrast--light');
+          } else {
+            containerEl.classList.remove('header-contrast--light'); containerEl.classList.add('header-contrast--dark');
+          }
+        }
+      } catch(e) { /* ignore */ }
     }
+
+    // Initialize header & footer gradients (scoped inside header/footer)
     document.addEventListener('DOMContentLoaded', function(){
-      initRegionGradient(document.getElementById('header-bg'));
-      initRegionGradient(document.getElementById('footer-bg'));
+      setRegionGradient(document.getElementById('header-bg'), document.getElementById('page-header'));
+      setRegionGradient(document.getElementById('footer-bg'), document.getElementById('page-footer'));
+      // refresh gradients occasionally
+      setInterval(()=> setRegionGradient(document.getElementById('header-bg'), document.getElementById('page-header')), 30000 + Math.random()*25000);
+      setInterval(()=> setRegionGradient(document.getElementById('footer-bg'), document.getElementById('page-footer')), 35000 + Math.random()*25000);
     });
 
-    /* ---------- adaptive contrast for header/footer ---------- */
-    function setContrastFromGradient(regionId, containerId) {
-      const region = document.getElementById(regionId);
-      const container = document.getElementById(containerId);
-      if(!region || !container) return;
-      try {
-        const bg = getComputedStyle(region).backgroundImage;
-        const nums = bg.match(/\d+(\.\d+)?/g);
-        if(!nums) return;
-        // simple estimate: take lightness values (HSL third number) when present
-        const lights = [];
-        for(let i=2;i<nums.length;i+=3) { lights.push(parseFloat(nums[i])); }
-        if(lights.length===0) return;
-        const avg = lights.reduce((a,b)=>a+b,0)/lights.length/100;
-        if(avg < 0.5) { container.classList.remove('header-contrast--dark'); container.classList.add('header-contrast--light'); }
-        else { container.classList.remove('header-contrast--light'); container.classList.add('header-contrast--dark'); }
-      } catch(e){}
-    }
-    setInterval(()=>{ setContrastFromGradient('header-bg','page-header'); setContrastFromGradient('footer-bg','page-footer'); }, 2000);
+    // Typewriter for main title (robust)
+    document.addEventListener('DOMContentLoaded', function(){
+      const titleEl = document.getElementById('main-title');
+      if(!titleEl) return;
+      const text = titleEl.textContent.trim();
+      titleEl.textContent = '';
+      let i = 0;
+      (function loop() {
+        if(i < text.length) {
+          titleEl.textContent += text.charAt(i++);
+          setTimeout(loop, 60);
+        }
+      })();
+    });
 
-    /* ---------- confine watermarks to middle wrapper (no bleed) ---------- */
-    function confineMiddle() {
-      // tech-bg-middle is positioned relative to main wrapper so no need to recalc top/bottom
-      // just ensure height covers main visible content area; we'll set min-height if needed
-      const middle = document.getElementById('tech-bg-middle');
-      if(!middle) return;
-      // ensure it covers the visible main area
-      const mainEl = document.querySelector('main.middle-wrapper');
-      if(mainEl) {
-        // set height to main's scrollHeight for adequate watermark placement
-        middle.style.height = mainEl.scrollHeight + 'px';
-      }
-    }
-    window.addEventListener('load', () => setTimeout(confineMiddle, 150));
-    window.addEventListener('resize', () => setTimeout(confineMiddle, 120));
-
-    /* ---------- parallax for watermark icons ---------- */
-    function applyParallax() {
+    // Parallax for watermark logos (subtle)
+    function parallaxLogos() {
       const logos = document.querySelectorAll('#tech-bg-middle .logo');
       const scrolled = window.scrollY || window.pageYOffset;
       logos.forEach((el, idx) => {
-        const depth = 0.01 + (idx % 3) * 0.01;
+        const depth = 0.01 + (idx % 4) * 0.01;
         el.style.transform = `translateY(${scrolled * depth}px)`;
       });
     }
-    window.addEventListener('scroll', () => requestAnimationFrame(applyParallax));
+    window.addEventListener('scroll', () => requestAnimationFrame(parallaxLogos));
 
-    /* ---------- typewriter ---------- */
-    document.addEventListener('DOMContentLoaded', function(){
-      const title = document.getElementById('main-title'); if(!title) return;
-      const text = title.textContent.trim(); title.textContent = '';
-      let i=0; (function t(){ if(i<text.length){ title.textContent += text.charAt(i++); setTimeout(t,60); } })();
-    });
-
-    /* ---------- reveal on scroll ---------- */
-    function initReveal() {
-      const obs = new IntersectionObserver((entries, o) => {
-        entries.forEach(entry => {
-          if(entry.isIntersecting) {
-            const el = entry.target;
-            el.classList.add('in-view');
-            const children = el.querySelectorAll('.reveal, .card-zoom.reveal');
-            if(children && children.length>1) children.forEach((c,i)=>setTimeout(()=>c.classList.add('in-view'), i*90));
-            o.unobserve(el);
-          }
-        });
-      }, { threshold: 0.12 });
-      document.querySelectorAll('.reveal').forEach(e => obs.observe(e));
-      document.querySelectorAll('.card-zoom.reveal').forEach(e => obs.observe(e));
+    // Ensure tech-bg-middle height is enough to cover middle content so logos are in correct area
+    function sizeTechBg() {
+      const tech = document.getElementById('tech-bg-middle');
+      const main = document.querySelector('main.middle-wrapper');
+      if(!tech || !main) return;
+      tech.style.height = main.scrollHeight + 'px';
     }
-    document.addEventListener('DOMContentLoaded', initReveal);
-
-    /* ---------- hide watermarks on small screens ---------- */
-    function handleMobile() {
-      if(window.innerWidth <= 768) {
-        document.querySelectorAll('#tech-bg-middle .logo').forEach(img => img.style.display='none');
-      } else {
-        document.querySelectorAll('#tech-bg-middle .logo').forEach(img => img.style.display='block');
-      }
-    }
-    window.addEventListener('resize', handleMobile);
-    window.addEventListener('load', handleMobile);
-    document.addEventListener('DOMContentLoaded', handleMobile);
+    window.addEventListener('load', () => setTimeout(sizeTechBg, 200));
+    window.addEventListener('resize', () => setTimeout(sizeTechBg, 120));
 
   })();
   </script>
