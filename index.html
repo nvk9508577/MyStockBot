@@ -22,14 +22,14 @@
       -moz-osx-font-smoothing:grayscale;
     }
 
-    /* background motion keyframes; duration will be set dynamically */
+    /* background movement keyframe; speed will be set dynamically */
     @keyframes bgShift {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
 
-    /* overlay to add subtle texture without blocking content */
+    /* overlay texture */
     body::after {
       content: "";
       position: fixed;
@@ -40,7 +40,7 @@
       z-index: 0;
     }
 
-    .site-wrap { position: relative; z-index: 1; }
+    .site-wrap { position: relative; z-index: 2; } /* put content above overlay/logos */
 
     /* card readability */
     .card-bg { background-color: #ffffff; }
@@ -49,7 +49,7 @@
     .header-contrast--light { color: #ffffff !important; text-shadow: 0 1px 2px rgba(0,0,0,0.18); }
     .header-contrast--dark  { color: #0f172a !important; text-shadow: none; }
 
-    /* small UI tweaks */
+    /* UI tweaks */
     .skill-tag { transition: all .28s ease; }
     .skill-tag:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(2,6,23,0.06); }
     .logo-sm { width: 36px; height: 36px; object-fit: contain; display:inline-block; }
@@ -60,17 +60,50 @@
 
     /* rounded rectangle avatar */
     .header-avatar { width: 160px; height: 160px; }
+    @media (max-width:640px) { .header-avatar { width:120px; height:120px; } }
 
-    @media (max-width:640px) { .header-avatar { width: 120px; height: 120px; } }
+    /* TECH LOGOS LAYER */
+    #tech-bg-overlay { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+    #tech-bg-overlay .overlay-gradient { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: overlay; opacity: .9; }
+    #tech-bg-overlay .logo-layer { position: absolute; inset: 0; pointer-events: none; opacity: 0.10; } /* base opacity for logos */
 
-    /* accessibility / print */
+    /* floating animations for logos */
+    @keyframes floatSlow {
+      0%,100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(3deg); }
+    }
+    @keyframes floatMedium {
+      0%,100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(10px) rotate(-2deg); }
+    }
+    .animate-float-slow { animation: floatSlow 18s ease-in-out infinite; }
+    .animate-float-medium { animation: floatMedium 22s ease-in-out infinite; }
+
+    /* ensure content sits above the logo visuals */
+    main, header, section, footer { position: relative; z-index: 2; }
+
+    /* small accessibility / print tweaks */
     @media print { body { background: white !important; color: black !important; } }
   </style>
 </head>
 
 <body>
-  <div class="site-wrap">
+  <!-- BACKGROUND LOGOS + SOFT OVERLAY (behind site content) -->
+  <div id="tech-bg-overlay" aria-hidden="true">
+    <!-- soft tint overlay that blends with the main gradient -->
+    <div class="overlay-gradient" style="background: linear-gradient(135deg, rgba(99,102,241,0.06), rgba(139,92,246,0.04), rgba(236,72,153,0.03));"></div>
 
+    <!-- floating logos; low opacity, pointer-events none; hide gracefully if missing -->
+    <div class="logo-layer">
+      <img src="assets/icons/aws.png" alt="aws" class="absolute top-16 left-10 w-32 md:w-40 animate-float-slow" onerror="this.style.display='none'">
+      <img src="assets/icons/redhat.png" alt="redhat" class="absolute bottom-20 right-16 w-28 md:w-36 animate-float-medium" onerror="this.style.display='none'">
+      <img src="assets/icons/docker.png" alt="docker" class="absolute top-1/3 right-1/4 w-24 md:w-32 animate-float-slow" onerror="this.style.display='none'">
+      <img src="assets/icons/microsoft.png" alt="microsoft" class="absolute bottom-1/3 left-1/5 w-32 md:w-40 animate-float-medium" onerror="this.style.display='none'">
+      <img src="assets/icons/terraform.png" alt="terraform" class="absolute top-2/3 left-1/2 w-28 md:w-36 animate-float-slow" onerror="this.style.display='none'">
+    </div>
+  </div>
+
+  <div class="site-wrap">
     <!-- HEADER -->
     <header id="page-header" class="py-16 header-contrast--light">
       <div class="container mx-auto px-6 text-center">
@@ -455,11 +488,10 @@
           <a href="https://www.linkedin.com/in/vinaykumar-naguru-04b934140" target="_blank" class="bg-white bg-opacity-10 hover:bg-opacity-20 px-6 py-3 rounded-lg transition-all duration-200 flex items-center"><i class="fab fa-linkedin mr-2"></i>LinkedIn</a>
         </div>
         <div class="mt-8 pt-8 border-t border-white border-opacity-20">
-          <p class="text-sm opacity-80">© 2025 Vinay Kumar Naguru. All rights reserved.</p>
+          <p class="text-sm opacity-80">© 2024 Vinay Kumar Naguru. All rights reserved.</p>
         </div>
       </div>
     </footer>
-
   </div>
 
   <!-- SCRIPT: Random evolving gradient (random colors, direction, speed), crossfade, contrast, typewriter -->
@@ -511,10 +543,9 @@
         left: 0,
         width: '100%',
         height: '100%',
-        zIndex: '-1',
+        zIndex: '-2', // behind everything including tech overlay
         transition: 'opacity 3s ease',
         backgroundSize: '300% 300%',
-        // animation name set dynamically with random speed later
       });
       document.body.appendChild(bg);
     });
@@ -522,7 +553,7 @@
     bgA.style.opacity = '1';
     bgB.style.opacity = '0';
 
-    // Apply gradient to a background element and update header/footer contrast
+    // Apply gradient + set animation speed
     function apply(bg, data, animDuration) {
       bg.style.background = data.gradient;
       bg.style.animation = `bgShift ${animDuration}s ease infinite`;
@@ -552,53 +583,36 @@
       }
     }
 
-    // Randomize animation speed & cycle interval
-    function randomSpeed() {
-      // random between 12s and 80s for smoothness; picks any value in range
-      return 12 + Math.random() * 68;
-    }
-    function randomCycleInterval() {
-      // crossfade interval between 18s and 45s
-      return 18000 + Math.random() * 27000;
-    }
+    // Random speed + interval helpers
+    function randomSpeed() { return 12 + Math.random() * 68; } // 12-80s
+    function randomCycleInterval() { return 18000 + Math.random() * 27000; } // 18-45s
 
     // initialize
     let current = createGradient();
     let speed = randomSpeed();
     apply(bgA, current, speed);
 
-    // function to trigger a crossfade to a new random gradient
-    function crossfadeOnce() {
-      const next = createGradient();
-      const nextSpeed = randomSpeed();
-      // set next on bgB
-      apply(bgB, next, nextSpeed);
-      // fade in bgB
-      bgB.style.opacity = '1';
-      bgA.style.opacity = '0';
-      // after crossfade, swap and prepare for next
-      setTimeout(() => {
-        // swap roles by copying background into bgA and resetting bgB opacity
-        apply(bgA, next, nextSpeed);
-        bgA.style.opacity = '1';
-        bgB.style.opacity = '0';
-        current = next;
-      }, 3200); // match transition
-    }
-
-    // first crossfade scheduled after a small random delay to give initial load a moment
-    const firstDelay = 500 + Math.random() * 1200;
+    // schedule first crossfade after tiny delay
     setTimeout(() => {
-      crossfadeOnce();
-      // then schedule repeating crossfades at randomized intervals
+      // crossfade loop
       (function scheduleNext() {
         const interval = randomCycleInterval();
         setTimeout(() => {
-          crossfadeOnce();
+          const next = createGradient();
+          const nextSpeed = randomSpeed();
+          apply(bgB, next, nextSpeed);
+          bgB.style.opacity = '1';
+          bgA.style.opacity = '0';
+          setTimeout(() => {
+            apply(bgA, next, nextSpeed);
+            bgA.style.opacity = '1';
+            bgB.style.opacity = '0';
+            current = next;
+          }, 3200);
           scheduleNext();
         }, interval);
       })();
-    }, firstDelay);
+    }, 700);
 
     // Typewriter animation for your name
     document.addEventListener('DOMContentLoaded', function() {
