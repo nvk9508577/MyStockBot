@@ -5,104 +5,71 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Vinay Kumar Naguru - IT & DevOps Professional</title>
 
-  <!-- Tailwind and Font Awesome -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
   <style>
-    /* ========== Visual variables ========== */
     :root{
-      --logo-opacity: 0.12;      /* watermark visibility */
+      --logo-opacity: 0.12;
       --vignette-opacity: 0.05;
       --card-hover-glow: 0.12;
     }
-
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
     html,body{height:100%;margin:0}
-    body{
-      font-family:'Inter',sans-serif;
-      color:#0f172a;
-      background:#f7fafc; /* light middle area */
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-    }
+    body{ font-family:'Inter',sans-serif; color:#0f172a; background:#f7fafc; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
 
-    .site-wrap { position: relative; z-index: 2; }
+    .site-wrap{ position:relative; z-index:2; }
 
-    /* ===== header/footer bg clipped to box (no bleed) ===== */
-    header, footer {
-      position: relative;
-      overflow: hidden; /* clip gradient to header/footer box */
-    }
-    .region-bg {
-      position: absolute;
-      inset:0;
-      z-index:-1;
-      background-size: 300% 300%;
-      pointer-events:none;
-      transition: opacity 1.6s ease;
-    }
-    .header-contrast--light { color:#fff !important; text-shadow:0 1px 2px rgba(0,0,0,0.18); }
-    .header-contrast--dark  { color:#0f172a !important; text-shadow:none; }
+    /* header/footer clipped gradients */
+    header, footer{ position:relative; overflow:hidden; }
+    .region-bg{ position:absolute; inset:0; z-index:-1; background-size:300% 300%; pointer-events:none; transition:opacity 1.6s ease; }
+    .header-contrast--light{ color:#fff !important; text-shadow:0 1px 2px rgba(0,0,0,0.18); }
+    .header-contrast--dark{ color:#0f172a !important; text-shadow:none; }
 
-    /* ===== middle area overlay and watermark logos ===== */
-    .middle-wrapper { position: relative; z-index:1; }
-    .middle-content { position: relative; z-index: 2; } /* ensures content sits above logos */
-    .middle-overlay {
-      position:absolute; inset:0; pointer-events:none; z-index:1;
+    /* middle wrapper and watermarks */
+    .middle-wrapper{ position:relative; z-index:1; }
+    .middle-content{ position:relative; z-index:2; }
+    .middle-overlay{ position:absolute; inset:0; pointer-events:none; z-index:1;
       background:
         radial-gradient(1200px 600px at 10% 10%, rgba(0,0,0,var(--vignette-opacity)) 0%, rgba(255,255,255,0) 30%),
         radial-gradient(1000px 400px at 90% 90%, rgba(0,0,0,var(--vignette-opacity)) 0%, rgba(255,255,255,0) 28%);
-      mix-blend-mode: multiply;
+      mix-blend-mode:multiply;
     }
+    #tech-bg-middle{ position:absolute; top:0; left:0; right:0; bottom:0; z-index:0; pointer-events:none; }
+    #tech-bg-middle .logo{ position:absolute; opacity:var(--logo-opacity); pointer-events:none; filter:grayscale(1) contrast(.95) saturate(.85); will-change:transform,opacity; }
 
-    #tech-bg-middle {
-      position:absolute; top:0; left:0; right:0; bottom:0;
-      z-index:0; pointer-events:none;
-    }
-    #tech-bg-middle .logo {
-      position:absolute; opacity:var(--logo-opacity); pointer-events:none;
-      filter:grayscale(1) contrast(.95) saturate(.85);
-      will-change: transform, opacity;
-    }
-    @media (max-width:768px) { #tech-bg-middle{display:none} }
+    @media (max-width:768px){ #tech-bg-middle{ display:none } }
 
-    /* floating animations */
-    @keyframes floatSlow { 0%,100%{transform:translateY(0) rotate(0)} 50%{transform:translateY(-10px) rotate(2deg)} }
-    @keyframes floatMedium { 0%,100%{transform:translateY(0) rotate(0)} 50%{transform:translateY(8px) rotate(-1deg)} }
-    .animate-float-slow { animation: floatSlow 20s ease-in-out infinite; }
-    .animate-float-medium { animation: floatMedium 24s ease-in-out infinite; }
+    /* float animations */
+    @keyframes floatSlow { 0%,100%{transform:translateY(0) rotate(0)} 50%{transform:translateY(-12px) rotate(3deg)} }
+    @keyframes floatMedium{ 0%,100%{transform:translateY(0) rotate(0)} 50%{transform:translateY(10px) rotate(-2deg)} }
+    .animate-float-slow{ animation: floatSlow 20s ease-in-out infinite; }
+    .animate-float-medium{ animation: floatMedium 24s ease-in-out infinite; }
 
-    /* ===== cards & UI (kept exactly readable) ===== */
-    .bg-white { background-color:#fff !important; }
-    .header-avatar {
-      width:160px;height:160px;border-radius:18px;overflow:hidden;
-      border:4px solid rgba(255,255,255,0.9);box-shadow:0 6px 18px rgba(2,6,23,0.06);
-      background:rgba(255,255,255,0.15); margin-left:auto;margin-right:auto;
-    }
-    @media (max-width:640px){ .header-avatar{width:120px;height:120px} }
+    /* cards and general UI (kept readable) */
+    .bg-white{ background-color:#fff !important; }
+    .header-avatar{ width:160px;height:160px;border-radius:18px;overflow:hidden;border:4px solid rgba(255,255,255,0.9);box-shadow:0 6px 18px rgba(2,6,23,0.06); background:rgba(255,255,255,0.15); margin-left:auto;margin-right:auto; }
+    @media (max-width:640px){ .header-avatar{ width:120px;height:120px } }
     .logo-sm{ width:36px;height:36px;object-fit:contain;display:inline-block }
     .skill-tag{ transition:all .28s ease } .skill-tag:hover{ transform:translateY(-2px); box-shadow:0 6px 16px rgba(2,6,23,0.06) }
     .card-zoom{ transition: transform .25s cubic-bezier(.2,.9,.3,1), box-shadow .25s ease; will-change: transform; }
     .card-zoom:hover{ transform: translateY(-6px) scale(1.03); box-shadow: 0 22px 46px rgba(2,6,23,var(--card-hover-glow)); }
 
-    /* ensure no content is hidden by default (we removed reveal hiding) */
-    .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    /* ensure content visible (no reveal hiding) */
+    .reveal { opacity:1 !important; transform:none !important; transition:none !important; }
 
-    /* small */
-    .cta-btn{ transition: transform .18s ease, box-shadow .18s ease; } .cta-btn:hover{ transform: translateY(-3px); }
+    .cta-btn{ transition: transform .18s ease, box-shadow .18s ease; } .cta-btn:hover{ transform:translateY(-3px); }
 
-    /* bg shift frame (used by animations) */
-    @keyframes bgShift { 0% { background-position: 0% 50% } 50% { background-position: 100% 50% } 100% { background-position: 0% 50% } }
+    @keyframes bgShift{ 0%{ background-position:0% 50% } 50%{ background-position:100% 50% } 100%{ background-position:0% 50% } }
   </style>
 </head>
+
 <body>
   <div class="site-wrap">
 
-    <!-- HEADER (gradient clipped) -->
+    <!-- HEADER -->
     <header id="page-header" class="py-16 header-contrast--light text-center">
       <div id="header-bg" class="region-bg" aria-hidden="true"></div>
-
       <div class="container mx-auto px-6">
         <div class="mb-6">
           <div class="header-avatar mb-6">
@@ -116,38 +83,28 @@
 
         <div class="flex flex-wrap justify-center gap-6 text-lg">
           <div class="flex items-center gap-2"><i class="fas fa-map-marker-alt"></i><span>Hyderabad, India</span></div>
-
-          <div class="flex items-center gap-2"><i class="fas fa-envelope"></i>
-            <a href="mailto:naguruvinaykumar17@gmail.com" class="hover:underline">naguruvinaykumar17@gmail.com</a>
-          </div>
-
+          <div class="flex items-center gap-2"><i class="fas fa-envelope"></i><a href="mailto:naguruvinaykumar17@gmail.com" class="hover:underline">naguruvinaykumar17@gmail.com</a></div>
           <div class="flex items-center gap-2"><i class="fas fa-phone"></i><span>9618852899</span></div>
-
-          <div class="flex items-center gap-2"><i class="fab fa-linkedin"></i>
-            <a href="https://www.linkedin.com/in/vinaykumar-naguru-04b934140" target="_blank" class="hover:underline">LinkedIn Profile</a>
-          </div>
-
-          <div class="flex items-center gap-2"><i class="fas fa-file-download"></i>
-            <a href="assets/resume.pdf" download class="hover:underline">Resume</a>
-          </div>
+          <div class="flex items-center gap-2"><i class="fab fa-linkedin"></i><a href="https://www.linkedin.com/in/vinaykumar-naguru-04b934140" target="_blank" class="hover:underline">LinkedIn Profile</a></div>
+          <div class="flex items-center gap-2"><i class="fas fa-file-download"></i><a href="assets/resume.pdf" download class="hover:underline">Resume</a></div>
         </div>
       </div>
     </header>
 
-    <!-- MIDDLE: contains watermark logos (behind) and content (above) -->
+    <!-- MIDDLE wrapper -->
     <main class="middle-wrapper">
       <div class="middle-overlay" aria-hidden="true"></div>
 
-      <!-- watermark icons: behind content (z-index:0). They are non-blocking. -->
+      <!-- watermark logos (behind content) - each has data-depth for parallax and will get baseY on load -->
       <div id="tech-bg-middle" aria-hidden="true">
-        <img src="assets/icons/aws.png" alt="aws" class="logo animate-float-slow" style="left:2%; top:6%; width:220px;" onerror="this.style.display='none'">
-        <img src="assets/icons/microsoft.png" alt="microsoft" class="logo animate-float-medium" style="left:10%; bottom:8%; width:140px;" onerror="this.style.display='none'">
-        <img src="assets/icons/docker.png" alt="docker" class="logo animate-float-slow" style="right:5%; top:24%; width:160px;" onerror="this.style.display='none'">
-        <img src="assets/icons/terraform.png" alt="terraform" class="logo animate-float-medium" style="left:48%; top:60%; width:150px;" onerror="this.style.display='none'">
-        <img src="assets/icons/redhat.png" alt="redhat" class="logo animate-float-slow" style="right:10%; bottom:8%; width:140px;" onerror="this.style.display='none'">
+        <img src="assets/icons/aws.png" class="logo animate-float-slow" data-depth="0.08" style="left:2%; top:6%; width:220px;" alt="aws" onerror="handleLogoError(this,'AWS')">
+        <img src="assets/icons/microsoft.png" class="logo animate-float-medium" data-depth="0.06" style="left:10%; bottom:8%; width:140px;" alt="microsoft" onerror="handleLogoError(this,'Microsoft')">
+        <img src="assets/icons/docker.png" class="logo animate-float-slow" data-depth="0.07" style="right:5%; top:24%; width:160px;" alt="docker" onerror="handleLogoError(this,'Docker')">
+        <img src="assets/icons/terraform.png" class="logo animate-float-medium" data-depth="0.05" style="left:48%; top:60%; width:150px;" alt="terraform" onerror="handleLogoError(this,'Terraform')">
+        <img src="assets/icons/redhat.png" class="logo animate-float-slow" data-depth="0.09" style="right:10%; bottom:8%; width:140px;" alt="redhat" onerror="handleLogoError(this,'RedHat')">
       </div>
 
-      <!-- MAIN CONTENT (stacked on top of logos) -->
+      <!-- MAIN CONTENT -->
       <div class="middle-content">
 
         <!-- PROFESSIONAL SUMMARY -->
@@ -176,6 +133,7 @@
             <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Technical Skills</h2>
             <div class="max-w-6xl mx-auto">
               <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- cards unchanged -->
                 <div class="bg-white p-6 rounded-xl shadow-md card-zoom">
                   <h3 class="text-xl font-semibold mb-4 text-blue-600 flex items-center"><i class="fas fa-server mr-3"></i>Operating Systems</h3>
                   <div class="flex flex-wrap gap-2">
@@ -213,6 +171,7 @@
                   </div>
                 </div>
 
+                <!-- other cards ... -->
                 <div class="bg-white p-6 rounded-xl shadow-md card-zoom">
                   <h3 class="text-xl font-semibold mb-4 text-purple-600 flex items-center"><i class="fas fa-code mr-3"></i>Configuration Management</h3>
                   <div class="flex flex-wrap gap-2">
@@ -259,7 +218,7 @@
                 <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
                   <div>
                     <h3 class="text-2xl font-bold text-gray-800 flex items-center gap-3">
-                      <img src="assets/logos/encora.png" alt="Encora" class="logo-sm" onerror="this.style.display='none'">
+                      <img src="assets/logos/encora.png" alt="Encora" class="logo-sm" onerror="handleCompanyLogoError(this,'ENCORA')">
                       ENCORA SOFTWARE INDIA PRIVATE LIMITED
                     </h3>
                     <p class="text-gray-600 italic">Hyderabad</p>
@@ -287,7 +246,7 @@
                 <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
                   <div>
                     <h3 class="text-2xl font-bold text-gray-800 flex items-center gap-3">
-                      <img src="assets/logos/apps.png" alt="Apps Associates" class="logo-sm" onerror="this.style.display='none'">
+                      <img src="assets/logos/apps.png" alt="Apps" class="logo-sm" onerror="handleCompanyLogoError(this,'APPS')">
                       APPS ASSOCIATES INDIA PVT LTD
                     </h3>
                     <p class="text-gray-600 italic">Hyderabad</p>
@@ -306,11 +265,14 @@
                 </ul>
               </div>
 
-              <!-- YASH -->
+              <!-- YASH (logo placeholder if missing) -->
               <div class="card-zoom bg-gradient-to-r from-purple-50 to-pink-50 p-8 rounded-xl border-l-4 border-purple-500">
                 <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
                   <div>
-                    <h3 class="text-2xl font-bold text-gray-800">YASH TECHNOLOGIES PVT LTD</h3>
+                    <h3 class="text-2xl font-bold text-gray-800 flex items-center gap-3">
+                      <img src="assets/logos/yash.png" alt="Yash" class="logo-sm" onerror="handleCompanyLogoError(this,'YASH')">
+                      YASH TECHNOLOGIES PVT LTD
+                    </h3>
                     <p class="text-gray-600 italic">Hyderabad</p>
                   </div>
                   <div class="text-right mt-2 md:mt-0">
@@ -325,11 +287,14 @@
                 </ul>
               </div>
 
-              <!-- GCI -->
+              <!-- GCI (logo placeholder if missing) -->
               <div class="card-zoom bg-gradient-to-r from-orange-50 to-red-50 p-8 rounded-xl border-l-4 border-orange-500">
                 <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
                   <div>
-                    <h3 class="text-2xl font-bold text-gray-800">GCI EXPORTS PVT LTD</h3>
+                    <h3 class="text-2xl font-bold text-gray-800 flex items-center gap-3">
+                      <img src="assets/logos/gci.png" alt="GCI" class="logo-sm" onerror="handleCompanyLogoError(this,'GCI')">
+                      GCI EXPORTS PVT LTD
+                    </h3>
                     <p class="text-gray-600 italic">Bangalore</p>
                   </div>
                   <div class="text-right mt-2 md:mt-0">
@@ -343,11 +308,14 @@
                 </ul>
               </div>
 
-              <!-- CMS -->
+              <!-- CMS (logo placeholder if missing) -->
               <div class="card-zoom bg-gradient-to-r from-teal-50 to-cyan-50 p-8 rounded-xl border-l-4 border-teal-500">
                 <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
                   <div>
-                    <h3 class="text-2xl font-bold text-gray-800">CMS INFOSYSTEMS PVT LTD</h3>
+                    <h3 class="text-2xl font-bold text-gray-800 flex items-center gap-3">
+                      <img src="assets/logos/cms.png" alt="CMS" class="logo-sm" onerror="handleCompanyLogoError(this,'CMS')">
+                      CMS INFOSYSTEMS PVT LTD
+                    </h3>
                     <p class="text-gray-600 italic">Hyderabad</p>
                   </div>
                   <div class="text-right mt-2 md:mt-0">
@@ -367,7 +335,7 @@
           </div>
         </section>
 
-        <!-- CERTIFICATIONS -->
+        <!-- Certifications, Rewards & Projects (kept) -->
         <section class="py-16 reveal">
           <div class="container mx-auto px-6">
             <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Certifications</h2>
@@ -381,7 +349,6 @@
                   </div>
                 </div>
               </div>
-
               <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-blue-500 card-zoom">
                 <div class="flex items-center mb-3">
                   <i class="fas fa-certificate text-3xl text-blue-600 mr-4"></i>
@@ -391,7 +358,6 @@
                   </div>
                 </div>
               </div>
-
               <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-green-500 card-zoom">
                 <div class="flex items-center mb-3">
                   <i class="fab fa-microsoft text-3xl text-green-600 mr-4"></i>
@@ -401,7 +367,6 @@
                   </div>
                 </div>
               </div>
-
               <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-red-500 card-zoom">
                 <div class="flex items-center mb-3">
                   <i class="fab fa-redhat text-3xl text-red-600 mr-4"></i>
@@ -411,70 +376,30 @@
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         </section>
 
-        <!-- AWARDS & PROJECTS (kept) -->
+        <!-- Rewards & Projects -->
         <section class="py-16 reveal">
           <div class="container mx-auto px-6">
             <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Rewards & Achievements</h2>
             <div class="max-w-4xl mx-auto space-y-6">
               <div class="bg-gradient-to-r from-yellow-50 to-orange-50 p-6 rounded-xl border-l-4 border-yellow-500 flex items-center">
                 <i class="fas fa-star text-3xl text-yellow-500 mr-6"></i>
-                <div>
-                  <h3 class="text-xl font-semibold text-gray-800">Shining Star Award</h3>
-                  <p class="text-gray-600">Excellarate Software Solutions India Pvt Ltd (Oct 2022)</p>
-                </div>
+                <div><h3 class="text-xl font-semibold text-gray-800">Shining Star Award</h3><p class="text-gray-600">Excellarate Software Solutions India Pvt Ltd (Oct 2022)</p></div>
               </div>
-
               <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl border-l-4 border-blue-500 flex items-center">
                 <i class="fas fa-trophy text-3xl text-blue-500 mr-6"></i>
-                <div>
-                  <h3 class="text-xl font-semibold text-gray-800">Best Implementor Award</h3>
-                  <p class="text-gray-600">Recognized by AltaDevices for IPPlan implementation on CentOS at YASH Technologies (Jan 2018)</p>
-                </div>
+                <div><h3 class="text-xl font-semibold text-gray-800">Best Implementor Award</h3><p class="text-gray-600">Recognized by AltaDevices for IPPlan implementation on CentOS at YASH Technologies (Jan 2018)</p></div>
               </div>
-
               <div class="bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-xl border-l-4 border-purple-500 flex items-center">
                 <i class="fas fa-medal text-3xl text-purple-500 mr-6"></i>
-                <div>
-                  <h3 class="text-xl font-semibold text-gray-800">Pinnacle Award</h3>
-                  <p class="text-gray-600">YASH Technologies – Recognized for resolving a critical Bentley Project issue (Jun 2017)</p>
-                </div>
+                <div><h3 class="text-xl font-semibold text-gray-800">Pinnacle Award</h3><p class="text-gray-600">YASH Technologies – Recognized for resolving a critical Bentley Project issue (Jun 2017)</p></div>
               </div>
-
               <div class="bg-gradient-to-r from-green-50 to-teal-50 p-6 rounded-xl border-l-4 border-green-500 flex items-center">
                 <i class="fas fa-award text-3xl text-green-500 mr-6"></i>
-                <div>
-                  <h3 class="text-xl font-semibold text-gray-800">Best Employee Award</h3>
-                  <p class="text-gray-600">CMS Info Systems – Awarded as Best Employee in the South Region, India (Jun 2012)</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- PROJECTS -->
-        <section class="py-16 reveal">
-          <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Projects</h2>
-            <div class="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl shadow-md card-zoom">
-                <h3 class="text-xl font-semibold text-blue-600 mb-3 flex items-center"><i class="fas fa-cloud mr-2"></i>AWS Cost Optimization</h3>
-                <p class="text-gray-700 mb-4">Implemented automated AWS monitoring and rightsizing strategies, reducing cloud spend by <strong>30%</strong>.</p>
-                <a href="#" class="text-blue-600 hover:underline">View Details</a>
-              </div>
-              <div class="bg-gradient-to-r from-green-50 to-teal-50 p-6 rounded-xl shadow-md card-zoom">
-                <h3 class="text-xl font-semibold text-green-600 mb-3 flex items-center"><i class="fas fa-cogs mr-2"></i>CI/CD Pipeline Automation</h3>
-                <p class="text-gray-700 mb-4">Designed and deployed automated pipelines using Jenkins, GitHub Actions, and AWS CodePipeline.</p>
-                <a href="#" class="text-green-600 hover:underline">View Details</a>
-              </div>
-              <div class="bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-xl shadow-md card-zoom">
-                <h3 class="text-xl font-semibold text-purple-600 mb-3 flex items-center"><i class="fas fa-docker mr-2"></i>Kubernetes Migration</h3>
-                <p class="text-gray-700 mb-4">Migrated legacy applications to Kubernetes and Docker-based environments for HA and scalability.</p>
-                <a href="#" class="text-purple-600 hover:underline">View Details</a>
+                <div><h3 class="text-xl font-semibold text-gray-800">Best Employee Award</h3><p class="text-gray-600">CMS Info Systems – Awarded as Best Employee in the South Region, India (Jun 2012)</p></div>
               </div>
             </div>
           </div>
@@ -483,10 +408,9 @@
       </div> <!-- end middle-content -->
     </main>
 
-    <!-- FOOTER (gradient clipped) -->
+    <!-- FOOTER -->
     <footer id="page-footer" class="py-12 header-contrast--light text-center">
       <div id="footer-bg" class="region-bg" aria-hidden="true"></div>
-
       <div class="container mx-auto px-6">
         <h3 class="text-2xl font-bold mb-4">Let's Connect</h3>
         <p class="text-lg mb-6">Ready to discuss your next IT infrastructure or DevOps project?</p>
@@ -502,91 +426,115 @@
 
   </div>
 
-  <!-- ========== JS: gradients + typewriter + parallax ========== -->
   <script>
-  (function() {
-    // Helper: create an HSL color with decent saturation/lightness for gradients
+  (function(){
+    /* ---------- helper to create a simple placeholder SVG for missing company logos ---------- */
+    function makePlaceholderSVG(initials, bgColor){
+      const w = 120, h = 120;
+      const bg = bgColor || '#e2e8f0';
+      const fg = '#1f2937';
+      const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}' viewBox='0 0 ${w} ${h}'>
+        <rect width='100%' height='100%' fill='${bg}' rx='12' />
+        <text x='50%' y='50%' font-family='Inter,Arial,sans-serif' font-size='34' fill='${fg}' dominant-baseline='middle' text-anchor='middle'>${initials}</text>
+      </svg>`;
+      return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+    }
+
+    /* ---------- if a company logo is missing, replace it with inline SVG placeholder (keeps layout) ---------- */
+    window.handleCompanyLogoError = function(imgEl, name){
+      try {
+        imgEl.onerror = null;
+        const initials = (name || '').split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase() || 'CO';
+        imgEl.src = makePlaceholderSVG(initials, '#f1f5f9');
+        imgEl.style.objectFit = 'contain';
+      } catch(e){ imgEl.style.display = 'none'; }
+    };
+
+    /* ---------- if a watermark icon missing, hide (non-critical) but don't break layout ---------- */
+    window.handleLogoError = function(imgEl, fallbackName){
+      try { imgEl.onerror = null; imgEl.style.display = 'none'; } catch(e){ imgEl.style.display='none'; }
+    };
+
+    /* ---------- random HSL suitable for gradients ---------- */
     function randomHsl() {
       const h = Math.floor(Math.random()*360);
-      const s = 55 + Math.random()*30; // 55-85
-      const l = 40 + Math.random()*20; // 40-60
+      const s = 55 + Math.random()*30;
+      const l = 40 + Math.random()*20;
       return `hsl(${h}, ${Math.round(s)}%, ${Math.round(l)}%)`;
     }
-    function makeGradientString() {
+    function makeGradient() {
       const a = randomHsl(), b = randomHsl(), c = randomHsl();
       const angle = Math.floor(Math.random()*360);
       return `linear-gradient(${angle}deg, ${a}, ${b}, ${c})`;
     }
 
-    // Set gradient to a region element and compute average lightness to set contrast on container
-    function setRegionGradient(regionEl, containerEl) {
+    /* ---------- set header/footer gradients (clipped to header/footer thanks to overflow:hidden) ---------- */
+    function setRegion(regionEl, containerEl){
       if(!regionEl) return;
-      const stops = [randomHsl(), randomHsl(), randomHsl()];
-      const angle = Math.floor(Math.random()*360);
-      const grad = `linear-gradient(${angle}deg, ${stops.join(',')})`;
+      const grad = makeGradient();
       regionEl.style.background = grad;
-      regionEl.style.animation = `bgShift ${40 + Math.random()*40}s ease infinite`;
-      // compute average lightness from stops (they are hsl(X, Y%, L%))
+      regionEl.style.animation = `bgShift ${40 + Math.floor(Math.random()*40)}s ease infinite`;
+      // estimate lightness to switch contrast
       try {
-        const lightness = stops.map(s => {
-          const m = s.match(/hsl\([^,]+,\s*[^,]+,\s*([^\)]+)\)/);
-          if(!m) return 0.5;
-          return parseFloat(m[1]) / 100;
-        }).reduce((a,b)=>a+b,0)/stops.length;
-        if(containerEl) {
-          if(lightness < 0.52) {
-            containerEl.classList.remove('header-contrast--dark'); containerEl.classList.add('header-contrast--light');
-          } else {
-            containerEl.classList.remove('header-contrast--light'); containerEl.classList.add('header-contrast--dark');
-          }
+        const matches = grad.match(/(\d+),\s*(\d+)%\,\s*(\d+)%/g);
+        if(matches && containerEl){
+          // naive: if any lightness > 50% consider light
+          const lights = grad.match(/\d+%/g).map(s=>parseFloat(s.replace('%',''))).filter((v,i)=> (i%2===1)); // rough
+          const avg = lights.reduce((a,b)=>a+b,0)/lights.length/100;
+          if(avg < 0.52) { containerEl.classList.remove('header-contrast--dark'); containerEl.classList.add('header-contrast--light'); }
+          else { containerEl.classList.remove('header-contrast--light'); containerEl.classList.add('header-contrast--dark'); }
         }
-      } catch(e) { /* ignore */ }
+      } catch(e){}
     }
-
-    // Initialize header & footer gradients (scoped inside header/footer)
     document.addEventListener('DOMContentLoaded', function(){
-      setRegionGradient(document.getElementById('header-bg'), document.getElementById('page-header'));
-      setRegionGradient(document.getElementById('footer-bg'), document.getElementById('page-footer'));
-      // refresh gradients occasionally
-      setInterval(()=> setRegionGradient(document.getElementById('header-bg'), document.getElementById('page-header')), 30000 + Math.random()*25000);
-      setInterval(()=> setRegionGradient(document.getElementById('footer-bg'), document.getElementById('page-footer')), 35000 + Math.random()*25000);
+      setRegion(document.getElementById('header-bg'), document.getElementById('page-header'));
+      setRegion(document.getElementById('footer-bg'), document.getElementById('page-footer'));
+      // occasional refresh
+      setInterval(()=> setRegion(document.getElementById('header-bg'), document.getElementById('page-header')), 30000 + Math.random()*20000);
+      setInterval(()=> setRegion(document.getElementById('footer-bg'), document.getElementById('page-footer')), 30000 + Math.random()*20000);
     });
 
-    // Typewriter for main title (robust)
+    /* ---------- TYPEWRITER ---------- */
     document.addEventListener('DOMContentLoaded', function(){
-      const titleEl = document.getElementById('main-title');
-      if(!titleEl) return;
-      const text = titleEl.textContent.trim();
-      titleEl.textContent = '';
+      const title = document.getElementById('main-title');
+      if(!title) return;
+      const txt = title.textContent.trim(); title.textContent = '';
       let i = 0;
-      (function loop() {
-        if(i < text.length) {
-          titleEl.textContent += text.charAt(i++);
-          setTimeout(loop, 60);
-        }
-      })();
+      (function type(){ if(i<txt.length){ title.textContent += txt.charAt(i++); setTimeout(type, 60); } })();
     });
 
-    // Parallax for watermark logos (subtle)
-    function parallaxLogos() {
+    /* ---------- Parallax + floating: store base Y on load and update transform on scroll ---------- */
+    function initWatermarkParallax(){
       const logos = document.querySelectorAll('#tech-bg-middle .logo');
-      const scrolled = window.scrollY || window.pageYOffset;
+      const baseInfo = [];
       logos.forEach((el, idx) => {
-        const depth = 0.01 + (idx % 4) * 0.01;
-        el.style.transform = `translateY(${scrolled * depth}px)`;
+        const rect = el.getBoundingClientRect();
+        const baseY = rect.top + window.scrollY;
+        el.dataset.baseY = baseY;
+        // default depth if not set
+        const depth = parseFloat(el.getAttribute('data-depth')) || (0.06 + (idx%4)*0.01);
+        el.dataset.depth = depth;
       });
     }
-    window.addEventListener('scroll', () => requestAnimationFrame(parallaxLogos));
-
-    // Ensure tech-bg-middle height is enough to cover middle content so logos are in correct area
-    function sizeTechBg() {
-      const tech = document.getElementById('tech-bg-middle');
-      const main = document.querySelector('main.middle-wrapper');
-      if(!tech || !main) return;
-      tech.style.height = main.scrollHeight + 'px';
+    function updateWatermarkParallax(){
+      const logos = document.querySelectorAll('#tech-bg-middle .logo');
+      const scrollY = window.scrollY || window.pageYOffset;
+      logos.forEach((el) => {
+        const depth = parseFloat(el.dataset.depth) || 0.06;
+        const baseY = parseFloat(el.dataset.baseY) || 0;
+        // move proportionally to scroll distance from initial base
+        const delta = (scrollY - (baseY * 0.1)) * depth; // scaled so movement is gentle
+        // preserve float animation by applying translateY on top of CSS animation using combine transforms:
+        // we read current animated transform (not trivial), but we can stack a translateY via CSS variable
+        el.style.transform = `translateY(${Math.round(delta)}px)`;
+      });
     }
-    window.addEventListener('load', () => setTimeout(sizeTechBg, 200));
-    window.addEventListener('resize', () => setTimeout(sizeTechBg, 120));
+    window.addEventListener('load', () => { setTimeout(()=>{ initWatermarkParallax(); updateWatermarkParallax(); }, 180); });
+    window.addEventListener('resize', () => { setTimeout(()=>{ initWatermarkParallax(); updateWatermarkParallax(); }, 120); });
+    window.addEventListener('scroll', () => requestAnimationFrame(updateWatermarkParallax));
+
+    /* ---------- Company logos: if image missing, replace with placeholder svg (inline) ---------- */
+    // We attach onerror handlers inline via onerror attribute in HTML which call handleCompanyLogoError(img,name).
 
   })();
   </script>
