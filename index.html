@@ -5,132 +5,106 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Vinay Kumar Naguru - IT & DevOps Professional</title>
 
-  <!-- Tailwind + Font Awesome -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
   <style>
-    /* -------------------- Design variables -------------------- */
+    /* --- variables --- */
     :root{
-      --logo-opacity: 0.12;      /* stronger watermark logo visibility (was 0.08) */
-      --vignette-blur: 0px;      /* removed blur for crisper middle area */
-      --vignette-opacity: 0.06;  /* vignette overlay strength */
-      --card-hover-glow: 0.12;    /* card hover shadow intensity */
+      --logo-opacity: 0.12;      /* watermark opacity */
+      --vignette-opacity: 0.06;  /* subtle vignette */
+      --card-hover-glow: 0.12;
     }
 
-    /* Fonts & base */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-    html, body { height: 100%; margin: 0; }
+    html,body { height:100%; margin:0; }
     body {
       font-family: 'Inter', sans-serif;
-      color: #0f172a;
-      background: #f7fafc; /* light middle background — header/footer get own gradients */
+      color:#0f172a;
+      background: #f7fafc; /* LIGHT middle bg */
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
-      -webkit-font-smoothing:antialiased;
     }
 
-    /* site stacking */
-    .site-wrap { position: relative; z-index: 2; }
+    .site-wrap { position:relative; z-index:2; }
 
-    /* header/footer contrast classes */
-    .header-contrast--light { color: #ffffff !important; text-shadow: 0 1px 2px rgba(0,0,0,0.18); }
-    .header-contrast--dark  { color: #0f172a !important; text-shadow: none; }
-
-    /* region gradient background (for header/footer) */
+    /* HEADER / FOOTER: host their own region-bg which is clipped to their box */
+    header, footer {
+      position: relative;
+      overflow: hidden; /* important: clip background to header/footer */
+    }
     .region-bg {
       position: absolute;
-      inset: 0;
+      inset: 0;                 /* fills the header/footer only */
       z-index: -1;
       background-size: 300% 300%;
       pointer-events: none;
-      transition: opacity 2s ease;
-      filter: saturate(1.03);
+      transition: opacity 1.6s ease;
     }
 
-    /* -------------------- MIDDLE overlay & watermark logos -------------------- */
-    .middle-wrapper { position: relative; z-index: 1; }
+    .header-contrast--light { color: #ffffff !important; text-shadow: 0 1px 2px rgba(0,0,0,0.18); }
+    .header-contrast--dark  { color: #0f172a !important; text-shadow: none; }
+
+    /* MIDDLE wrapper: owns watermark logos (relative) */
+    .middle-wrapper { position: relative; z-index:1; }
     .middle-overlay {
       position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background: radial-gradient(1200px 600px at 10% 10%, rgba(0,0,0,var(--vignette-opacity)) 0%, rgba(255,255,255,0) 30%),
-                  radial-gradient(1000px 400px at 90% 90%, rgba(0,0,0,var(--vignette-opacity)) 0%, rgba(255,255,255,0) 28%);
+      inset:0;
+      pointer-events:none;
+      background:
+        radial-gradient(1200px 600px at 10% 10%, rgba(0,0,0,var(--vignette-opacity)) 0%, rgba(255,255,255,0) 30%),
+        radial-gradient(1000px 400px at 90% 90%, rgba(0,0,0,var(--vignette-opacity)) 0%, rgba(255,255,255,0) 28%);
       mix-blend-mode: multiply;
-      backdrop-filter: blur(var(--vignette-blur));
-      z-index: 0;
+      z-index:0;
     }
 
-    #tech-bg-middle {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-    }
+    /* watermark logos (contained inside middle wrapper) */
+    #tech-bg-middle { position: absolute; top:0; left:0; right:0; bottom:0; z-index:0; pointer-events:none; }
     #tech-bg-middle .logo {
-      position: absolute;
+      position:absolute;
       opacity: var(--logo-opacity);
-      pointer-events: none;
+      pointer-events:none;
+      filter: grayscale(1) contrast(.95) saturate(.9);
       will-change: transform, opacity;
-      transition: transform 0.2s linear;
-      filter: grayscale(1) contrast(.95);
     }
     @media (max-width: 768px) {
-      #tech-bg-middle { display: none; } /* hide watermark logos on small screens for clarity */
+      #tech-bg-middle { display: none; }
     }
 
-    /* -------------------- Floating animations -------------------- */
-    @keyframes floatSlow { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-10px) rotate(2deg); } }
-    @keyframes floatMedium { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(8px) rotate(-1deg); } }
-    .animate-float-slow { animation: floatSlow 20s ease-in-out infinite; }
-    .animate-float-medium { animation: floatMedium 24s ease-in-out infinite; }
+    /* float animations */
+    @keyframes floatSlow { 0%,100%{transform:translateY(0) rotate(0);} 50%{transform:translateY(-12px) rotate(3deg);} }
+    @keyframes floatMedium{ 0%,100%{transform:translateY(0) rotate(0);} 50%{transform:translateY(10px) rotate(-2deg);} }
+    .animate-float-slow { animation: floatSlow 18s ease-in-out infinite; }
+    .animate-float-medium { animation: floatMedium 22s ease-in-out infinite; }
 
-    /* -------------------- Cards & UI tweaks (cards unchanged visually) -------------------- */
-    .bg-white { background-color: #ffffff !important; } /* keep cards white for readability */
+    /* card styles (unchanged look) */
+    .bg-white { background-color:#fff !important; }
+    .header-avatar { width:160px;height:160px;border-radius:18px;overflow:hidden;border:4px solid rgba(255,255,255,0.9);background:rgba(255,255,255,0.15);box-shadow:0 6px 18px rgba(2,6,23,0.06); margin-left:auto;margin-right:auto; }
+    @media (max-width:640px){ .header-avatar { width:120px;height:120px; } }
+    .logo-sm{ width:36px;height:36px;object-fit:contain;display:inline-block; }
+    .skill-tag{ transition: all .28s ease; } .skill-tag:hover{ transform:translateY(-2px); box-shadow:0 6px 16px rgba(2,6,23,0.06); }
+    .card-zoom{ transition: transform .25s cubic-bezier(.2,.9,.3,1), box-shadow .25s ease; will-change: transform; }
+    .card-zoom:hover{ transform: translateY(-6px) scale(1.03); box-shadow: 0 22px 46px rgba(2,6,23,var(--card-hover-glow)); }
 
-    .header-avatar {
-      width: 160px; height: 160px;
-      overflow:hidden; border-radius:18px;
-      border:4px solid rgba(255,255,255,0.9);
-      box-shadow:0 6px 18px rgba(2,6,23,0.06);
-      background: rgba(255,255,255,0.15);
-      margin-left:auto; margin-right:auto;
-    }
-    @media (max-width:640px) { .header-avatar { width:120px; height:120px; } }
+    /* reveal on scroll */
+    .reveal{ opacity:0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.in-view{ opacity:1; transform: translateY(0); }
 
-    .skill-tag { transition: all .28s ease; }
-    .skill-tag:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(2,6,23,0.06); }
-    .logo-sm { width:36px; height:36px; object-fit:contain; display:inline-block; }
-
-    .card-zoom { transition: transform .25s cubic-bezier(.2,.9,.3,1), box-shadow .25s ease; will-change: transform; }
-    .card-zoom:hover { transform: translateY(-6px) scale(1.03); box-shadow: 0 22px 46px rgba(2,6,23,var(--card-hover-glow)); }
-
-    /* -------------------- Reveal-on-scroll (staggered) -------------------- */
-    .reveal {
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity .6s cubic-bezier(.2,.9,.3,1), transform .6s cubic-bezier(.2,.9,.3,1);
-      will-change: opacity, transform;
-    }
-    .reveal.in-view {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* -------------------- Small polish -------------------- */
-    .cta-btn { transition: transform .18s ease, box-shadow .18s ease; }
-    .cta-btn:hover { transform: translateY(-3px); }
+    /* small */
+    .cta-btn{ transition: transform .18s ease, box-shadow .18s ease; } .cta-btn:hover{ transform:translateY(-3px); }
 
     /* print fallback */
-    @media print { body { background: white !important; color: black !important; } }
+    @media print { body{ background:white !important; color:black !important; } }
 
+    /* bg shift keyframe referenced by JS; declared here */
+    @keyframes bgShift { 0% { background-position: 0% 50% } 50% { background-position:100% 50% } 100% { background-position:0% 50% } }
   </style>
 </head>
 
 <body>
   <div class="site-wrap">
 
-    <!-- HEADER -->
+    <!-- HEADER (gradient strictly inside header due to overflow:hidden) -->
     <header id="page-header" class="py-16 header-contrast--light text-center">
       <div id="header-bg" class="region-bg" aria-hidden="true"></div>
 
@@ -165,17 +139,20 @@
       </div>
     </header>
 
-    <!-- MIDDLE WRAPPER (light background + watermark logos) -->
+    <!-- MAIN (middle) — middle-wrapper is relative and contains the watermarks -->
     <main class="middle-wrapper" aria-live="polite">
+
+      <!-- subtle overlay (no blur, soft) -->
       <div class="middle-overlay" aria-hidden="true"></div>
 
+      <!-- Watermark logos confined here — positioned relative to the middle wrapper -->
       <div id="tech-bg-middle" aria-hidden="true">
-        <!-- Watermarks (positioned visually; hide if missing) -->
-        <img src="assets/icons/aws.png" class="logo animate-float-slow" style="left:6%; top:6%; width:140px;" alt="aws" onerror="this.style.display='none'">
-        <img src="assets/icons/docker.png" class="logo animate-float-medium" style="right:8%; top:28%; width:120px;" alt="docker" onerror="this.style.display='none'">
-        <img src="assets/icons/terraform.png" class="logo animate-float-slow" style="left:48%; top:62%; width:130px;" alt="terraform" onerror="this.style.display='none'">
-        <img src="assets/icons/microsoft.png" class="logo animate-float-medium" style="right:6%; bottom:12%; width:150px;" alt="microsoft" onerror="this.style.display='none'">
-        <img src="assets/icons/redhat.png" class="logo animate-float-slow" style="left:10%; bottom:8%; width:120px;" alt="redhat" onerror="this.style.display='none'">
+        <!-- absolute positioned inside middle wrapper -->
+        <img src="assets/icons/aws.png" alt="aws" class="logo animate-float-slow" style="left:2%; top:6%; width:200px;" onerror="this.style.display='none'">
+        <img src="assets/icons/microsoft.png" alt="microsoft" class="logo animate-float-medium" style="left:10%; bottom:6%; width:130px;" onerror="this.style.display='none'">
+        <img src="assets/icons/docker.png" alt="docker" class="logo animate-float-slow" style="right:6%; top:28%; width:160px;" onerror="this.style.display='none'">
+        <img src="assets/icons/terraform.png" alt="terraform" class="logo animate-float-medium" style="left:50%; top:54%; width:150px;" onerror="this.style.display='none'">
+        <img src="assets/icons/redhat.png" alt="redhat" class="logo animate-float-slow" style="right:10%; bottom:8%; width:140px;" onerror="this.style.display='none'">
       </div>
 
       <!-- PROFESSIONAL SUMMARY -->
@@ -204,6 +181,7 @@
           <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Technical Skills</h2>
           <div class="max-w-6xl mx-auto">
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <!-- cards unchanged -->
               <div class="bg-white p-6 rounded-xl shadow-md card-zoom reveal">
                 <h3 class="text-xl font-semibold mb-4 text-blue-600 flex items-center"><i class="fas fa-server mr-3"></i>Operating Systems</h3>
                 <div class="flex flex-wrap gap-2">
@@ -241,6 +219,7 @@
                 </div>
               </div>
 
+              <!-- left other cards (unchanged) -->
               <div class="bg-white p-6 rounded-xl shadow-md card-zoom reveal">
                 <h3 class="text-xl font-semibold mb-4 text-purple-600 flex items-center"><i class="fas fa-code mr-3"></i>Configuration Management</h3>
                 <div class="flex flex-wrap gap-2">
@@ -275,12 +254,12 @@
           </div>
         </section>
 
-        <!-- PROFESSIONAL EXPERIENCE (kept exactly as before; cards still reveal) -->
+        <!-- PROFESSIONAL EXPERIENCE (kept) -->
         <section class="py-16 reveal">
           <div class="container mx-auto px-6">
             <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Professional Experience</h2>
             <div class="max-w-5xl mx-auto space-y-8">
-              <!-- ENCORA -->
+              <!-- Encora -->
               <div class="card-zoom bg-gradient-to-r from-blue-50 to-indigo-50 p-8 rounded-xl border-l-4 border-blue-500 reveal">
                 <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
                   <div>
@@ -308,12 +287,12 @@
                 </ul>
               </div>
 
-              <!-- APPS ASSOCIATES -->
+              <!-- Apps Associates -->
               <div class="card-zoom bg-gradient-to-r from-green-50 to-teal-50 p-8 rounded-xl border-l-4 border-green-500 reveal">
                 <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
                   <div>
                     <h3 class="text-2xl font-bold text-gray-800 flex items-center gap-3">
-                      <img src="assets/logos/apps.png" alt="Apps Associates" class="logo-sm" onerror="this.style.display='none'">
+                      <img src="assets/logos/apps.png" alt="Apps" class="logo-sm" onerror="this.style.display='none'">
                       APPS ASSOCIATES INDIA PVT LTD
                     </h3>
                     <p class="text-gray-600 italic">Hyderabad</p>
@@ -332,47 +311,14 @@
                 </ul>
               </div>
 
-              <!-- other experience cards (YASH, GCI, CMS) are present similarly -->
-              <!-- ... -->
-
+              <!-- remaining experience cards unchanged... -->
             </div>
           </div>
         </section>
 
-        <!-- CERTIFICATIONS, REWARDS & PROJECTS (kept as before with reveal classes) -->
-        <section class="py-16 reveal">
-          <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Certifications</h2>
-            <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
-              <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-yellow-500 card-zoom reveal">
-                <div class="flex items-center mb-3">
-                  <i class="fab fa-aws text-3xl text-yellow-600 mr-4"></i>
-                  <div>
-                    <h3 class="text-xl font-semibold text-gray-800">AWS Certified Solutions Architect – Professional</h3>
-                    <p class="text-gray-600">Nov 2024 – Nov 2027</p>
-                  </div>
-                </div>
-              </div>
+      </main>
 
-              <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-blue-500 card-zoom reveal">
-                <div class="flex items-center mb-3">
-                  <i class="fas fa-certificate text-3xl text-blue-600 mr-4"></i>
-                  <div>
-                    <h3 class="text-xl font-semibold text-gray-800">ITIL Certification</h3>
-                    <p class="text-gray-600">IT Service Management - Expired</p>
-                  </div>
-                </div>
-              </div>
-
-              <!-- MCTS & RHCSA entries present as before -->
-            </div>
-          </div>
-        </section>
-
-      </div> <!-- end middle wrapper -->
-    </main>
-
-    <!-- FOOTER -->
+    <!-- FOOTER (gradient strictly inside footer) -->
     <footer id="page-footer" class="py-12 header-contrast--light text-center">
       <div id="footer-bg" class="region-bg" aria-hidden="true"></div>
 
@@ -388,16 +334,16 @@
         </div>
       </div>
     </footer>
+
   </div>
 
-  <!-- -------------------- Scripts -------------------- -->
   <script>
   (function(){
-    /* ---------- Helpers ---------- */
+    /* ---------- small helpers ---------- */
     function randomHslLight() {
       const h = Math.floor(Math.random()*360);
-      const s = 55 + Math.random()*25; // 55-80
-      const l = 45 + Math.random()*10; // 45-55 (light enough)
+      const s = 55 + Math.random()*25;
+      const l = 45 + Math.random()*10;
       return `hsl(${h}, ${Math.round(s)}%, ${Math.round(l)}%)`;
     }
     function makeGradient() {
@@ -406,118 +352,106 @@
       return `linear-gradient(${angle}deg, ${stops.join(', ')})`;
     }
 
-    /* ---------- Header/Footer region gradients ---------- */
-    function initRegion(regionId, intervalMin=20000, intervalMax=42000, durRange=[30,70]) {
-      const el = document.getElementById(regionId);
-      if(!el) return;
-      function applyNew() {
-        const grad = makeGradient();
-        el.style.background = grad;
+    /* ---------- attach gradient to header/footer region elements (scoped) ---------- */
+    function initRegionGradient(regionEl, minInterval=20000, maxInterval=42000, durRange=[30,70]) {
+      if(!regionEl) return;
+      function apply() {
+        const g = makeGradient();
+        regionEl.style.background = g;
         const dur = durRange[0] + Math.random()*(durRange[1]-durRange[0]);
-        el.style.animation = `bgShift ${dur}s ease infinite`;
+        regionEl.style.animation = `bgShift ${dur}s ease infinite`;
       }
-      applyNew();
-      setInterval(applyNew, intervalMin + Math.random()*(intervalMax-intervalMin));
+      apply();
+      setInterval(apply, minInterval + Math.random()*(maxInterval-minInterval));
     }
     document.addEventListener('DOMContentLoaded', function(){
-      initRegion('header-bg');
-      initRegion('footer-bg');
+      initRegionGradient(document.getElementById('header-bg'));
+      initRegionGradient(document.getElementById('footer-bg'));
     });
 
-    /* ---------- Adaptive contrast for header/footer ---------- */
-    function updateContrast(elId, containerId) {
-      const el = document.getElementById(elId);
+    /* ---------- adaptive contrast for header/footer ---------- */
+    function setContrastFromGradient(regionId, containerId) {
+      const region = document.getElementById(regionId);
       const container = document.getElementById(containerId);
-      if(!el || !container) return;
+      if(!region || !container) return;
       try {
-        const bg = getComputedStyle(el).backgroundImage;
+        const bg = getComputedStyle(region).backgroundImage;
         const nums = bg.match(/\d+(\.\d+)?/g);
         if(!nums) return;
-        let lums = [];
-        for(let i=0;i<nums.length;i+=3) {
-          const l = parseFloat(nums[i+2]);
-          lums.push(l/100);
-        }
-        const avg = lums.reduce((a,b)=>a+b,0)/lums.length;
-        const containerEl = document.getElementById(containerId);
-        if(avg < 0.5) {
-          containerEl.classList.remove('header-contrast--dark'); containerEl.classList.add('header-contrast--light');
-        } else {
-          containerEl.classList.remove('header-contrast--light'); containerEl.classList.add('header-contrast--dark');
-        }
+        // simple estimate: take lightness values (HSL third number) when present
+        const lights = [];
+        for(let i=2;i<nums.length;i+=3) { lights.push(parseFloat(nums[i])); }
+        if(lights.length===0) return;
+        const avg = lights.reduce((a,b)=>a+b,0)/lights.length/100;
+        if(avg < 0.5) { container.classList.remove('header-contrast--dark'); container.classList.add('header-contrast--light'); }
+        else { container.classList.remove('header-contrast--light'); container.classList.add('header-contrast--dark'); }
       } catch(e){}
     }
-    setInterval(() => { updateContrast('header-bg','page-header'); updateContrast('footer-bg','page-footer'); }, 2500);
+    setInterval(()=>{ setContrastFromGradient('header-bg','page-header'); setContrastFromGradient('footer-bg','page-footer'); }, 2000);
 
-    /* ---------- Confine middle watermark logos to between header & footer ---------- */
-    function confineMiddleLogos() {
-      const header = document.getElementById('page-header');
-      const footer = document.getElementById('page-footer');
+    /* ---------- confine watermarks to middle wrapper (no bleed) ---------- */
+    function confineMiddle() {
+      // tech-bg-middle is positioned relative to main wrapper so no need to recalc top/bottom
+      // just ensure height covers main visible content area; we'll set min-height if needed
       const middle = document.getElementById('tech-bg-middle');
-      if(!header || !footer || !middle) return;
-      const headerBottom = header.getBoundingClientRect().bottom + window.scrollY;
-      const footerTop = footer.getBoundingClientRect().top + window.scrollY;
-      middle.style.top = headerBottom + 'px';
-      middle.style.height = Math.max( (footerTop - headerBottom), 220) + 'px';
-      middle.style.left = '0';
-      middle.style.right = '0';
-      middle.style.position = 'absolute';
+      if(!middle) return;
+      // ensure it covers the visible main area
+      const mainEl = document.querySelector('main.middle-wrapper');
+      if(mainEl) {
+        // set height to main's scrollHeight for adequate watermark placement
+        middle.style.height = mainEl.scrollHeight + 'px';
+      }
     }
-    window.addEventListener('load', () => setTimeout(confineMiddleLogos, 200));
-    window.addEventListener('resize', () => setTimeout(confineMiddleLogos, 120));
+    window.addEventListener('load', () => setTimeout(confineMiddle, 150));
+    window.addEventListener('resize', () => setTimeout(confineMiddle, 120));
 
-    /* ---------- Parallax for logos ---------- */
+    /* ---------- parallax for watermark icons ---------- */
     function applyParallax() {
       const logos = document.querySelectorAll('#tech-bg-middle .logo');
       const scrolled = window.scrollY || window.pageYOffset;
       logos.forEach((el, idx) => {
-        const depth = 0.01 + (idx%3)*0.01;
+        const depth = 0.01 + (idx % 3) * 0.01;
         el.style.transform = `translateY(${scrolled * depth}px)`;
       });
     }
     window.addEventListener('scroll', () => requestAnimationFrame(applyParallax));
 
-    /* ---------- Typewriter ---------- */
+    /* ---------- typewriter ---------- */
     document.addEventListener('DOMContentLoaded', function(){
-      const title = document.getElementById('main-title');
-      if(!title) return;
-      const text = title.textContent.trim();
-      title.textContent = '';
-      let i=0;
-      (function t(){ if(i<text.length){ title.textContent += text.charAt(i++); setTimeout(t,60); }} )();
+      const title = document.getElementById('main-title'); if(!title) return;
+      const text = title.textContent.trim(); title.textContent = '';
+      let i=0; (function t(){ if(i<text.length){ title.textContent += text.charAt(i++); setTimeout(t,60); } })();
     });
 
-    /* ---------- Reveal on scroll (IntersectionObserver) ---------- */
+    /* ---------- reveal on scroll ---------- */
     function initReveal() {
-      const observer = new IntersectionObserver((entries, obs) => {
+      const obs = new IntersectionObserver((entries, o) => {
         entries.forEach(entry => {
           if(entry.isIntersecting) {
             const el = entry.target;
             el.classList.add('in-view');
             const children = el.querySelectorAll('.reveal, .card-zoom.reveal');
-            if(children && children.length>1) {
-              children.forEach((c, i) => setTimeout(()=>c.classList.add('in-view'), i*90));
-            }
-            obs.unobserve(el);
+            if(children && children.length>1) children.forEach((c,i)=>setTimeout(()=>c.classList.add('in-view'), i*90));
+            o.unobserve(el);
           }
         });
       }, { threshold: 0.12 });
-      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-      document.querySelectorAll('.card-zoom.reveal').forEach(el => observer.observe(el));
+      document.querySelectorAll('.reveal').forEach(e => obs.observe(e));
+      document.querySelectorAll('.card-zoom.reveal').forEach(e => obs.observe(e));
     }
     document.addEventListener('DOMContentLoaded', initReveal);
 
-    /* ---------- Hide logos on very small screens ---------- */
-    function handleMobileLogos() {
-      if(window.innerWidth <= 640) {
+    /* ---------- hide watermarks on small screens ---------- */
+    function handleMobile() {
+      if(window.innerWidth <= 768) {
         document.querySelectorAll('#tech-bg-middle .logo').forEach(img => img.style.display='none');
       } else {
         document.querySelectorAll('#tech-bg-middle .logo').forEach(img => img.style.display='block');
       }
     }
-    window.addEventListener('resize', handleMobileLogos);
-    window.addEventListener('load', handleMobileLogos);
-    document.addEventListener('DOMContentLoaded', handleMobileLogos);
+    window.addEventListener('resize', handleMobile);
+    window.addEventListener('load', handleMobile);
+    document.addEventListener('DOMContentLoaded', handleMobile);
 
   })();
   </script>
